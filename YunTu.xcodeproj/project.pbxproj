@@ -1,0 +1,519 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		22674CD41BE60D820075484D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CD31BE60D820075484D /* main.m */; };
+		22674CD71BE60D820075484D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CD61BE60D820075484D /* AppDelegate.m */; };
+		22674CDA1BE60D820075484D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CD91BE60D820075484D /* ViewController.m */; };
+		22674CDD1BE60D820075484D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22674CDB1BE60D820075484D /* Main.storyboard */; };
+		22674CDF1BE60D820075484D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22674CDE1BE60D820075484D /* Assets.xcassets */; };
+		22674CE21BE60D820075484D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22674CE01BE60D820075484D /* LaunchScreen.storyboard */; };
+		22674CED1BE60D830075484D /* YunTuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CEC1BE60D830075484D /* YunTuTests.m */; };
+		22674CF81BE60D830075484D /* YunTuUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CF71BE60D830075484D /* YunTuUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		22674CE91BE60D830075484D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22674CC71BE60D820075484D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22674CCE1BE60D820075484D;
+			remoteInfo = YunTu;
+		};
+		22674CF41BE60D830075484D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22674CC71BE60D820075484D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22674CCE1BE60D820075484D;
+			remoteInfo = YunTu;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		22674CCF1BE60D820075484D /* YunTu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YunTu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		22674CD31BE60D820075484D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		22674CD51BE60D820075484D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		22674CD61BE60D820075484D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		22674CD81BE60D820075484D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		22674CD91BE60D820075484D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		22674CDC1BE60D820075484D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		22674CDE1BE60D820075484D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		22674CE11BE60D820075484D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		22674CE31BE60D820075484D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22674CE81BE60D830075484D /* YunTuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YunTuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		22674CEC1BE60D830075484D /* YunTuTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YunTuTests.m; sourceTree = "<group>"; };
+		22674CEE1BE60D830075484D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22674CF31BE60D830075484D /* YunTuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YunTuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		22674CF71BE60D830075484D /* YunTuUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YunTuUITests.m; sourceTree = "<group>"; };
+		22674CF91BE60D830075484D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		22674CCC1BE60D820075484D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22674CE51BE60D830075484D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22674CF01BE60D830075484D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		22674CC61BE60D820075484D = {
+			isa = PBXGroup;
+			children = (
+				22674CD11BE60D820075484D /* YunTu */,
+				22674CEB1BE60D830075484D /* YunTuTests */,
+				22674CF61BE60D830075484D /* YunTuUITests */,
+				22674CD01BE60D820075484D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		22674CD01BE60D820075484D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				22674CCF1BE60D820075484D /* YunTu.app */,
+				22674CE81BE60D830075484D /* YunTuTests.xctest */,
+				22674CF31BE60D830075484D /* YunTuUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		22674CD11BE60D820075484D /* YunTu */ = {
+			isa = PBXGroup;
+			children = (
+				22674CD51BE60D820075484D /* AppDelegate.h */,
+				22674CD61BE60D820075484D /* AppDelegate.m */,
+				22674CD81BE60D820075484D /* ViewController.h */,
+				22674CD91BE60D820075484D /* ViewController.m */,
+				22674CDB1BE60D820075484D /* Main.storyboard */,
+				22674CDE1BE60D820075484D /* Assets.xcassets */,
+				22674CE01BE60D820075484D /* LaunchScreen.storyboard */,
+				22674CE31BE60D820075484D /* Info.plist */,
+				22674CD21BE60D820075484D /* Supporting Files */,
+			);
+			path = YunTu;
+			sourceTree = "<group>";
+		};
+		22674CD21BE60D820075484D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				22674CD31BE60D820075484D /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		22674CEB1BE60D830075484D /* YunTuTests */ = {
+			isa = PBXGroup;
+			children = (
+				22674CEC1BE60D830075484D /* YunTuTests.m */,
+				22674CEE1BE60D830075484D /* Info.plist */,
+			);
+			path = YunTuTests;
+			sourceTree = "<group>";
+		};
+		22674CF61BE60D830075484D /* YunTuUITests */ = {
+			isa = PBXGroup;
+			children = (
+				22674CF71BE60D830075484D /* YunTuUITests.m */,
+				22674CF91BE60D830075484D /* Info.plist */,
+			);
+			path = YunTuUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		22674CCE1BE60D820075484D /* YunTu */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22674CFC1BE60D830075484D /* Build configuration list for PBXNativeTarget "YunTu" */;
+			buildPhases = (
+				22674CCB1BE60D820075484D /* Sources */,
+				22674CCC1BE60D820075484D /* Frameworks */,
+				22674CCD1BE60D820075484D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YunTu;
+			productName = YunTu;
+			productReference = 22674CCF1BE60D820075484D /* YunTu.app */;
+			productType = "com.apple.product-type.application";
+		};
+		22674CE71BE60D830075484D /* YunTuTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22674CFF1BE60D830075484D /* Build configuration list for PBXNativeTarget "YunTuTests" */;
+			buildPhases = (
+				22674CE41BE60D830075484D /* Sources */,
+				22674CE51BE60D830075484D /* Frameworks */,
+				22674CE61BE60D830075484D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22674CEA1BE60D830075484D /* PBXTargetDependency */,
+			);
+			name = YunTuTests;
+			productName = YunTuTests;
+			productReference = 22674CE81BE60D830075484D /* YunTuTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		22674CF21BE60D830075484D /* YunTuUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22674D021BE60D830075484D /* Build configuration list for PBXNativeTarget "YunTuUITests" */;
+			buildPhases = (
+				22674CEF1BE60D830075484D /* Sources */,
+				22674CF01BE60D830075484D /* Frameworks */,
+				22674CF11BE60D830075484D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22674CF51BE60D830075484D /* PBXTargetDependency */,
+			);
+			name = YunTuUITests;
+			productName = YunTuUITests;
+			productReference = 22674CF31BE60D830075484D /* YunTuUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		22674CC71BE60D820075484D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "丁健";
+				TargetAttributes = {
+					22674CCE1BE60D820075484D = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					22674CE71BE60D830075484D = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = 22674CCE1BE60D820075484D;
+					};
+					22674CF21BE60D830075484D = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = 22674CCE1BE60D820075484D;
+					};
+				};
+			};
+			buildConfigurationList = 22674CCA1BE60D820075484D /* Build configuration list for PBXProject "YunTu" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 22674CC61BE60D820075484D;
+			productRefGroup = 22674CD01BE60D820075484D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				22674CCE1BE60D820075484D /* YunTu */,
+				22674CE71BE60D830075484D /* YunTuTests */,
+				22674CF21BE60D830075484D /* YunTuUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		22674CCD1BE60D820075484D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22674CE21BE60D820075484D /* LaunchScreen.storyboard in Resources */,
+				22674CDF1BE60D820075484D /* Assets.xcassets in Resources */,
+				22674CDD1BE60D820075484D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22674CE61BE60D830075484D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22674CF11BE60D830075484D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		22674CCB1BE60D820075484D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22674CDA1BE60D820075484D /* ViewController.m in Sources */,
+				22674CD71BE60D820075484D /* AppDelegate.m in Sources */,
+				22674CD41BE60D820075484D /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22674CE41BE60D830075484D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22674CED1BE60D830075484D /* YunTuTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22674CEF1BE60D830075484D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22674CF81BE60D830075484D /* YunTuUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		22674CEA1BE60D830075484D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22674CCE1BE60D820075484D /* YunTu */;
+			targetProxy = 22674CE91BE60D830075484D /* PBXContainerItemProxy */;
+		};
+		22674CF51BE60D830075484D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22674CCE1BE60D820075484D /* YunTu */;
+			targetProxy = 22674CF41BE60D830075484D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		22674CDB1BE60D820075484D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				22674CDC1BE60D820075484D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		22674CE01BE60D820075484D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				22674CE11BE60D820075484D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		22674CFA1BE60D830075484D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		22674CFB1BE60D830075484D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		22674CFD1BE60D830075484D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = YunTu/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Dj.YunTu;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		22674CFE1BE60D830075484D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = YunTu/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Dj.YunTu;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		22674D001BE60D830075484D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = YunTuTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Dj.YunTuTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YunTu.app/YunTu";
+			};
+			name = Debug;
+		};
+		22674D011BE60D830075484D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = YunTuTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Dj.YunTuTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/YunTu.app/YunTu";
+			};
+			name = Release;
+		};
+		22674D031BE60D830075484D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = YunTuUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Dj.YunTuUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = YunTu;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		22674D041BE60D830075484D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = YunTuUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Dj.YunTuUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = YunTu;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		22674CCA1BE60D820075484D /* Build configuration list for PBXProject "YunTu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22674CFA1BE60D830075484D /* Debug */,
+				22674CFB1BE60D830075484D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22674CFC1BE60D830075484D /* Build configuration list for PBXNativeTarget "YunTu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22674CFD1BE60D830075484D /* Debug */,
+				22674CFE1BE60D830075484D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		22674CFF1BE60D830075484D /* Build configuration list for PBXNativeTarget "YunTuTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22674D001BE60D830075484D /* Debug */,
+				22674D011BE60D830075484D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		22674D021BE60D830075484D /* Build configuration list for PBXNativeTarget "YunTuUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22674D031BE60D830075484D /* Debug */,
+				22674D041BE60D830075484D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 22674CC71BE60D820075484D /* Project object */;
+}
