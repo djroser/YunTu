@@ -7,8 +7,9 @@
 //
 
 #import "ViewController.h"
-
+#import "YTQuestionViewController.h"
 @interface ViewController ()
+- (IBAction)showQuestions:(id)sender;
 
 @end
 
@@ -24,4 +25,9 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)showQuestions:(id)sender {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    YTQuestionViewController *questionVC = [storyboard instantiateViewControllerWithIdentifier:@"question_vc"];
+    [self.navigationController pushViewController:questionVC animated:YES];
+}
 @end
