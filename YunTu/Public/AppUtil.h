@@ -13,4 +13,7 @@
 //计算高度
 + (CGFloat)contentHeightWithText:(NSString*)text constraintWidth:(CGFloat)width fontSize:(CGFloat)fontSize;
 
++ (UIBarButtonItem *)leftBarItemWithTarget:(id)target action:(SEL)action;
+
+
 @end

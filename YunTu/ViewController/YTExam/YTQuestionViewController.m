@@ -13,7 +13,10 @@
 #import "YTButton.h"
 #import "AppUtil.h"
 #import "UIImage+Resize.h"
-@interface YTQuestionViewController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate>
+#import "YTGlobal.h"
+#import "UIViewController+NavUtils.h"
+
+@interface YTQuestionViewController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (assign,nonatomic) NSUInteger collectionViewRowNum;
 @property (strong, nonatomic) NSArray *questionList;
@@ -26,9 +29,16 @@ static NSString *optionID = @"option_cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.questionList = [[YTDataBaseManager sharedInstance] questionsList];
+    [self initDefaultData];
+    [self createBaseView];
+    
+}
+
+- (void)createBaseView
+{
+    //集合视图
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.itemSize = CGSizeMake(self.view.frame.size.width, self.collectionView.frame.size.height);
+    layout.itemSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 64);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     layout.minimumInteritemSpacing = 0;
     layout.minimumLineSpacing = 0;
@@ -36,16 +46,28 @@ static NSString *optionID = @"option_cell";
     self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.collectionView.collectionViewLayout = layout;
     
+    //导航栏视图
     YTButton *pageBtn = [[YTButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     NSString *pageStr = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)_collectionViewRowNum + 1,(unsigned long)_questionList.count];
     [pageBtn setTitle:pageStr forState:UIControlStateNormal];
     pageBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [pageBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [pageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [pageBtn setImage:[UIImage imageNamed:@"卞卞.JPG"] forState:UIControlStateNormal];
     UIBarButtonItem *pageItem = [[UIBarButtonItem alloc]initWithCustomView:pageBtn];
     self.navigationItem.rightBarButtonItem = pageItem;
     self.pageButton = pageBtn;
     self.pageItem = pageItem;
+    
+    self.tabBarItem.image = [[UIImage imageNamed:@"canvas1"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    
+    
+}
+
+
+- (void)initDefaultData
+{
+    self.questionList = [[YTDataBaseManager sharedInstance] questionsList];
+    self.title = @"模拟考试";
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -59,7 +81,8 @@ static NSString *optionID = @"option_cell";
         questionItem.isOption4Selected = NO;
         questionItem.isShowAnswerExplain = NO;
     }
-
+    self.navigationItem.leftBarButtonItem = [AppUtil leftBarItemWithTarget:self action:@selector(popBack)];
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -288,16 +311,19 @@ static NSString *optionID = @"option_cell";
     }
 }
 
+//回答正确自动进入下一题
 - (void)scrollToNextQuestion
 {
     CGPoint centerPoint = [self.view convertPoint:self.collectionView.center toView:self.collectionView];
     NSIndexPath *currIndexPath = [self.collectionView indexPathForItemAtPoint:centerPoint];
+    
     if (currIndexPath.row >= _questionList.count - 1) {
         return;
     }
-    
     NSIndexPath *nextIndexPath = [NSIndexPath indexPathForItem:currIndexPath.row + 1 inSection:0];
     [self.collectionView scrollToItemAtIndexPath:nextIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+    //进入下一题相应切换页数
+    [self setPageBtnTitleWithIndexPath:nextIndexPath];
 }
 
 - (BOOL)judgeQuestionAnsweredWithQuestionItem:(YTQuestionItem *)questionItem option:(NSUInteger)option
@@ -330,11 +356,17 @@ static NSString *optionID = @"option_cell";
 {
     CGPoint centerPoint = [self.view convertPoint:self.collectionView.center toView:self.collectionView];
     NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:centerPoint];
+//    [self.pageButton setTitle:[NSString stringWithFormat:@"%lu/%lu",(unsigned long)indexPath.row + 1,(unsigned long)_questionList.count] forState:UIControlStateNormal];
+//    _collectionViewRowNum = indexPath.row;
+    [self setPageBtnTitleWithIndexPath:indexPath];
+}
+
+//设置导航栏右上角页数
+- (void)setPageBtnTitleWithIndexPath:(NSIndexPath *)indexPath
+{
     [self.pageButton setTitle:[NSString stringWithFormat:@"%lu/%lu",(unsigned long)indexPath.row + 1,(unsigned long)_questionList.count] forState:UIControlStateNormal];
     _collectionViewRowNum = indexPath.row;
 }
-
-
 
 
 

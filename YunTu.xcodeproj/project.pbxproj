@@ -9,21 +9,26 @@
 /* Begin PBXBuildFile section */
 		22674CD41BE60D820075484D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CD31BE60D820075484D /* main.m */; };
 		22674CD71BE60D820075484D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CD61BE60D820075484D /* AppDelegate.m */; };
-		22674CDA1BE60D820075484D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CD91BE60D820075484D /* ViewController.m */; };
 		22674CDD1BE60D820075484D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22674CDB1BE60D820075484D /* Main.storyboard */; };
 		22674CDF1BE60D820075484D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22674CDE1BE60D820075484D /* Assets.xcassets */; };
 		22674CE21BE60D820075484D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22674CE01BE60D820075484D /* LaunchScreen.storyboard */; };
 		22674CED1BE60D830075484D /* YunTuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CEC1BE60D830075484D /* YunTuTests.m */; };
 		22674CF81BE60D830075484D /* YunTuUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CF71BE60D830075484D /* YunTuUITests.m */; };
-		22674D081BE632530075484D /* YTDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674D071BE632530075484D /* YTDataBaseManager.m */; };
-		22674D0B1BE634C80075484D /* YTQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674D0A1BE634C80075484D /* YTQuestionViewController.m */; };
 		227C46531BEE3C8500804454 /* yuntu.db3 in Resources */ = {isa = PBXBuildFile; fileRef = 227C46521BEE3C8500804454 /* yuntu.db3 */; };
-		22E906041BE72DDD0052C923 /* YTQuestionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E906031BE72DDD0052C923 /* YTQuestionItem.m */; };
-		22E906091BE8912A0052C923 /* 卞卞.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 22E906081BE8912A0052C923 /* 卞卞.JPG */; };
-		22E9060C1BE892DB0052C923 /* QuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E9060B1BE892DB0052C923 /* QuestionCell.m */; };
-		22E906121BE8DF040052C923 /* YTButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E906111BE8DF040052C923 /* YTButton.m */; };
-		22F3D3211C0750B500437C98 /* AppUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F3D3201C0750B500437C98 /* AppUtil.m */; };
+		2284E3D21C54B01F0090E562 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3D11C54B01F0090E562 /* BaseViewController.m */; };
+		2284E3D91C54C3EA0090E562 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3D81C54C3EA0090E562 /* ViewController.m */; };
+		2284E3DE1C54C3FF0090E562 /* QuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3DB1C54C3FF0090E562 /* QuestionCell.m */; };
+		2284E3DF1C54C3FF0090E562 /* YTQuestionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3DD1C54C3FF0090E562 /* YTQuestionViewController.m */; };
+		2284E3E21C54C4180090E562 /* AppUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3E11C54C4180090E562 /* AppUtil.m */; };
+		2284E3E51C54C5450090E562 /* UIViewController+NavUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3E41C54C5450090E562 /* UIViewController+NavUtils.m */; };
+		2284E3E81C54CB100090E562 /* YTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3E71C54CB100090E562 /* YTNavigationController.m */; };
+		228D29531C1D3E7900B8A3BF /* MainTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = 228D29521C1D3E7900B8A3BF /* MainTabController.m */; };
 		22F3D3241C0AEE8000437C98 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F3D3231C0AEE8000437C98 /* UIImage+Resize.m */; };
+		22F3D32B1C143E1300437C98 /* UIImage+ColorAtPixel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F3D32A1C143E1300437C98 /* UIImage+ColorAtPixel.m */; };
+		22F3D32E1C143E2C00437C98 /* OBShapedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F3D32D1C143E2C00437C98 /* OBShapedButton.m */; };
+		22F3D3341C143F0700437C98 /* YTDataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F3D3331C143F0700437C98 /* YTDataBaseManager.m */; };
+		22F3D3371C143F1900437C98 /* YTQuestionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F3D3361C143F1900437C98 /* YTQuestionItem.m */; };
+		22F3D33A1C143F2D00437C98 /* YTButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F3D3391C143F2D00437C98 /* YTButton.m */; };
 		5F378FF5F67FDA0C72072E2E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A089BC624F276EF7DC44CD4 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -49,8 +54,6 @@
 		22674CD31BE60D820075484D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		22674CD51BE60D820075484D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		22674CD61BE60D820075484D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		22674CD81BE60D820075484D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		22674CD91BE60D820075484D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		22674CDC1BE60D820075484D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		22674CDE1BE60D820075484D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		22674CE11BE60D820075484D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -61,22 +64,36 @@
 		22674CF31BE60D830075484D /* YunTuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YunTuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22674CF71BE60D830075484D /* YunTuUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YunTuUITests.m; sourceTree = "<group>"; };
 		22674CF91BE60D830075484D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		22674D061BE632530075484D /* YTDataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTDataBaseManager.h; sourceTree = "<group>"; };
-		22674D071BE632530075484D /* YTDataBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTDataBaseManager.m; sourceTree = "<group>"; };
-		22674D091BE634C80075484D /* YTQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTQuestionViewController.h; sourceTree = "<group>"; };
-		22674D0A1BE634C80075484D /* YTQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTQuestionViewController.m; sourceTree = "<group>"; };
 		227C46521BEE3C8500804454 /* yuntu.db3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = yuntu.db3; sourceTree = "<group>"; };
-		22E906021BE72DDD0052C923 /* YTQuestionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTQuestionItem.h; sourceTree = "<group>"; };
-		22E906031BE72DDD0052C923 /* YTQuestionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTQuestionItem.m; sourceTree = "<group>"; };
-		22E906081BE8912A0052C923 /* 卞卞.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "卞卞.JPG"; sourceTree = "<group>"; };
-		22E9060A1BE892DB0052C923 /* QuestionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionCell.h; sourceTree = "<group>"; };
-		22E9060B1BE892DB0052C923 /* QuestionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionCell.m; sourceTree = "<group>"; };
-		22E906101BE8DF040052C923 /* YTButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTButton.h; sourceTree = "<group>"; };
-		22E906111BE8DF040052C923 /* YTButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTButton.m; sourceTree = "<group>"; };
-		22F3D31F1C0750B500437C98 /* AppUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUtil.h; sourceTree = "<group>"; };
-		22F3D3201C0750B500437C98 /* AppUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUtil.m; sourceTree = "<group>"; };
+		2284E3CE1C549E350090E562 /* YTGlobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YTGlobal.h; path = Public/YTGlobal.h; sourceTree = "<group>"; };
+		2284E3D01C54B01F0090E562 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewController.h; path = ViewController/BaseViewController.h; sourceTree = "<group>"; };
+		2284E3D11C54B01F0090E562 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewController.m; path = ViewController/BaseViewController.m; sourceTree = "<group>"; };
+		2284E3D71C54C3EA0090E562 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = ViewController/ViewController.h; sourceTree = "<group>"; };
+		2284E3D81C54C3EA0090E562 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = ViewController/ViewController.m; sourceTree = "<group>"; };
+		2284E3DA1C54C3FF0090E562 /* QuestionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuestionCell.h; path = ViewController/YTExam/QuestionCell.h; sourceTree = "<group>"; };
+		2284E3DB1C54C3FF0090E562 /* QuestionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuestionCell.m; path = ViewController/YTExam/QuestionCell.m; sourceTree = "<group>"; };
+		2284E3DC1C54C3FF0090E562 /* YTQuestionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTQuestionViewController.h; path = ViewController/YTExam/YTQuestionViewController.h; sourceTree = "<group>"; };
+		2284E3DD1C54C3FF0090E562 /* YTQuestionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTQuestionViewController.m; path = ViewController/YTExam/YTQuestionViewController.m; sourceTree = "<group>"; };
+		2284E3E01C54C4180090E562 /* AppUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppUtil.h; path = Public/AppUtil.h; sourceTree = "<group>"; };
+		2284E3E11C54C4180090E562 /* AppUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppUtil.m; path = Public/AppUtil.m; sourceTree = "<group>"; };
+		2284E3E31C54C5450090E562 /* UIViewController+NavUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+NavUtils.h"; path = "Category/UIViewController+NavUtils.h"; sourceTree = "<group>"; };
+		2284E3E41C54C5450090E562 /* UIViewController+NavUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+NavUtils.m"; path = "Category/UIViewController+NavUtils.m"; sourceTree = "<group>"; };
+		2284E3E61C54CB100090E562 /* YTNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTNavigationController.h; path = ViewController/YTNavigationController.h; sourceTree = "<group>"; };
+		2284E3E71C54CB100090E562 /* YTNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTNavigationController.m; path = ViewController/YTNavigationController.m; sourceTree = "<group>"; };
+		228D29511C1D3E7900B8A3BF /* MainTabController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabController.h; sourceTree = "<group>"; };
+		228D29521C1D3E7900B8A3BF /* MainTabController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabController.m; sourceTree = "<group>"; };
 		22F3D3221C0AEE8000437C98 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Resize.h"; path = "Category/UIImage+Resize.h"; sourceTree = "<group>"; };
 		22F3D3231C0AEE8000437C98 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Resize.m"; path = "Category/UIImage+Resize.m"; sourceTree = "<group>"; };
+		22F3D3291C143E1300437C98 /* UIImage+ColorAtPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ColorAtPixel.h"; path = "Category/UIImage+ColorAtPixel.h"; sourceTree = "<group>"; };
+		22F3D32A1C143E1300437C98 /* UIImage+ColorAtPixel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+ColorAtPixel.m"; path = "Category/UIImage+ColorAtPixel.m"; sourceTree = "<group>"; };
+		22F3D32C1C143E2C00437C98 /* OBShapedButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OBShapedButton.h; path = CustomButton/OBShapedButton.h; sourceTree = "<group>"; };
+		22F3D32D1C143E2C00437C98 /* OBShapedButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OBShapedButton.m; path = CustomButton/OBShapedButton.m; sourceTree = "<group>"; };
+		22F3D3321C143F0700437C98 /* YTDataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTDataBaseManager.h; path = DBManager/YTDataBaseManager.h; sourceTree = "<group>"; };
+		22F3D3331C143F0700437C98 /* YTDataBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTDataBaseManager.m; path = DBManager/YTDataBaseManager.m; sourceTree = "<group>"; };
+		22F3D3351C143F1900437C98 /* YTQuestionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTQuestionItem.h; path = Model/YTQuestionItem.h; sourceTree = "<group>"; };
+		22F3D3361C143F1900437C98 /* YTQuestionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTQuestionItem.m; path = Model/YTQuestionItem.m; sourceTree = "<group>"; };
+		22F3D3381C143F2D00437C98 /* YTButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTButton.h; path = CustomButton/YTButton.h; sourceTree = "<group>"; };
+		22F3D3391C143F2D00437C98 /* YTButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTButton.m; path = CustomButton/YTButton.m; sourceTree = "<group>"; };
 		7A089BC624F276EF7DC44CD4 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CDA77442EDED3C7E7474188 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		94708CDA93FD7CFD60726A9C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -133,30 +150,20 @@
 		22674CD11BE60D820075484D /* YunTu */ = {
 			isa = PBXGroup;
 			children = (
+				2284E3CF1C54AFE80090E562 /* ViewController */,
+				2284E3CD1C549DBB0090E562 /* Public */,
+				22F3D3281C143D1000437C98 /* CustomButton */,
+				22F3D3271C143CA800437C98 /* DBManager */,
+				22F3D3261C143C7C00437C98 /* Model */,
 				22F3D31E1C074FDB00437C98 /* Category */,
 				227C46521BEE3C8500804454 /* yuntu.db3 */,
-				22F3D31F1C0750B500437C98 /* AppUtil.h */,
-				22F3D3201C0750B500437C98 /* AppUtil.m */,
 				22674CD51BE60D820075484D /* AppDelegate.h */,
 				22674CD61BE60D820075484D /* AppDelegate.m */,
-				22E906021BE72DDD0052C923 /* YTQuestionItem.h */,
-				22E906031BE72DDD0052C923 /* YTQuestionItem.m */,
-				22674CD81BE60D820075484D /* ViewController.h */,
-				22674CD91BE60D820075484D /* ViewController.m */,
-				22674D091BE634C80075484D /* YTQuestionViewController.h */,
-				22674D0A1BE634C80075484D /* YTQuestionViewController.m */,
-				22674D061BE632530075484D /* YTDataBaseManager.h */,
-				22674D071BE632530075484D /* YTDataBaseManager.m */,
-				22E9060A1BE892DB0052C923 /* QuestionCell.h */,
-				22E9060B1BE892DB0052C923 /* QuestionCell.m */,
-				22E906081BE8912A0052C923 /* 卞卞.JPG */,
 				22674CDB1BE60D820075484D /* Main.storyboard */,
 				22674CDE1BE60D820075484D /* Assets.xcassets */,
 				22674CE01BE60D820075484D /* LaunchScreen.storyboard */,
 				22674CE31BE60D820075484D /* Info.plist */,
 				22674CD21BE60D820075484D /* Supporting Files */,
-				22E906101BE8DF040052C923 /* YTButton.h */,
-				22E906111BE8DF040052C923 /* YTButton.m */,
 			);
 			path = YunTu;
 			sourceTree = "<group>";
@@ -187,13 +194,91 @@
 			path = YunTuUITests;
 			sourceTree = "<group>";
 		};
+		2284E3CD1C549DBB0090E562 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				2284E3E01C54C4180090E562 /* AppUtil.h */,
+				2284E3E11C54C4180090E562 /* AppUtil.m */,
+				2284E3CE1C549E350090E562 /* YTGlobal.h */,
+			);
+			name = Public;
+			sourceTree = "<group>";
+		};
+		2284E3CF1C54AFE80090E562 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2284E3D31C54B0E40090E562 /* Base */,
+				22F3D3251C143BEF00437C98 /* YTExam */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		2284E3D31C54B0E40090E562 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				2284E3D71C54C3EA0090E562 /* ViewController.h */,
+				2284E3D81C54C3EA0090E562 /* ViewController.m */,
+				228D29511C1D3E7900B8A3BF /* MainTabController.h */,
+				228D29521C1D3E7900B8A3BF /* MainTabController.m */,
+				2284E3D01C54B01F0090E562 /* BaseViewController.h */,
+				2284E3D11C54B01F0090E562 /* BaseViewController.m */,
+				2284E3E61C54CB100090E562 /* YTNavigationController.h */,
+				2284E3E71C54CB100090E562 /* YTNavigationController.m */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
 		22F3D31E1C074FDB00437C98 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				22F3D3291C143E1300437C98 /* UIImage+ColorAtPixel.h */,
+				22F3D32A1C143E1300437C98 /* UIImage+ColorAtPixel.m */,
 				22F3D3221C0AEE8000437C98 /* UIImage+Resize.h */,
 				22F3D3231C0AEE8000437C98 /* UIImage+Resize.m */,
+				2284E3E31C54C5450090E562 /* UIViewController+NavUtils.h */,
+				2284E3E41C54C5450090E562 /* UIViewController+NavUtils.m */,
 			);
 			name = Category;
+			sourceTree = "<group>";
+		};
+		22F3D3251C143BEF00437C98 /* YTExam */ = {
+			isa = PBXGroup;
+			children = (
+				2284E3DA1C54C3FF0090E562 /* QuestionCell.h */,
+				2284E3DB1C54C3FF0090E562 /* QuestionCell.m */,
+				2284E3DC1C54C3FF0090E562 /* YTQuestionViewController.h */,
+				2284E3DD1C54C3FF0090E562 /* YTQuestionViewController.m */,
+			);
+			name = YTExam;
+			sourceTree = "<group>";
+		};
+		22F3D3261C143C7C00437C98 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				22F3D3351C143F1900437C98 /* YTQuestionItem.h */,
+				22F3D3361C143F1900437C98 /* YTQuestionItem.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		22F3D3271C143CA800437C98 /* DBManager */ = {
+			isa = PBXGroup;
+			children = (
+				22F3D3321C143F0700437C98 /* YTDataBaseManager.h */,
+				22F3D3331C143F0700437C98 /* YTDataBaseManager.m */,
+			);
+			name = DBManager;
+			sourceTree = "<group>";
+		};
+		22F3D3281C143D1000437C98 /* CustomButton */ = {
+			isa = PBXGroup;
+			children = (
+				22F3D3381C143F2D00437C98 /* YTButton.h */,
+				22F3D3391C143F2D00437C98 /* YTButton.m */,
+				22F3D32C1C143E2C00437C98 /* OBShapedButton.h */,
+				22F3D32D1C143E2C00437C98 /* OBShapedButton.m */,
+			);
+			name = CustomButton;
 			sourceTree = "<group>";
 		};
 		B306EBEF7CE6A12BE1E85079 /* Frameworks */ = {
@@ -283,6 +368,7 @@
 				TargetAttributes = {
 					22674CCE1BE60D820075484D = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = EH7RXLDN3D;
 					};
 					22674CE71BE60D830075484D = {
 						CreatedOnToolsVersion = 7.0;
@@ -319,7 +405,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22E906091BE8912A0052C923 /* 卞卞.JPG in Resources */,
 				22674CE21BE60D820075484D /* LaunchScreen.storyboard in Resources */,
 				22674CDF1BE60D820075484D /* Assets.xcassets in Resources */,
 				22674CDD1BE60D820075484D /* Main.storyboard in Resources */,
@@ -396,16 +481,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22F3D3211C0750B500437C98 /* AppUtil.m in Sources */,
-				22674CDA1BE60D820075484D /* ViewController.m in Sources */,
-				22E9060C1BE892DB0052C923 /* QuestionCell.m in Sources */,
-				22E906041BE72DDD0052C923 /* YTQuestionItem.m in Sources */,
+				2284E3D91C54C3EA0090E562 /* ViewController.m in Sources */,
+				22F3D32E1C143E2C00437C98 /* OBShapedButton.m in Sources */,
+				2284E3DF1C54C3FF0090E562 /* YTQuestionViewController.m in Sources */,
+				228D29531C1D3E7900B8A3BF /* MainTabController.m in Sources */,
+				2284E3E81C54CB100090E562 /* YTNavigationController.m in Sources */,
+				2284E3DE1C54C3FF0090E562 /* QuestionCell.m in Sources */,
+				22F3D32B1C143E1300437C98 /* UIImage+ColorAtPixel.m in Sources */,
+				2284E3D21C54B01F0090E562 /* BaseViewController.m in Sources */,
 				22674CD71BE60D820075484D /* AppDelegate.m in Sources */,
+				2284E3E51C54C5450090E562 /* UIViewController+NavUtils.m in Sources */,
+				22F3D33A1C143F2D00437C98 /* YTButton.m in Sources */,
+				2284E3E21C54C4180090E562 /* AppUtil.m in Sources */,
+				22F3D3371C143F1900437C98 /* YTQuestionItem.m in Sources */,
 				22674CD41BE60D820075484D /* main.m in Sources */,
-				22674D0B1BE634C80075484D /* YTQuestionViewController.m in Sources */,
-				22E906121BE8DF040052C923 /* YTButton.m in Sources */,
-				22674D081BE632530075484D /* YTDataBaseManager.m in Sources */,
 				22F3D3241C0AEE8000437C98 /* UIImage+Resize.m in Sources */,
+				22F3D3341C143F0700437C98 /* YTDataBaseManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,10 +636,13 @@
 			baseConfigurationReference = 94708CDA93FD7CFD60726A9C /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = YunTu/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Dj.YunTu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -557,10 +651,13 @@
 			baseConfigurationReference = 8CDA77442EDED3C7E7474188 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = YunTu/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Dj.YunTu;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

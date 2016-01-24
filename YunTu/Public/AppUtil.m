@@ -25,5 +25,16 @@
     return ceilf(size.height);
 }
 
-
++ (UIBarButtonItem *)leftBarItemWithTarget:(id)target action:(SEL)action
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0, 0, 44, 44);
+    [button setImage:[UIImage imageNamed:@"arrow_common_left"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"arrow_common_left_pressed"] forState:UIControlStateHighlighted];
+    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, -25, 0, 0);
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    return backItem;
+}
 @end

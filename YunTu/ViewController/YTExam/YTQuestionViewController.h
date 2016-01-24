@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  YTQuestionViewController.h
 //  YunTu
 //
 //  Created by 丁健 on 15/11/1.
@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface ViewController : UIViewController
-
+@interface YTQuestionViewController : BaseViewController
 
 @end
-
