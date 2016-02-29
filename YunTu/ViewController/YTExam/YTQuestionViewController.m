@@ -16,6 +16,11 @@
 #import "YTGlobal.h"
 #import "UIViewController+NavUtils.h"
 
+#define titleWidthDiffer      43
+#define titleImageWidthDiffer 16
+#define optionWidthDiffer     60
+#define explainWidthDiffer    40
+
 @interface YTQuestionViewController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (assign,nonatomic) NSUInteger collectionViewRowNum;
@@ -23,8 +28,12 @@
 @property (weak, nonatomic) YTButton *pageButton;
 @property (weak, nonatomic) UIBarButtonItem *pageItem;
 @end
+
+static NSString *titleID = @"question_title_cell";
 static NSString *titleImageID = @"title_image_cell";
 static NSString *optionID = @"option_cell";
+static NSString *explainID = @"question_explain_cell";
+
 @implementation YTQuestionViewController
 
 - (void)viewDidLoad {
@@ -133,17 +142,19 @@ static NSString *optionID = @"option_cell";
     YTQuestionItem *questionItem = self.questionList[_collectionViewRowNum];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            cell = [tableView dequeueReusableCellWithIdentifier:optionID forIndexPath:indexPath];
-            UILabel *titleLabel = (UILabel *)[cell viewWithTag:1];
+            cell = [tableView dequeueReusableCellWithIdentifier:titleID forIndexPath:indexPath];
+            UILabel *titleLabel = (UILabel *)[cell viewWithTag:1];//标题
+            UIImageView *typeView = (UIImageView *)[cell viewWithTag:2];//题目类型图标
             titleLabel.text = questionItem.question;
+            typeView.image = [self imageWithQuestionType:questionItem.type];
             } else {
                 cell = [tableView dequeueReusableCellWithIdentifier:titleImageID forIndexPath:indexPath];
                 UIImageView *questionView = (UIImageView *)[cell viewWithTag:1];
                 questionView.hidden = questionItem.imageStr == NULL ? YES : NO;
                 if (!questionView.hidden) {
                     UIImage *normalImage = [UIImage imageNamed:questionItem.imageStr];
-                    if (normalImage.size.width > self.collectionView.frame.size.width - 16) {
-                        CGFloat imageWidth = self.collectionView.frame.size.width - 16;
+                    if (normalImage.size.width > self.collectionView.frame.size.width - titleImageWidthDiffer) {
+                        CGFloat imageWidth = self.collectionView.frame.size.width - titleImageWidthDiffer;
                         CGFloat imageHeight = normalImage.size.height * (imageWidth / normalImage.size.width);
                         normalImage = [normalImage resizeToSize:CGSizeMake(imageWidth, imageHeight)];
                     }
@@ -153,43 +164,71 @@ static NSString *optionID = @"option_cell";
         } else if (indexPath.section == 1) {
             cell = [tableView dequeueReusableCellWithIdentifier:optionID forIndexPath:indexPath];
             UILabel *optionLabel = (UILabel *)[cell viewWithTag:1];
+            UIButton *optionBtn = (UIButton *)[cell viewWithTag:2];
             switch (indexPath.row) {
                 case 0:
+                {
                     optionLabel.text = questionItem.option1;
                     if (questionItem.isOption1Selected) {
                         optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:1] == YES ? [UIColor blueColor] : [UIColor redColor];
+                        [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:1] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_false"] forState:UIControlStateNormal];
+                        [optionBtn setTitle:@"" forState:UIControlStateNormal];
+                        
                     } else {
                         optionLabel.textColor = [UIColor blackColor];
+                        [optionBtn setBackgroundImage:[UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
+                        [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:1] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
+                        [optionBtn setTitle:@"A" forState:UIControlStateNormal];
                     }
+                }
                     break;
                 case 1:
+                {
                     optionLabel.text = questionItem.option2;
                     if (questionItem.isOption2Selected) {
                         optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:2] == YES ? [UIColor blueColor] : [UIColor redColor];
+                        [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:2] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_false"] forState:UIControlStateNormal];
+                        [optionBtn setTitle:@"" forState:UIControlStateNormal];
                     } else {
                         optionLabel.textColor = [UIColor blackColor];
+                        [optionBtn setBackgroundImage:[UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
+                        [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:2] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
+                        [optionBtn setTitle:@"B" forState:UIControlStateNormal];
                     }
+                }
                     break;
                 case 2:
+                {
                     optionLabel.text = questionItem.option3;
                     if (questionItem.isOption3Selected) {
                         optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:3] == YES ? [UIColor blueColor] : [UIColor redColor];
+                        [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:3] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_false"] forState:UIControlStateNormal];
+                        [optionBtn setTitle:@"" forState:UIControlStateNormal];
                     } else {
                         optionLabel.textColor = [UIColor blackColor];
+                        [optionBtn setBackgroundImage:[UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
+                        [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:3] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
+                        [optionBtn setTitle:@"C" forState:UIControlStateNormal];
                     }
+                }
                     break;
                 default:
+                {
                     optionLabel.text = questionItem.option4;
                     if (questionItem.isOption4Selected) {
-                        optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:4] == YES ? [UIColor blueColor] : [UIColor redColor];
+                        optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:4] == YES ? [UIColor blueColor] : [UIColor redColor];[optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:4] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_false"] forState:UIControlStateNormal];
+                        [optionBtn setTitle:@"" forState:UIControlStateNormal];
                     } else {
                         optionLabel.textColor = [UIColor blackColor];
+                        [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:4] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
+                        [optionBtn setTitle:@"D" forState:UIControlStateNormal];
                     }
+                }
                     break;
             }
             
         } else {
-        cell = [tableView dequeueReusableCellWithIdentifier:optionID forIndexPath:indexPath];
+        cell = [tableView dequeueReusableCellWithIdentifier:explainID forIndexPath:indexPath];
         UILabel *optionLabel = (UILabel *)[cell viewWithTag:1];
         optionLabel.text = questionItem.answer_explain;
     }
@@ -207,15 +246,15 @@ static NSString *optionID = @"option_cell";
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             titleLabel = questionItem.question;
-            height = [AppUtil contentHeightWithText:titleLabel constraintWidth:self.collectionView.frame.size.width - 16 fontSize:17] + 16;
+            height = [AppUtil contentHeightWithText:titleLabel constraintWidth:self.collectionView.frame.size.width - titleWidthDiffer fontSize:17] + 16;
         } else {
             cell = [tableView dequeueReusableCellWithIdentifier:titleImageID];
             UIImageView *questionView = (UIImageView *)[cell viewWithTag:1];
             questionView.hidden = questionItem.imageStr == NULL ? YES : NO;
             if (!questionView.hidden) {
                 UIImage *normalImage = [UIImage imageNamed:questionItem.imageStr];
-                if (normalImage.size.width > self.collectionView.frame.size.width - 16) {
-                    CGFloat imageWidth = self.collectionView.frame.size.width - 16;
+                if (normalImage.size.width > self.collectionView.frame.size.width - titleImageWidthDiffer) {
+                    CGFloat imageWidth = self.collectionView.frame.size.width - titleImageWidthDiffer;
                     CGFloat imageHeight = normalImage.size.height * (imageWidth / normalImage.size.width);
                     normalImage = [normalImage resizeToSize:CGSizeMake(imageWidth, imageHeight)];
                 }
@@ -238,10 +277,10 @@ static NSString *optionID = @"option_cell";
                     titleLabel = questionItem.option4;
                     break;
             }
-            height = [AppUtil contentHeightWithText:titleLabel constraintWidth:self.collectionView.frame.size.width - 16 fontSize:17] + 16;
+            height = [AppUtil contentHeightWithText:titleLabel constraintWidth:self.collectionView.frame.size.width - optionWidthDiffer fontSize:17] + 16;
         } else {
         titleLabel = questionItem.answer_explain;
-        height = [AppUtil contentHeightWithText:titleLabel constraintWidth:self.collectionView.frame.size.width- 16 fontSize:17] + 16;
+        height = [AppUtil contentHeightWithText:titleLabel constraintWidth:self.collectionView.frame.size.width- explainWidthDiffer fontSize:17] + 16;
     }
     return height;
 }
@@ -310,6 +349,17 @@ static NSString *optionID = @"option_cell";
         questionItem.isAnswered = YES;
     }
 }
+
+//根据题目类型选择相应的icon
+- (UIImage *)imageWithQuestionType:(NSInteger)qType
+{
+    if (qType == 1) {//选择题
+        return [UIImage imageNamed:@"yuntu_practise_danxuanti"];
+    } else {
+        return [UIImage imageNamed:@"yuntu_practise_panduanti"];
+    }
+}
+
 
 //回答正确自动进入下一题
 - (void)scrollToNextQuestion
