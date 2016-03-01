@@ -56,14 +56,24 @@ static NSString *explainID = @"question_explain_cell";
     self.collectionView.collectionViewLayout = layout;
     
     //导航栏视图
+    //页数按钮
     YTButton *pageBtn = [[YTButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     NSString *pageStr = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)_collectionViewRowNum + 1,(unsigned long)_questionList.count];
     [pageBtn setTitle:pageStr forState:UIControlStateNormal];
     pageBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [pageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [pageBtn setImage:[UIImage imageNamed:@"卞卞.JPG"] forState:UIControlStateNormal];
+    [pageBtn setImage:[UIImage imageNamed:@"test_top_card"] forState:UIControlStateNormal];
     UIBarButtonItem *pageItem = [[UIBarButtonItem alloc]initWithCustomView:pageBtn];
-    self.navigationItem.rightBarButtonItem = pageItem;
+    
+    //收藏按钮
+    YTButton *storeBtn = [[YTButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [storeBtn setTitle:@"收藏" forState:UIControlStateNormal];
+    storeBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [storeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [storeBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
+    UIBarButtonItem *storeItem = [[UIBarButtonItem alloc]initWithCustomView:storeBtn];
+
+    self.navigationItem.rightBarButtonItems = @[pageItem,storeItem];
     self.pageButton = pageBtn;
     self.pageItem = pageItem;
     
@@ -92,6 +102,17 @@ static NSString *explainID = @"question_explain_cell";
     }
     self.navigationItem.leftBarButtonItem = [AppUtil leftBarItemWithTarget:self action:@selector(popBack)];
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
+}
+
+- (UIBarButtonItem *)createRightBarButtonWithImage:(NSString *)image title:(NSString *)title
+{
+    YTButton *btn = [[YTButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [btn setTitle:title forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
+    UIBarButtonItem *Item = [[UIBarButtonItem alloc]initWithCustomView:btn];
+    return Item;
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -170,15 +191,23 @@ static NSString *explainID = @"question_explain_cell";
                 {
                     optionLabel.text = questionItem.option1;
                     if (questionItem.isOption1Selected) {
-                        optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:1] == YES ? [UIColor blueColor] : [UIColor redColor];
+                        //选项被选择
+                        optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:1] == YES ? def_text_trueAnswer : def_text_falseAnswer;
                         [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:1] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_false"] forState:UIControlStateNormal];
                         [optionBtn setTitle:@"" forState:UIControlStateNormal];
                         
                     } else {
-                        optionLabel.textColor = [UIColor blackColor];
-                        [optionBtn setBackgroundImage:[UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
-                        [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:1] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
-                        [optionBtn setTitle:@"A" forState:UIControlStateNormal];
+                        if ([self judgeQuestionAnsweredWithQuestionItem:questionItem option:1] == YES && questionItem.isAnswered) {
+                            //答错则要显示正确答案及icon变化
+                            optionLabel.textColor = def_text_trueAnswer;
+                            [optionBtn setBackgroundImage:[UIImage imageNamed:@"yuntu_practise_true"] forState:UIControlStateNormal];
+                            [optionBtn setTitle:@"" forState:UIControlStateNormal];
+                        } else {
+                            //未答则正常显示
+                            optionLabel.textColor = [UIColor blackColor];
+                            [optionBtn setBackgroundImage:[UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
+                            [optionBtn setTitle:@"A" forState:UIControlStateNormal];
+                        }
                     }
                 }
                     break;
@@ -186,14 +215,21 @@ static NSString *explainID = @"question_explain_cell";
                 {
                     optionLabel.text = questionItem.option2;
                     if (questionItem.isOption2Selected) {
-                        optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:2] == YES ? [UIColor blueColor] : [UIColor redColor];
+                        optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:2] == YES ? def_text_trueAnswer : def_text_falseAnswer;
                         [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:2] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_false"] forState:UIControlStateNormal];
                         [optionBtn setTitle:@"" forState:UIControlStateNormal];
                     } else {
-                        optionLabel.textColor = [UIColor blackColor];
-                        [optionBtn setBackgroundImage:[UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
-                        [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:2] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
-                        [optionBtn setTitle:@"B" forState:UIControlStateNormal];
+                        if ([self judgeQuestionAnsweredWithQuestionItem:questionItem option:2] == YES && questionItem.isAnswered) {
+                            //答错则要显示正确答案及icon变化
+                            optionLabel.textColor = def_text_trueAnswer;
+                            [optionBtn setBackgroundImage:[UIImage imageNamed:@"yuntu_practise_true"] forState:UIControlStateNormal];
+                            [optionBtn setTitle:@"" forState:UIControlStateNormal];
+                        } else {
+                            //未答则正常显示
+                            optionLabel.textColor = [UIColor blackColor];
+                            [optionBtn setBackgroundImage:[UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
+                            [optionBtn setTitle:@"B" forState:UIControlStateNormal];
+                        }
                     }
                 }
                     break;
@@ -201,14 +237,21 @@ static NSString *explainID = @"question_explain_cell";
                 {
                     optionLabel.text = questionItem.option3;
                     if (questionItem.isOption3Selected) {
-                        optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:3] == YES ? [UIColor blueColor] : [UIColor redColor];
+                        optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:3] == YES ? def_text_trueAnswer : def_text_falseAnswer;
                         [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:3] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_false"] forState:UIControlStateNormal];
                         [optionBtn setTitle:@"" forState:UIControlStateNormal];
                     } else {
-                        optionLabel.textColor = [UIColor blackColor];
-                        [optionBtn setBackgroundImage:[UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
-                        [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:3] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
-                        [optionBtn setTitle:@"C" forState:UIControlStateNormal];
+                        if ([self judgeQuestionAnsweredWithQuestionItem:questionItem option:3] == YES && questionItem.isAnswered) {
+                            //答错则要显示正确答案及icon变化
+                            optionLabel.textColor = def_text_trueAnswer;
+                            [optionBtn setBackgroundImage:[UIImage imageNamed:@"yuntu_practise_true"] forState:UIControlStateNormal];
+                            [optionBtn setTitle:@"" forState:UIControlStateNormal];
+                        } else {
+                            //未答则正常显示
+                            optionLabel.textColor = [UIColor blackColor];
+                            [optionBtn setBackgroundImage:[UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
+                            [optionBtn setTitle:@"C" forState:UIControlStateNormal];
+                        }
                     }
                 }
                     break;
@@ -216,12 +259,21 @@ static NSString *explainID = @"question_explain_cell";
                 {
                     optionLabel.text = questionItem.option4;
                     if (questionItem.isOption4Selected) {
-                        optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:4] == YES ? [UIColor blueColor] : [UIColor redColor];[optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:4] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_false"] forState:UIControlStateNormal];
+                        optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:4] == YES ? def_text_trueAnswer : def_text_falseAnswer;
+                        [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:4] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_false"] forState:UIControlStateNormal];
                         [optionBtn setTitle:@"" forState:UIControlStateNormal];
                     } else {
-                        optionLabel.textColor = [UIColor blackColor];
-                        [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:4] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
-                        [optionBtn setTitle:@"D" forState:UIControlStateNormal];
+                        if ([self judgeQuestionAnsweredWithQuestionItem:questionItem option:4l] == YES && questionItem.isAnswered) {
+                            //答错则要显示正确答案及icon变化
+                            optionLabel.textColor = def_text_trueAnswer;
+                            [optionBtn setBackgroundImage:[UIImage imageNamed:@"yuntu_practise_true"] forState:UIControlStateNormal];
+                            [optionBtn setTitle:@"" forState:UIControlStateNormal];
+                        } else {
+                            //未答则正常显示
+                            optionLabel.textColor = [UIColor blackColor];
+                            [optionBtn setBackgroundImage:[UIImage imageNamed:@"yuntu_practise_bg_n"] forState:UIControlStateNormal];
+                            [optionBtn setTitle:@"D" forState:UIControlStateNormal];
+                        }
                     }
                 }
                     break;

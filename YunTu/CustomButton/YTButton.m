@@ -31,9 +31,9 @@
 
 - (CGRect)imageRectForContentRect:(CGRect)contentRect
 {
-    CGFloat imageX = 0;
-    CGFloat imageY = 0;
-    CGFloat imageW = self.frame.size.width;
+    CGFloat imageX = 10;
+    CGFloat imageY = 5;
+    CGFloat imageW = self.frame.size.width * 0.5;
     CGFloat imageH = self.frame.size.height *0.5;
     return CGRectMake(imageX, imageY, imageW, imageH);
 
