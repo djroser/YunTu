@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22348EB91C8F1540003B32D4 /* YTLearnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22348EB81C8F1540003B32D4 /* YTLearnViewController.m */; };
+		22348EBC1C8F1562003B32D4 /* YTMyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22348EBB1C8F1562003B32D4 /* YTMyViewController.m */; };
 		22674CD41BE60D820075484D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CD31BE60D820075484D /* main.m */; };
 		22674CD71BE60D820075484D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CD61BE60D820075484D /* AppDelegate.m */; };
 		22674CDD1BE60D820075484D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22674CDB1BE60D820075484D /* Main.storyboard */; };
@@ -50,6 +52,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22348EB71C8F1540003B32D4 /* YTLearnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTLearnViewController.h; path = ViewController/YTLearn/YTLearnViewController.h; sourceTree = "<group>"; };
+		22348EB81C8F1540003B32D4 /* YTLearnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTLearnViewController.m; path = ViewController/YTLearn/YTLearnViewController.m; sourceTree = "<group>"; };
+		22348EBA1C8F1562003B32D4 /* YTMyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTMyViewController.h; path = ViewController/My/YTMyViewController.h; sourceTree = "<group>"; };
+		22348EBB1C8F1562003B32D4 /* YTMyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTMyViewController.m; path = ViewController/My/YTMyViewController.m; sourceTree = "<group>"; };
 		22674CCF1BE60D820075484D /* YunTu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YunTu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22674CD31BE60D820075484D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		22674CD51BE60D820075484D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -125,6 +131,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		22348EB51C8F14A7003B32D4 /* YTLearn */ = {
+			isa = PBXGroup;
+			children = (
+				22348EB71C8F1540003B32D4 /* YTLearnViewController.h */,
+				22348EB81C8F1540003B32D4 /* YTLearnViewController.m */,
+			);
+			name = YTLearn;
+			sourceTree = "<group>";
+		};
+		22348EB61C8F14CD003B32D4 /* My */ = {
+			isa = PBXGroup;
+			children = (
+				22348EBA1C8F1562003B32D4 /* YTMyViewController.h */,
+				22348EBB1C8F1562003B32D4 /* YTMyViewController.m */,
+			);
+			name = My;
+			sourceTree = "<group>";
+		};
 		22674CC61BE60D820075484D = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +233,8 @@
 			children = (
 				2284E3D31C54B0E40090E562 /* Base */,
 				22F3D3251C143BEF00437C98 /* YTExam */,
+				22348EB51C8F14A7003B32D4 /* YTLearn */,
+				22348EB61C8F14CD003B32D4 /* My */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -482,11 +508,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2284E3D91C54C3EA0090E562 /* ViewController.m in Sources */,
+				22348EBC1C8F1562003B32D4 /* YTMyViewController.m in Sources */,
 				22F3D32E1C143E2C00437C98 /* OBShapedButton.m in Sources */,
 				2284E3DF1C54C3FF0090E562 /* YTQuestionViewController.m in Sources */,
 				228D29531C1D3E7900B8A3BF /* MainTabController.m in Sources */,
 				2284E3E81C54CB100090E562 /* YTNavigationController.m in Sources */,
 				2284E3DE1C54C3FF0090E562 /* QuestionCell.m in Sources */,
+				22348EB91C8F1540003B32D4 /* YTLearnViewController.m in Sources */,
 				22F3D32B1C143E1300437C98 /* UIImage+ColorAtPixel.m in Sources */,
 				2284E3D21C54B01F0090E562 /* BaseViewController.m in Sources */,
 				22674CD71BE60D820075484D /* AppDelegate.m in Sources */,
