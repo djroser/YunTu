@@ -15,14 +15,19 @@
 #import "UIImage+Resize.h"
 #import "YTGlobal.h"
 #import "UIViewController+NavUtils.h"
+#import "answeredCollectionCell.h"
 
-#define titleWidthDiffer      43
-#define titleImageWidthDiffer 16
-#define optionWidthDiffer     60
-#define explainWidthDiffer    40
+#define titleWidthDiffer        43
+#define titleImageWidthDiffer   16
+#define optionWidthDiffer       60
+#define explainWidthDiffer      40
+#define MainCollectionViewTag   222
+#define AnsweredCollectionViewTag 333
 
 @interface YTQuestionViewController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) UIView *bottomView;
+@property (strong, nonatomic) UICollectionView *answeredCollectionView;//答题情况表
 @property (assign,nonatomic) NSUInteger collectionViewRowNum;
 @property (strong, nonatomic) NSArray *questionList;
 @property (weak, nonatomic) YTButton *pageButton;
@@ -33,6 +38,8 @@ static NSString *titleID = @"question_title_cell";
 static NSString *titleImageID = @"title_image_cell";
 static NSString *optionID = @"option_cell";
 static NSString *explainID = @"question_explain_cell";
+
+static NSString *answerCollectionCellID = @"answer_collection_cell";
 
 @implementation YTQuestionViewController
 
@@ -45,7 +52,7 @@ static NSString *explainID = @"question_explain_cell";
 
 - (void)createBaseView
 {
-    //集合视图
+    //主集合视图
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
     layout.itemSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 64);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
@@ -54,6 +61,28 @@ static NSString *explainID = @"question_explain_cell";
     layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.collectionView.collectionViewLayout = layout;
+    self.collectionView.tag = MainCollectionViewTag;
+    
+    
+    self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 80, self.view.frame.size.width, self.view.frame.size.height - 64)];
+    self.bottomView.backgroundColor = [UIColor yellowColor];
+    
+    _bottomView.hidden = YES;
+    //答题情况集合视图
+    UICollectionViewFlowLayout *layout2 = [[UICollectionViewFlowLayout alloc]init];
+    layout2.itemSize = CGSizeMake(30, 30);
+    layout2.scrollDirection = UICollectionViewScrollDirectionVertical;
+    layout2.minimumInteritemSpacing = 10;
+    layout2.minimumLineSpacing = 10;
+    layout2.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.answeredCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64 - 80) collectionViewLayout:layout2];
+    [self.answeredCollectionView registerNib:[UINib nibWithNibName:@"answeredCollectionCell" bundle:nil] forCellWithReuseIdentifier:answerCollectionCellID];
+    self.answeredCollectionView.tag = AnsweredCollectionViewTag;
+    self.answeredCollectionView.delegate = self;
+    self.answeredCollectionView.dataSource = self;
+    self.answeredCollectionView.backgroundColor = [UIColor whiteColor];
+    [_bottomView addSubview:self.answeredCollectionView];
+    [self.view addSubview:_bottomView];
     
     //导航栏视图
     //页数按钮
@@ -63,7 +92,9 @@ static NSString *explainID = @"question_explain_cell";
     pageBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [pageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [pageBtn setImage:[UIImage imageNamed:@"test_top_card"] forState:UIControlStateNormal];
+    [pageBtn addTarget:self action:@selector(didPressPageItem) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *pageItem = [[UIBarButtonItem alloc]initWithCustomView:pageBtn];
+    
     
     //收藏按钮
     YTButton *storeBtn = [[YTButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
@@ -123,12 +154,19 @@ static NSString *explainID = @"question_explain_cell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *ID = @"collect_cell";
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
-    UITableView *tableView = (UITableView *)[cell viewWithTag:1];
-    _collectionViewRowNum = indexPath.row;
-    [tableView reloadData];
-    return cell;
+    if (collectionView.tag == MainCollectionViewTag) {//主集合视图
+        static NSString *ID = @"collect_cell";
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ID forIndexPath:indexPath];
+        UITableView *tableView = (UITableView *)[cell viewWithTag:1];
+        _collectionViewRowNum = indexPath.row;
+        [tableView reloadData];
+        return cell;
+    } else {
+        //答题情况集合视图
+        answeredCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:answerCollectionCellID forIndexPath:indexPath];
+        return cell;
+    }
+    
 }
 
 #pragma mark - UITableViewDataSource
@@ -470,7 +508,11 @@ static NSString *explainID = @"question_explain_cell";
     _collectionViewRowNum = indexPath.row;
 }
 
-
+#pragma mark - 点击事件
+- (void)didPressPageItem
+{
+    _bottomView.hidden = NO;
+}
 
 
 

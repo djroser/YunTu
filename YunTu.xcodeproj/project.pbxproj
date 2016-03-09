@@ -25,6 +25,8 @@
 		2284E3E51C54C5450090E562 /* UIViewController+NavUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3E41C54C5450090E562 /* UIViewController+NavUtils.m */; };
 		2284E3E81C54CB100090E562 /* YTNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3E71C54CB100090E562 /* YTNavigationController.m */; };
 		228D29531C1D3E7900B8A3BF /* MainTabController.m in Sources */ = {isa = PBXBuildFile; fileRef = 228D29521C1D3E7900B8A3BF /* MainTabController.m */; };
+		22D924D91C905AE70034A0F5 /* answeredCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D924D71C905AE70034A0F5 /* answeredCollectionCell.m */; };
+		22D924DA1C905AE70034A0F5 /* answeredCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22D924D81C905AE70034A0F5 /* answeredCollectionCell.xib */; };
 		22F3D3241C0AEE8000437C98 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F3D3231C0AEE8000437C98 /* UIImage+Resize.m */; };
 		22F3D32B1C143E1300437C98 /* UIImage+ColorAtPixel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F3D32A1C143E1300437C98 /* UIImage+ColorAtPixel.m */; };
 		22F3D32E1C143E2C00437C98 /* OBShapedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F3D32D1C143E2C00437C98 /* OBShapedButton.m */; };
@@ -88,6 +90,9 @@
 		2284E3E71C54CB100090E562 /* YTNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTNavigationController.m; path = ViewController/YTNavigationController.m; sourceTree = "<group>"; };
 		228D29511C1D3E7900B8A3BF /* MainTabController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabController.h; sourceTree = "<group>"; };
 		228D29521C1D3E7900B8A3BF /* MainTabController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabController.m; sourceTree = "<group>"; };
+		22D924D61C905AE70034A0F5 /* answeredCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = answeredCollectionCell.h; path = ViewController/YTExam/answeredCollectionCell.h; sourceTree = "<group>"; };
+		22D924D71C905AE70034A0F5 /* answeredCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = answeredCollectionCell.m; path = ViewController/YTExam/answeredCollectionCell.m; sourceTree = "<group>"; };
+		22D924D81C905AE70034A0F5 /* answeredCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = answeredCollectionCell.xib; path = ViewController/YTExam/answeredCollectionCell.xib; sourceTree = "<group>"; };
 		22F3D3221C0AEE8000437C98 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Resize.h"; path = "Category/UIImage+Resize.h"; sourceTree = "<group>"; };
 		22F3D3231C0AEE8000437C98 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Resize.m"; path = "Category/UIImage+Resize.m"; sourceTree = "<group>"; };
 		22F3D3291C143E1300437C98 /* UIImage+ColorAtPixel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+ColorAtPixel.h"; path = "Category/UIImage+ColorAtPixel.h"; sourceTree = "<group>"; };
@@ -272,6 +277,9 @@
 			children = (
 				2284E3DA1C54C3FF0090E562 /* QuestionCell.h */,
 				2284E3DB1C54C3FF0090E562 /* QuestionCell.m */,
+				22D924D61C905AE70034A0F5 /* answeredCollectionCell.h */,
+				22D924D71C905AE70034A0F5 /* answeredCollectionCell.m */,
+				22D924D81C905AE70034A0F5 /* answeredCollectionCell.xib */,
 				2284E3DC1C54C3FF0090E562 /* YTQuestionViewController.h */,
 				2284E3DD1C54C3FF0090E562 /* YTQuestionViewController.m */,
 			);
@@ -434,6 +442,7 @@
 				22674CE21BE60D820075484D /* LaunchScreen.storyboard in Resources */,
 				22674CDF1BE60D820075484D /* Assets.xcassets in Resources */,
 				22674CDD1BE60D820075484D /* Main.storyboard in Resources */,
+				22D924DA1C905AE70034A0F5 /* answeredCollectionCell.xib in Resources */,
 				227C46531BEE3C8500804454 /* yuntu.db3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -517,6 +526,7 @@
 				22348EB91C8F1540003B32D4 /* YTLearnViewController.m in Sources */,
 				22F3D32B1C143E1300437C98 /* UIImage+ColorAtPixel.m in Sources */,
 				2284E3D21C54B01F0090E562 /* BaseViewController.m in Sources */,
+				22D924D91C905AE70034A0F5 /* answeredCollectionCell.m in Sources */,
 				22674CD71BE60D820075484D /* AppDelegate.m in Sources */,
 				2284E3E51C54C5450090E562 /* UIViewController+NavUtils.m in Sources */,
 				22F3D33A1C143F2D00437C98 /* YTButton.m in Sources */,
