@@ -25,7 +25,11 @@
 #define AnsweredCollectionViewTag 333
 
 @interface YTQuestionViewController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate>
+{
+    BOOL bShowBottomView;
+}
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (strong, nonatomic) UIControl *maskView;
 @property (strong, nonatomic) UIView *bottomView;
 @property (strong, nonatomic) UICollectionView *answeredCollectionView;//答题情况表
 @property (assign,nonatomic) NSUInteger collectionViewRowNum;
@@ -53,36 +57,9 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
 - (void)createBaseView
 {
     //主集合视图
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.itemSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 64);
-    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    layout.minimumInteritemSpacing = 0;
-    layout.minimumLineSpacing = 0;
-    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    self.collectionView.collectionViewLayout = layout;
-    self.collectionView.tag = MainCollectionViewTag;
-    
-    
-    self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 80, self.view.frame.size.width, self.view.frame.size.height - 64)];
-    self.bottomView.backgroundColor = [UIColor yellowColor];
-    
-    _bottomView.hidden = YES;
-    //答题情况集合视图
-    UICollectionViewFlowLayout *layout2 = [[UICollectionViewFlowLayout alloc]init];
-    layout2.itemSize = CGSizeMake(30, 30);
-    layout2.scrollDirection = UICollectionViewScrollDirectionVertical;
-    layout2.minimumInteritemSpacing = 10;
-    layout2.minimumLineSpacing = 10;
-    layout2.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    self.answeredCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64 - 80) collectionViewLayout:layout2];
-    [self.answeredCollectionView registerNib:[UINib nibWithNibName:@"answeredCollectionCell" bundle:nil] forCellWithReuseIdentifier:answerCollectionCellID];
-    self.answeredCollectionView.tag = AnsweredCollectionViewTag;
-    self.answeredCollectionView.delegate = self;
-    self.answeredCollectionView.dataSource = self;
-    self.answeredCollectionView.backgroundColor = [UIColor whiteColor];
-    [_bottomView addSubview:self.answeredCollectionView];
-    [self.view addSubview:_bottomView];
+    [self createMainCollectionView];
+    //答题情况表
+    [self createBottomAnswerView];
     
     //导航栏视图
     //页数按钮
@@ -113,6 +90,52 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     
 }
 
+//初始化主集合视图
+- (void)createMainCollectionView
+{
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
+    layout.itemSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 64);
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    layout.minimumInteritemSpacing = 0;
+    layout.minimumLineSpacing = 0;
+    layout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.collectionView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.collectionView.collectionViewLayout = layout;
+    self.collectionView.tag = MainCollectionViewTag;
+}
+
+
+//初始化答题情况表
+- (void)createBottomAnswerView
+{
+    
+    self.maskView = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+    self.maskView.backgroundColor = [UIColor blackColor];
+    self.maskView.alpha = 0.0;
+    self.maskView.hidden = YES;
+    [self.maskView addTarget:self action:@selector(didPressedMaskView) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.maskView];
+    
+    self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight/3*2)];
+    self.bottomView.backgroundColor = [UIColor yellowColor];
+    
+    //答题情况集合视图
+    UICollectionViewFlowLayout *layout2 = [[UICollectionViewFlowLayout alloc]init];
+    layout2.itemSize = CGSizeMake(30, 30);
+    layout2.scrollDirection = UICollectionViewScrollDirectionVertical;
+    layout2.minimumInteritemSpacing = 10;
+    layout2.minimumLineSpacing = 10;
+    layout2.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
+    self.answeredCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.bottomView.frame.size.height) collectionViewLayout:layout2];
+    [self.answeredCollectionView registerNib:[UINib nibWithNibName:@"answeredCollectionCell" bundle:nil] forCellWithReuseIdentifier:answerCollectionCellID];
+    self.answeredCollectionView.tag = AnsweredCollectionViewTag;
+    self.answeredCollectionView.delegate = self;
+    self.answeredCollectionView.dataSource = self;
+    self.answeredCollectionView.backgroundColor = [UIColor whiteColor];
+    [_bottomView addSubview:self.answeredCollectionView];
+    [self.view addSubview:_bottomView];
+}
+
 
 - (void)initDefaultData
 {
@@ -125,6 +148,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     [super viewWillAppear:animated];
     for (YTQuestionItem *questionItem in _questionList) {
         questionItem.isAnswered = NO;
+        questionItem.isAnsweredRight = NO;
         questionItem.isOption1Selected = NO;
         questionItem.isOption2Selected = NO;
         questionItem.isOption3Selected = NO;
@@ -164,6 +188,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     } else {
         //答题情况集合视图
         answeredCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:answerCollectionCellID forIndexPath:indexPath];
+        cell.questionItem = self.questionList[indexPath.row];
         return cell;
     }
     
@@ -387,9 +412,10 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
                 if ([questionItem.option1 isEqualToString:questionItem.answer]) {
                     [tableView reloadData];
                     [self performSelector:@selector(scrollToNextQuestion) withObject:nil afterDelay:0.7];
-                    
+                    questionItem.isAnsweredRight = YES;//回答正确
                 } else {
                     questionItem.isShowAnswerExplain = YES;
+                    questionItem.isAnsweredRight = NO;//回答错误
                     [tableView reloadData];
                 }
             }
@@ -400,8 +426,10 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
                 if ([questionItem.option2 isEqualToString:questionItem.answer]) {
                     [tableView reloadData];
                     [self performSelector:@selector(scrollToNextQuestion) withObject:nil afterDelay:0.7];
+                    questionItem.isAnsweredRight = YES;//回答正确
                 } else {
                     questionItem.isShowAnswerExplain = YES;
+                    questionItem.isAnsweredRight = NO;//回答错误
                     [tableView reloadData];
                 }
 
@@ -413,9 +441,11 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
                 if ([questionItem.option3 isEqualToString:questionItem.answer]) {
                     [tableView reloadData];
                     [self performSelector:@selector(scrollToNextQuestion) withObject:nil afterDelay:0.7];
+                    questionItem.isAnsweredRight = YES;//回答正确
 
                 } else {
                     questionItem.isShowAnswerExplain = YES;
+                    questionItem.isAnsweredRight = NO;//回答错误
                     [tableView reloadData];
                 }
             }
@@ -426,9 +456,11 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
                 if ([questionItem.option4 isEqualToString:questionItem.answer]) {
                     [tableView reloadData];
                     [self performSelector:@selector(scrollToNextQuestion) withObject:nil afterDelay:0.7];
+                    questionItem.isAnsweredRight = YES;//回答正确
 
                 } else {
                     questionItem.isShowAnswerExplain = YES;
+                    questionItem.isAnsweredRight = NO;//回答错误
                     [tableView reloadData];
                 }
             }
@@ -437,6 +469,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
                 break;
         }
         questionItem.isAnswered = YES;
+        [self.answeredCollectionView reloadData];
     }
 }
 
@@ -511,10 +544,27 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
 #pragma mark - 点击事件
 - (void)didPressPageItem
 {
-    _bottomView.hidden = NO;
+    self.maskView.hidden = NO;
+    bShowBottomView = YES;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.maskView.alpha = 0.5;
+        self.bottomView.frame = CGRectMake(0, self.view.frame.size.height / 3, self.view.frame.size.width, self.view.frame.size.height/3*2);
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
-
+- (void)didPressedMaskView
+{
+    bShowBottomView = NO;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.maskView.alpha = 0.0;
+        self.bottomView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height/3*2);
+    } completion:^(BOOL finished) {
+        self.maskView.hidden = YES;
+    }];
+    
+}
 
 
 @end

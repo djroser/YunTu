@@ -17,3 +17,15 @@
 #define def_text_trueAnswer                  RGBA(85,196,192,1)
 //用于答错的文字
 #define def_text_falseAnswer                  RGBA(238,93,93,1)
+
+
+
+
+
+
+
+
+
+
+#define ScreenWidth                      [UIScreen mainScreen].bounds.size.width
+#define ScreenHeight                     [UIScreen mainScreen].bounds.size.height

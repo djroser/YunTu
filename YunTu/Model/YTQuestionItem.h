@@ -22,6 +22,7 @@
 
 //逻辑判断
 @property(nonatomic,assign)BOOL isAnswered;
+@property(nonatomic,assign)BOOL isAnsweredRight;
 @property(nonatomic,assign)BOOL isShowAnswerExplain;
 @property(nonatomic,assign)BOOL isOption1Selected;
 @property(nonatomic,assign)BOOL isOption2Selected;
