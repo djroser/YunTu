@@ -27,6 +27,7 @@
 @interface YTQuestionViewController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate>
 {
     BOOL bShowBottomView;
+    BOOL bShowLargeImage;
 }
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) UIControl *maskView;
@@ -36,6 +37,8 @@
 @property (strong, nonatomic) NSArray *questionList;
 @property (weak, nonatomic) YTButton *pageButton;
 @property (weak, nonatomic) UIBarButtonItem *pageItem;
+@property (strong, nonatomic) UIImageView *imgvQuestion;
+@property (strong, nonatomic) UIControl *largeImgMaskView;
 @end
 
 static NSString *titleID = @"question_title_cell";
@@ -56,12 +59,21 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
 
 - (void)createBaseView
 {
+    //导航栏视图
+    [self createNavgationView];
     //主集合视图
     [self createMainCollectionView];
     //答题情况表
     [self createBottomAnswerView];
+    //问题大图
+    [self createLargeQuestionView];
     
-    //导航栏视图
+    self.tabBarItem.image = [[UIImage imageNamed:@"canvas1"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+}
+
+//导航栏视图
+- (void)createNavgationView
+{
     //页数按钮
     YTButton *pageBtn = [[YTButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     NSString *pageStr = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)_collectionViewRowNum + 1,(unsigned long)_questionList.count];
@@ -80,14 +92,10 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     [storeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [storeBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
     UIBarButtonItem *storeItem = [[UIBarButtonItem alloc]initWithCustomView:storeBtn];
-
+    
     self.navigationItem.rightBarButtonItems = @[pageItem,storeItem];
     self.pageButton = pageBtn;
     self.pageItem = pageItem;
-    
-    self.tabBarItem.image = [[UIImage imageNamed:@"canvas1"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
-    
 }
 
 //初始化主集合视图
@@ -104,6 +112,20 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     self.collectionView.tag = MainCollectionViewTag;
 }
 
+//初始化大图及蒙层
+- (void)createLargeQuestionView
+{
+    self.largeImgMaskView = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+    self.largeImgMaskView.backgroundColor = [UIColor blackColor];
+    self.largeImgMaskView.alpha = 0.0;
+    self.largeImgMaskView.hidden = YES;
+    [self.largeImgMaskView addTarget:self action:@selector(didPressedLargeImgMaskView) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.largeImgMaskView];
+    
+    self.imgvQuestion = [[UIImageView alloc] init];
+    self.imgvQuestion.hidden = YES;
+    [self.view addSubview:self.imgvQuestion];
+}
 
 //初始化答题情况表
 - (void)createBottomAnswerView
@@ -129,6 +151,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     self.answeredCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.bottomView.frame.size.height) collectionViewLayout:layout2];
     [self.answeredCollectionView registerNib:[UINib nibWithNibName:@"answeredCollectionCell" bundle:nil] forCellWithReuseIdentifier:answerCollectionCellID];
     self.answeredCollectionView.tag = AnsweredCollectionViewTag;
+    self.answeredCollectionView.userInteractionEnabled = YES;
     self.answeredCollectionView.delegate = self;
     self.answeredCollectionView.dataSource = self;
     self.answeredCollectionView.backgroundColor = [UIColor whiteColor];
@@ -188,11 +211,14 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     } else {
         //答题情况集合视图
         answeredCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:answerCollectionCellID forIndexPath:indexPath];
+        cell.btnAnswerNum.tag = indexPath.row + 1000;
+        [cell.btnAnswerNum addTarget:self action:@selector(scrollToSelectedQuestion:) forControlEvents:UIControlEventTouchUpInside];
         cell.questionItem = self.questionList[indexPath.row];
         return cell;
     }
     
 }
+
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -205,9 +231,9 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
 {
     YTQuestionItem *questionItem = self.questionList[_collectionViewRowNum];
     if (section == 0) {
-        return (questionItem.imageStr == NULL ? 1 : 2);
+        return (questionItem.QShortImgUrl == NULL ? 1 : 2);
     } else if (section == 1){
-        return (questionItem.type == 0 ? 4 : 2);
+        return (questionItem.QType == 0 ? 4 : 2);
     } else {
         return 1;
     }
@@ -229,20 +255,18 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
             cell = [tableView dequeueReusableCellWithIdentifier:titleID forIndexPath:indexPath];
             UILabel *titleLabel = (UILabel *)[cell viewWithTag:1];//标题
             UIImageView *typeView = (UIImageView *)[cell viewWithTag:2];//题目类型图标
-            titleLabel.text = questionItem.question;
-            typeView.image = [self imageWithQuestionType:questionItem.type];
+            titleLabel.text = questionItem.QTitle;
+            typeView.image = [self imageWithQuestionType:questionItem.QType];
             } else {
                 cell = [tableView dequeueReusableCellWithIdentifier:titleImageID forIndexPath:indexPath];
                 UIImageView *questionView = (UIImageView *)[cell viewWithTag:1];
-                questionView.hidden = questionItem.imageStr == NULL ? YES : NO;
+                questionView.hidden = questionItem.QShortImgUrl == NULL ? YES : NO;
                 if (!questionView.hidden) {
-                    UIImage *normalImage = [UIImage imageNamed:questionItem.imageStr];
-                    if (normalImage.size.width > self.collectionView.frame.size.width - titleImageWidthDiffer) {
-                        CGFloat imageWidth = self.collectionView.frame.size.width - titleImageWidthDiffer;
-                        CGFloat imageHeight = normalImage.size.height * (imageWidth / normalImage.size.width);
-                        normalImage = [normalImage resizeToSize:CGSizeMake(imageWidth, imageHeight)];
-                    }
+                    UIImage *normalImage = [UIImage imageNamed:questionItem.QShortImgUrl];
+                    normalImage = [self autoResizeImage:normalImage];
                     questionView.image = normalImage;
+                    self.imgvQuestion.frame = CGRectMake(8, (ScreenHeight-normalImage.size.height)/2, normalImage.size.width, normalImage.size.height);
+                    self.imgvQuestion.image = normalImage;
                 }
             }
         } else if (indexPath.section == 1) {
@@ -252,7 +276,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
             switch (indexPath.row) {
                 case 0:
                 {
-                    optionLabel.text = questionItem.option1;
+                    optionLabel.text = questionItem.QOption1;
                     if (questionItem.isOption1Selected) {
                         //选项被选择
                         optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:1] == YES ? def_text_trueAnswer : def_text_falseAnswer;
@@ -276,7 +300,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
                     break;
                 case 1:
                 {
-                    optionLabel.text = questionItem.option2;
+                    optionLabel.text = questionItem.QOption2;
                     if (questionItem.isOption2Selected) {
                         optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:2] == YES ? def_text_trueAnswer : def_text_falseAnswer;
                         [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:2] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_false"] forState:UIControlStateNormal];
@@ -298,7 +322,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
                     break;
                 case 2:
                 {
-                    optionLabel.text = questionItem.option3;
+                    optionLabel.text = questionItem.QOption3;
                     if (questionItem.isOption3Selected) {
                         optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:3] == YES ? def_text_trueAnswer : def_text_falseAnswer;
                         [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:3] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_false"] forState:UIControlStateNormal];
@@ -320,7 +344,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
                     break;
                 default:
                 {
-                    optionLabel.text = questionItem.option4;
+                    optionLabel.text = questionItem.QOption4;
                     if (questionItem.isOption4Selected) {
                         optionLabel.textColor = [self judgeQuestionAnsweredWithQuestionItem:questionItem option:4] == YES ? def_text_trueAnswer : def_text_falseAnswer;
                         [optionBtn setBackgroundImage:[self judgeQuestionAnsweredWithQuestionItem:questionItem option:4] == YES ? [UIImage imageNamed:@"yuntu_practise_true"] : [UIImage imageNamed:@"yuntu_practise_false"] forState:UIControlStateNormal];
@@ -345,7 +369,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
         } else {
         cell = [tableView dequeueReusableCellWithIdentifier:explainID forIndexPath:indexPath];
         UILabel *optionLabel = (UILabel *)[cell viewWithTag:1];
-        optionLabel.text = questionItem.answer_explain;
+        optionLabel.text = questionItem.QExplain;
     }
     return cell;
 
@@ -360,14 +384,14 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     NSString *titleLabel;
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            titleLabel = questionItem.question;
+            titleLabel = questionItem.QTitle;
             height = [AppUtil contentHeightWithText:titleLabel constraintWidth:self.collectionView.frame.size.width - titleWidthDiffer fontSize:17] + 16;
         } else {
             cell = [tableView dequeueReusableCellWithIdentifier:titleImageID];
             UIImageView *questionView = (UIImageView *)[cell viewWithTag:1];
-            questionView.hidden = questionItem.imageStr == NULL ? YES : NO;
+            questionView.hidden = questionItem.QShortImgUrl == NULL ? YES : NO;
             if (!questionView.hidden) {
-                UIImage *normalImage = [UIImage imageNamed:questionItem.imageStr];
+                UIImage *normalImage = [UIImage imageNamed:questionItem.QShortImgUrl];
                 if (normalImage.size.width > self.collectionView.frame.size.width - titleImageWidthDiffer) {
                     CGFloat imageWidth = self.collectionView.frame.size.width - titleImageWidthDiffer;
                     CGFloat imageHeight = normalImage.size.height * (imageWidth / normalImage.size.width);
@@ -380,21 +404,21 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
         } else if (indexPath.section == 1) {
             switch (indexPath.row) {
                 case 0:
-                    titleLabel = questionItem.option1;
+                    titleLabel = questionItem.QOption1;
                     break;
                 case 1:
-                    titleLabel = questionItem.option2;
+                    titleLabel = questionItem.QOption2;
                     break;
                 case 2:
-                    titleLabel = questionItem.option3;
+                    titleLabel = questionItem.QOption3;
                     break;
                 default:
-                    titleLabel = questionItem.option4;
+                    titleLabel = questionItem.QOption4;
                     break;
             }
             height = [AppUtil contentHeightWithText:titleLabel constraintWidth:self.collectionView.frame.size.width - optionWidthDiffer fontSize:17] + 16;
         } else {
-        titleLabel = questionItem.answer_explain;
+        titleLabel = questionItem.QExplain;
         height = [AppUtil contentHeightWithText:titleLabel constraintWidth:self.collectionView.frame.size.width- explainWidthDiffer fontSize:17] + 16;
     }
     return height;
@@ -404,12 +428,24 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     YTQuestionItem *questionItem = _questionList[_collectionViewRowNum];
+    if (indexPath.section == 0 && indexPath.row == 1) {
+        //点击问题的图片
+#warning 图片的下载缓存问题待解决
+        self.largeImgMaskView.hidden = NO;
+        self.imgvQuestion.hidden = NO;
+        [UIView animateWithDuration:0.2 animations:^{
+            self.largeImgMaskView.alpha = 1.0;
+            
+        } completion:^(BOOL finished) {
+            bShowLargeImage = YES;
+        }];
+    }
     if (indexPath.section == 1 && !questionItem.isAnswered) {
         switch (indexPath.row) {
             case 0:
             {
                 questionItem.isOption1Selected = YES;
-                if ([questionItem.option1 isEqualToString:questionItem.answer]) {
+                if ([questionItem.QOption1 isEqualToString:questionItem.QAnswer]) {
                     [tableView reloadData];
                     [self performSelector:@selector(scrollToNextQuestion) withObject:nil afterDelay:0.7];
                     questionItem.isAnsweredRight = YES;//回答正确
@@ -423,7 +459,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
             case 1:
             {
                 questionItem.isOption2Selected = YES;
-                if ([questionItem.option2 isEqualToString:questionItem.answer]) {
+                if ([questionItem.QOption2 isEqualToString:questionItem.QAnswer]) {
                     [tableView reloadData];
                     [self performSelector:@selector(scrollToNextQuestion) withObject:nil afterDelay:0.7];
                     questionItem.isAnsweredRight = YES;//回答正确
@@ -438,7 +474,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
             case 2:
             {
                 questionItem.isOption3Selected = YES;
-                if ([questionItem.option3 isEqualToString:questionItem.answer]) {
+                if ([questionItem.QOption3 isEqualToString:questionItem.QAnswer]) {
                     [tableView reloadData];
                     [self performSelector:@selector(scrollToNextQuestion) withObject:nil afterDelay:0.7];
                     questionItem.isAnsweredRight = YES;//回答正确
@@ -453,7 +489,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
             case 3:
             {
                 questionItem.isOption4Selected = YES;
-                if ([questionItem.option4 isEqualToString:questionItem.answer]) {
+                if ([questionItem.QOption4 isEqualToString:questionItem.QAnswer]) {
                     [tableView reloadData];
                     [self performSelector:@selector(scrollToNextQuestion) withObject:nil afterDelay:0.7];
                     questionItem.isAnsweredRight = YES;//回答正确
@@ -499,24 +535,45 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     [self setPageBtnTitleWithIndexPath:nextIndexPath];
 }
 
+//跳转到选择的题号对应的题目
+- (void)scrollToSelectedQuestion:(UIButton *)sender
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:sender.tag - 1000 inSection:0];
+    [self.collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+    [self setPageBtnTitleWithIndexPath:indexPath];
+    [self didPressedMaskView];
+}
+
+
+//自动适应图片大小
+- (UIImage *)autoResizeImage:(UIImage *)nativeImage
+{
+    if (nativeImage.size.width > self.collectionView.frame.size.width - titleImageWidthDiffer) {
+        CGFloat imageWidth = self.collectionView.frame.size.width - titleImageWidthDiffer;
+        CGFloat imageHeight = nativeImage.size.height * (imageWidth / nativeImage.size.width);
+        nativeImage = [nativeImage resizeToSize:CGSizeMake(imageWidth, imageHeight)];
+    }
+    return nativeImage;
+}
+
 - (BOOL)judgeQuestionAnsweredWithQuestionItem:(YTQuestionItem *)questionItem option:(NSUInteger)option
 {
     NSString *strOption;
     switch (option) {
         case 1:
-            strOption = questionItem.option1;
+            strOption = questionItem.QOption1;
             break;
         case 2:
-            strOption = questionItem.option2;
+            strOption = questionItem.QOption2;
             break;
         case 3:
-            strOption = questionItem.option3;
+            strOption = questionItem.QOption3;
             break;
         default:
-            strOption = questionItem.option4;
+            strOption = questionItem.QOption4;
             break;
     }
-    if ([questionItem.answer isEqualToString:strOption]) {
+    if ([questionItem.QAnswer isEqualToString:strOption]) {
         return YES;
     } else {
         return NO;
@@ -566,5 +623,15 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     
 }
 
+- (void)didPressedLargeImgMaskView
+{
+    bShowLargeImage = NO;
+    [UIView animateWithDuration:0.2 animations:^{
+        self.largeImgMaskView.alpha = 0.0;
+        self.imgvQuestion.hidden = YES;
+    } completion:^(BOOL finished) {
+        self.largeImgMaskView.hidden = YES;
+    }];
+}
 
 @end

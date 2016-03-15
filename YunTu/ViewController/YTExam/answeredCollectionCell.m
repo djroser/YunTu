@@ -17,7 +17,7 @@
 - (void)setQuestionItem:(YTQuestionItem *)questionItem
 {
     _questionItem = questionItem;
-    [_btnAnswerNum setTitle:[NSString stringWithFormat:@"%zd",_questionItem.questionID] forState:UIControlStateNormal];
+    [_btnAnswerNum setTitle:[NSString stringWithFormat:@"%zd",_questionItem.QNum] forState:UIControlStateNormal];
     if (_questionItem.isAnswered) {
         if (_questionItem.isAnsweredRight) {
             [_btnAnswerNum setBackgroundImage:[UIImage imageNamed:@"yuntu_practise_true"] forState:UIControlStateNormal];

@@ -9,16 +9,21 @@
 #import <Foundation/Foundation.h>
 
 @interface YTQuestionItem : NSObject
-@property(nonatomic,assign)NSInteger questionID;
-@property(nonatomic,copy)NSString *question;
-@property(nonatomic,copy)NSString *option1;
-@property(nonatomic,copy)NSString *option2;
-@property(nonatomic,copy)NSString *option3;
-@property(nonatomic,copy)NSString *option4;
-@property(nonatomic,copy)NSString *answer;
-@property(nonatomic,copy)NSString *answer_explain;
-@property(nonatomic,copy)NSString *imageStr;
-@property(nonatomic,assign)NSInteger type;
+@property(nonatomic,assign)NSInteger QNum;
+@property(nonatomic,copy)NSString *QTitle;
+@property(nonatomic,copy)NSString *QOption1;
+@property(nonatomic,copy)NSString *QOption2;
+@property(nonatomic,copy)NSString *QOption3;
+@property(nonatomic,copy)NSString *QOption4;
+@property(nonatomic,copy)NSString *QAnswer;
+@property(nonatomic,copy)NSString *QExplain;
+@property(nonatomic,copy)NSString *QRightNum;
+@property(nonatomic,copy)NSString *QLargeImgUrl;
+@property(nonatomic,copy)NSString *QShortImgUrl;
+@property(nonatomic,assign)NSInteger QSection;
+@property(nonatomic,assign)NSInteger QType;
+@property(nonatomic,copy)NSString *QVersion;
+
 
 //逻辑判断
 @property(nonatomic,assign)BOOL isAnswered;

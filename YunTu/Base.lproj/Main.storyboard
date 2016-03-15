@@ -270,7 +270,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="598" height="566"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <prototypes>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="title_image_cell" rowHeight="124" id="t5b-h8-Dqc">
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="title_image_cell" rowHeight="124" id="t5b-h8-Dqc">
                                                             <rect key="frame" x="0.0" y="28" width="598" height="124"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t5b-h8-Dqc" id="235-Rj-B1T">
@@ -299,7 +299,7 @@
                                                                 </constraints>
                                                             </tableViewCellContentView>
                                                         </tableViewCell>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="option_cell" rowHeight="56" id="59I-P8-62C">
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="option_cell" rowHeight="56" id="59I-P8-62C">
                                                             <rect key="frame" x="0.0" y="152" width="598" height="56"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="59I-P8-62C" id="bK0-g9-7F5">
@@ -340,7 +340,7 @@
                                                                 </variation>
                                                             </tableViewCellContentView>
                                                         </tableViewCell>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="question_title_cell" rowHeight="56" id="KFr-ht-kpX">
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="question_title_cell" rowHeight="56" id="KFr-ht-kpX">
                                                             <rect key="frame" x="0.0" y="208" width="598" height="56"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KFr-ht-kpX" id="383-RF-HY0">
@@ -378,7 +378,7 @@
                                                                 </variation>
                                                             </tableViewCellContentView>
                                                         </tableViewCell>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="question_explain_cell" rowHeight="56" id="sWE-P1-Map">
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="question_explain_cell" rowHeight="56" id="sWE-P1-Map">
                                                             <rect key="frame" x="0.0" y="264" width="598" height="56"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sWE-P1-Map" id="Vfm-He-KGM">

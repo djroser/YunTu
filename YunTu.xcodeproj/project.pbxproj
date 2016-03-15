@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		22348EB91C8F1540003B32D4 /* YTLearnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22348EB81C8F1540003B32D4 /* YTLearnViewController.m */; };
 		22348EBC1C8F1562003B32D4 /* YTMyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22348EBB1C8F1562003B32D4 /* YTMyViewController.m */; };
+		2264B3581C97050000A0DED6 /* yuntu0314.db3 in Resources */ = {isa = PBXBuildFile; fileRef = 2264B3571C97026100A0DED6 /* yuntu0314.db3 */; };
 		22674CD41BE60D820075484D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CD31BE60D820075484D /* main.m */; };
 		22674CD71BE60D820075484D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CD61BE60D820075484D /* AppDelegate.m */; };
 		22674CDD1BE60D820075484D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22674CDB1BE60D820075484D /* Main.storyboard */; };
@@ -58,6 +59,7 @@
 		22348EB81C8F1540003B32D4 /* YTLearnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTLearnViewController.m; path = ViewController/YTLearn/YTLearnViewController.m; sourceTree = "<group>"; };
 		22348EBA1C8F1562003B32D4 /* YTMyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTMyViewController.h; path = ViewController/My/YTMyViewController.h; sourceTree = "<group>"; };
 		22348EBB1C8F1562003B32D4 /* YTMyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTMyViewController.m; path = ViewController/My/YTMyViewController.m; sourceTree = "<group>"; };
+		2264B3571C97026100A0DED6 /* yuntu0314.db3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = yuntu0314.db3; sourceTree = "<group>"; };
 		22674CCF1BE60D820075484D /* YunTu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YunTu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		22674CD31BE60D820075484D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		22674CD51BE60D820075484D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 		22674CD11BE60D820075484D /* YunTu */ = {
 			isa = PBXGroup;
 			children = (
+				2264B3571C97026100A0DED6 /* yuntu0314.db3 */,
 				2284E3CF1C54AFE80090E562 /* ViewController */,
 				2284E3CD1C549DBB0090E562 /* Public */,
 				22F3D3281C143D1000437C98 /* CustomButton */,
@@ -439,6 +442,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2264B3581C97050000A0DED6 /* yuntu0314.db3 in Resources */,
 				22674CE21BE60D820075484D /* LaunchScreen.storyboard in Resources */,
 				22674CDF1BE60D820075484D /* Assets.xcassets in Resources */,
 				22674CDD1BE60D820075484D /* Main.storyboard in Resources */,
