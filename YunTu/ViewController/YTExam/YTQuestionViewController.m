@@ -16,6 +16,7 @@
 #import "YTGlobal.h"
 #import "UIViewController+NavUtils.h"
 #import "answeredCollectionCell.h"
+#import "JZAlbumViewController.h"
 
 #define titleWidthDiffer        43
 #define titleImageWidthDiffer   16
@@ -39,6 +40,7 @@
 @property (weak, nonatomic) UIBarButtonItem *pageItem;
 @property (strong, nonatomic) UIImageView *imgvQuestion;
 @property (strong, nonatomic) UIControl *largeImgMaskView;
+@property (strong, nonatomic) NSMutableArray *arrImgQuestion;
 @end
 
 static NSString *titleID = @"question_title_cell";
@@ -55,6 +57,14 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     [self initDefaultData];
     [self createBaseView];
     
+}
+
+- (NSMutableArray *)arrImgQuestion
+{
+    if (!_arrImgQuestion) {
+        _arrImgQuestion = [NSMutableArray array];
+    }
+    return _arrImgQuestion;
 }
 
 - (void)createBaseView
@@ -115,17 +125,24 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
 //初始化大图及蒙层
 - (void)createLargeQuestionView
 {
-    self.largeImgMaskView = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-    self.largeImgMaskView.backgroundColor = [UIColor blackColor];
-    self.largeImgMaskView.alpha = 0.0;
-    self.largeImgMaskView.hidden = YES;
-    [self.largeImgMaskView addTarget:self action:@selector(didPressedLargeImgMaskView) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.largeImgMaskView];
-    
-    self.imgvQuestion = [[UIImageView alloc] init];
-    self.imgvQuestion.hidden = YES;
-    [self.view addSubview:self.imgvQuestion];
+//    self.largeImgMaskView = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+//    self.largeImgMaskView.backgroundColor = [UIColor blackColor];
+//    self.largeImgMaskView.alpha = 0.0;
+//    self.largeImgMaskView.hidden = YES;
+//    [self.largeImgMaskView addTarget:self action:@selector(didPressedLargeImgMaskView) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:self.largeImgMaskView];
+//    
+//    self.imgvQuestion = [[UIImageView alloc] init];
+//    self.imgvQuestion.userInteractionEnabled = YES;
+//    self.imgvQuestion.multipleTouchEnabled = YES;
+//    UIPinchGestureRecognizer* pinchGesture = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(scaleImage:)];
+//    // 为imageView添加手势处理器
+//    [self.imgvQuestion addGestureRecognizer:pinchGesture];
+//    
+//    self.imgvQuestion.hidden = YES;
+//    [self.view addSubview:self.imgvQuestion];
 }
+
 
 //初始化答题情况表
 - (void)createBottomAnswerView
@@ -431,14 +448,24 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     if (indexPath.section == 0 && indexPath.row == 1) {
         //点击问题的图片
 #warning 图片的下载缓存问题待解决
-        self.largeImgMaskView.hidden = NO;
-        self.imgvQuestion.hidden = NO;
-        [UIView animateWithDuration:0.2 animations:^{
-            self.largeImgMaskView.alpha = 1.0;
+//        self.largeImgMaskView.hidden = NO;
+//        self.imgvQuestion.hidden = NO;
+//        [UIView animateWithDuration:0.2 animations:^{
+//            self.largeImgMaskView.alpha = 1.0;
+//            
+//        } completion:^(BOOL finished) {
+//            bShowLargeImage = YES;
+//        }];
+        JZAlbumViewController *jzAlbumVC = [[JZAlbumViewController alloc]init];
+        jzAlbumVC.currentIndex = 0;//这个参数表示当前图片的index，默认是0
+        [self.arrImgQuestion removeAllObjects];
+        [self.arrImgQuestion addObject:@"http://c.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=7fbeb14496ef76c6c4dff379fc7f969f/faedab64034f78f06d55f9967f310a55b3191c7c.jpg"];
+        jzAlbumVC.imgArr = self.arrImgQuestion;//图片数组，可以是url，也可以是UIImage
+        [self.navigationController presentViewController:jzAlbumVC animated:YES completion:^{
             
-        } completion:^(BOOL finished) {
-            bShowLargeImage = YES;
         }];
+        
+        
     }
     if (indexPath.section == 1 && !questionItem.isAnswered) {
         switch (indexPath.row) {
