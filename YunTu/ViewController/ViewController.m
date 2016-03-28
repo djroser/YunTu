@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "YTQuestionViewController.h"
+#import "Pods/AFNetworking/AFNetworking/AFNetworking.h"
 @interface ViewController ()
 - (IBAction)showQuestions:(id)sender;
 
@@ -21,6 +22,28 @@
     
     // Do any additional setup after loading the view, typically from a nib.
 }
+
+- (void)getQuestionListRequest
+{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    NSString *url = @"";
+    
+    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+    paras[@"versionNum"] = @"0";
+    
+    [manager GET:url parameters:paras success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        
+    }];
+    
+    
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
