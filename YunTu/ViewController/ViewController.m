@@ -9,9 +9,11 @@
 #import "ViewController.h"
 #import "YTQuestionViewController.h"
 #import "Pods/AFNetworking/AFNetworking/AFNetworking.h"
+#import "YTQuestionItem.h"
+#import "YTGlobal.h"
 @interface ViewController ()
 - (IBAction)showQuestions:(id)sender;
-
+@property (nonatomic, strong)NSArray *questionArray;
 @end
 
 @implementation ViewController
@@ -23,6 +25,14 @@
     // Do any additional setup after loading the view, typically from a nib.
 }
 
+- (NSArray *)questionArray
+{
+    if (_questionArray == nil) {
+        _questionArray = [NSArray array];
+    }
+    return _questionArray;
+}
+
 - (void)getQuestionListRequest
 {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
@@ -32,9 +42,18 @@
     NSString *url = @"";
     
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-    paras[@"versionNum"] = @"0";
-    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:VersionNumKey]) {
+        paras[@"versionNum"] = [[NSUserDefaults standardUserDefaults] objectForKey:VersionNumKey];
+    } else {
+        paras[@"versionNum"] = @"0";
+    }
     [manager GET:url parameters:paras success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        NSMutableArray *dicArray = [NSMutableArray array];
+        for (NSDictionary *dict in responseObject[@"questionList"]) {
+            YTQuestionItem *item = [YTQuestionItem questionWithDict:dict];
+            [dicArray addObject:item];
+        }
+        self.questionArray = dicArray;
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         

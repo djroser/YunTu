@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface YTQuestionItem : NSObject
-@property(nonatomic,assign)NSInteger QNum;
+@property(nonatomic,copy)NSString *QNum;
 @property(nonatomic,copy)NSString *QTitle;
 @property(nonatomic,copy)NSString *QOption1;
 @property(nonatomic,copy)NSString *QOption2;
@@ -20,8 +20,8 @@
 @property(nonatomic,copy)NSString *QRightNum;
 @property(nonatomic,copy)NSString *QLargeImgUrl;
 @property(nonatomic,copy)NSString *QShortImgUrl;
-@property(nonatomic,assign)NSInteger QSection;
-@property(nonatomic,assign)NSInteger QType;
+@property(nonatomic,copy)NSString *QSection;
+@property(nonatomic,copy)NSString *QType;
 @property(nonatomic,copy)NSString *QVersion;
 
 
@@ -33,4 +33,9 @@
 @property(nonatomic,assign)BOOL isOption2Selected;
 @property(nonatomic,assign)BOOL isOption3Selected;
 @property(nonatomic,assign)BOOL isOption4Selected;
+
+- (instancetype)initWithDict:(NSDictionary *)dict;
++ (instancetype)questionWithDict:(NSDictionary *)dict;
+
+
 @end
