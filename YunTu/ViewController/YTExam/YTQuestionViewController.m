@@ -17,6 +17,7 @@
 #import "UIViewController+NavUtils.h"
 #import "answeredCollectionCell.h"
 #import "JZAlbumViewController.h"
+#import "UserInfo.h"
 
 #define titleWidthDiffer        43
 #define titleImageWidthDiffer   16
@@ -179,6 +180,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
 
 - (void)initDefaultData
 {
+//    [UserInfo sharedInstance].isOriginalDataBase = NO;
     self.questionList = [[YTDataBaseManager sharedInstance] questionsList];
     self.title = @"模拟考试";
 }
@@ -537,9 +539,9 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
 }
 
 //根据题目类型选择相应的icon
-- (UIImage *)imageWithQuestionType:(NSInteger)qType
+- (UIImage *)imageWithQuestionType:(NSString *)qType
 {
-    if (qType == 1) {//选择题
+    if ([qType integerValue] == 1) {//选择题
         return [UIImage imageNamed:@"yuntu_practise_danxuanti"];
     } else {
         return [UIImage imageNamed:@"yuntu_practise_panduanti"];

@@ -37,4 +37,14 @@
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     return backItem;
 }
+
++ (NSString *)cachesDirectory {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths objectAtIndex:0];
+#ifdef DEBUG
+    NSLog(@"%@", path);
+#endif
+    return path;
+}
+
 @end

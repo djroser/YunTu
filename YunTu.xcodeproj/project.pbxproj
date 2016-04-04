@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2220A4A51CB0EA5300E82650 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220A4A41CB0EA5300E82650 /* UserInfo.m */; };
 		22348EB91C8F1540003B32D4 /* YTLearnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22348EB81C8F1540003B32D4 /* YTLearnViewController.m */; };
 		22348EBC1C8F1562003B32D4 /* YTMyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22348EBB1C8F1562003B32D4 /* YTMyViewController.m */; };
 		2264B3581C97050000A0DED6 /* yuntu0314.db3 in Resources */ = {isa = PBXBuildFile; fileRef = 2264B3571C97026100A0DED6 /* yuntu0314.db3 */; };
@@ -57,6 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2220A4A31CB0EA5300E82650 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfo.h; path = Public/UserInfo.h; sourceTree = "<group>"; };
+		2220A4A41CB0EA5300E82650 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Public/UserInfo.m; sourceTree = "<group>"; };
 		22348EB71C8F1540003B32D4 /* YTLearnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTLearnViewController.h; path = ViewController/YTLearn/YTLearnViewController.h; sourceTree = "<group>"; };
 		22348EB81C8F1540003B32D4 /* YTLearnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTLearnViewController.m; path = ViewController/YTLearn/YTLearnViewController.m; sourceTree = "<group>"; };
 		22348EBA1C8F1562003B32D4 /* YTMyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTMyViewController.h; path = ViewController/My/YTMyViewController.h; sourceTree = "<group>"; };
@@ -242,6 +245,8 @@
 				2284E3E01C54C4180090E562 /* AppUtil.h */,
 				2284E3E11C54C4180090E562 /* AppUtil.m */,
 				2284E3CE1C549E350090E562 /* YTGlobal.h */,
+				2220A4A31CB0EA5300E82650 /* UserInfo.h */,
+				2220A4A41CB0EA5300E82650 /* UserInfo.m */,
 			);
 			name = Public;
 			sourceTree = "<group>";
@@ -538,6 +543,7 @@
 				2284E3E81C54CB100090E562 /* YTNavigationController.m in Sources */,
 				2284E3DE1C54C3FF0090E562 /* QuestionCell.m in Sources */,
 				22348EB91C8F1540003B32D4 /* YTLearnViewController.m in Sources */,
+				2220A4A51CB0EA5300E82650 /* UserInfo.m in Sources */,
 				22F3D32B1C143E1300437C98 /* UIImage+ColorAtPixel.m in Sources */,
 				2264B35E1CA016A400A0DED6 /* PhotoView.m in Sources */,
 				2284E3D21C54B01F0090E562 /* BaseViewController.m in Sources */,

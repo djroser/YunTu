@@ -15,5 +15,5 @@
 
 + (UIBarButtonItem *)leftBarItemWithTarget:(id)target action:(SEL)action;
 
-
++ (NSString *)cachesDirectory;
 @end

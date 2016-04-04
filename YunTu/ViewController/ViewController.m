@@ -11,6 +11,8 @@
 #import "Pods/AFNetworking/AFNetworking/AFNetworking.h"
 #import "YTQuestionItem.h"
 #import "YTGlobal.h"
+#import "YTDataBaseManager.h"
+#import "UserInfo.h"
 @interface ViewController ()
 - (IBAction)showQuestions:(id)sender;
 @property (nonatomic, strong)NSArray *questionArray;
@@ -22,7 +24,16 @@
     [super viewDidLoad];
     self.title = @"云图";
     
-    // Do any additional setup after loading the view, typically from a nib.
+//    [UserInfo sharedInstance].isOriginalDataBase = NO;
+//    
+//    YTQuestionItem *item = [[YTQuestionItem alloc] init];
+//    item.QNum = @"1";
+//    item.QTitle = @"12354343443";
+//    item.QOption1 = @"QOption1";
+//    item.QOption2 = @"QOption2";
+//    NSMutableArray *itemArray = [NSMutableArray arrayWithObject:item];
+//    [[YTDataBaseManager sharedInstance]saveQuestionListDataBaseWithArray:itemArray];
+    
 }
 
 - (NSArray *)questionArray
@@ -35,6 +46,7 @@
 
 - (void)getQuestionListRequest
 {
+    __weak typeof(self) WeakSelf = self;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -48,12 +60,22 @@
         paras[@"versionNum"] = @"0";
     }
     [manager GET:url parameters:paras success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
-        NSMutableArray *dicArray = [NSMutableArray array];
-        for (NSDictionary *dict in responseObject[@"questionList"]) {
-            YTQuestionItem *item = [YTQuestionItem questionWithDict:dict];
-            [dicArray addObject:item];
+        if ([responseObject[@"versionNum"] integerValue] > [[[NSUserDefaults standardUserDefaults] objectForKey:VersionNumKey] integerValue]) {
+            
+            //服务端版本号高于本地则更新题库
+            NSMutableArray *dicArray = [NSMutableArray array];
+            for (NSDictionary *dict in responseObject[@"questionList"]) {
+                YTQuestionItem *item = [YTQuestionItem questionWithDict:dict];
+                [dicArray addObject:item];
+            }
+            self.questionArray = dicArray;
+            
+            
+            
+            [WeakSelf cacheQuestionListWithUpdateType:responseObject[@"updateType"]];
+            
         }
-        self.questionArray = dicArray;
+        
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         
@@ -62,6 +84,17 @@
     
 }
 
+- (void)cacheQuestionListWithUpdateType:(NSString *)updateType
+{
+    if ([updateType integerValue] == 1) {
+        //全量更新
+        
+        
+    } else {
+        //增量更新
+        
+    }
+}
 
 
 - (void)didReceiveMemoryWarning {

@@ -12,4 +12,6 @@
 
 @property (nonatomic,strong)NSMutableArray *questionsList;
 + (instancetype)sharedInstance;
+
+- (void)saveQuestionListDataBaseWithArray:(NSArray *)array;
 @end

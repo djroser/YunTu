@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-
+#import "YTGlobal.h"
+#import "UserInfo.h"
 @interface AppDelegate ()
 
 @end
@@ -17,6 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self updateUserData];
     return YES;
 }
 
@@ -40,6 +42,17 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+- (void)updateUserData
+{
+    NSUInteger versionNum = [[[NSUserDefaults standardUserDefaults] objectForKey:VersionNumKey] integerValue];
+    if (versionNum == 0) {
+        [UserInfo sharedInstance].isOriginalDataBase = YES;
+    } else {
+        [UserInfo sharedInstance].isOriginalDataBase = NO;
+    }
 }
 
 @end
