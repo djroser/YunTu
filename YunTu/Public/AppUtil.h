@@ -16,4 +16,6 @@
 + (UIBarButtonItem *)leftBarItemWithTarget:(id)target action:(SEL)action;
 
 + (NSString *)cachesDirectory;
+//判断手机号是否合法
++(BOOL)isPhoneNumber:(NSString *)phoneNumber;
 @end

@@ -47,4 +47,15 @@
     return path;
 }
 
+//判断手机号是否合法
++(BOOL)isPhoneNumber:(NSString *)phoneNumber
+{
+    if ([phoneNumber length]==0||phoneNumber==nil||phoneNumber.length<11) {
+        return NO;
+    }
+    NSString *Regex = @"^(13[0-9]|15[0-9]|18[0-9]|17[0-9]|147)\\d{8}$";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", Regex];
+    return [emailTest evaluateWithObject:phoneNumber];
+}
+
 @end

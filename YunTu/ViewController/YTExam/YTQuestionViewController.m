@@ -252,7 +252,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     if (section == 0) {
         return (questionItem.QShortImgUrl == NULL ? 1 : 2);
     } else if (section == 1){
-        return (questionItem.QType == 0 ? 4 : 2);
+        return ([questionItem.QType integerValue] == 0 ? 4 : 2);
     } else {
         return 1;
     }

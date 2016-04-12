@@ -2,15 +2,16 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "卞卞.JPG",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "icon_common_head@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "icon_common_head@3x.png",
       "scale" : "3x"
     }
   ],

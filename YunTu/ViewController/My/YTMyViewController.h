@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
+#import "LoginViewController.h"
 @interface YTMyViewController : BaseViewController
+<
+UITableViewDataSource,
+UITableViewDelegate,
+LoginVCDelegate
+>
+
+@property (weak, nonatomic) IBOutlet UITableView *mainTableview;
+
 
 @end

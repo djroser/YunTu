@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		2220A4A51CB0EA5300E82650 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220A4A41CB0EA5300E82650 /* UserInfo.m */; };
+		2220A4AA1CB8E1E300E82650 /* MyHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220A4A91CB8E1E300E82650 /* MyHeadView.m */; };
+		2220A4AC1CB8E1F800E82650 /* MyHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2220A4AB1CB8E1F800E82650 /* MyHeadView.xib */; };
+		2220A4B11CB94F7A00E82650 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220A4AF1CB94F7A00E82650 /* LoginViewController.m */; };
+		2220A4B21CB94F7A00E82650 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2220A4B01CB94F7A00E82650 /* LoginViewController.xib */; };
+		2220A4B61CB9507E00E82650 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220A4B41CB9507E00E82650 /* RegisterViewController.m */; };
+		2220A4B71CB9507E00E82650 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2220A4B51CB9507E00E82650 /* RegisterViewController.xib */; };
 		22348EB91C8F1540003B32D4 /* YTLearnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22348EB81C8F1540003B32D4 /* YTLearnViewController.m */; };
 		22348EBC1C8F1562003B32D4 /* YTMyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22348EBB1C8F1562003B32D4 /* YTMyViewController.m */; };
 		2264B3581C97050000A0DED6 /* yuntu0314.db3 in Resources */ = {isa = PBXBuildFile; fileRef = 2264B3571C97026100A0DED6 /* yuntu0314.db3 */; };
@@ -60,6 +66,15 @@
 /* Begin PBXFileReference section */
 		2220A4A31CB0EA5300E82650 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfo.h; path = Public/UserInfo.h; sourceTree = "<group>"; };
 		2220A4A41CB0EA5300E82650 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Public/UserInfo.m; sourceTree = "<group>"; };
+		2220A4A81CB8E1E300E82650 /* MyHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyHeadView.h; path = ViewController/My/MyHeadView.h; sourceTree = "<group>"; };
+		2220A4A91CB8E1E300E82650 /* MyHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyHeadView.m; path = ViewController/My/MyHeadView.m; sourceTree = "<group>"; };
+		2220A4AB1CB8E1F800E82650 /* MyHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MyHeadView.xib; path = ViewController/My/MyHeadView.xib; sourceTree = "<group>"; };
+		2220A4AE1CB94F7A00E82650 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		2220A4AF1CB94F7A00E82650 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		2220A4B01CB94F7A00E82650 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		2220A4B31CB9507E00E82650 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		2220A4B41CB9507E00E82650 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		2220A4B51CB9507E00E82650 /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
 		22348EB71C8F1540003B32D4 /* YTLearnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTLearnViewController.h; path = ViewController/YTLearn/YTLearnViewController.h; sourceTree = "<group>"; };
 		22348EB81C8F1540003B32D4 /* YTLearnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTLearnViewController.m; path = ViewController/YTLearn/YTLearnViewController.m; sourceTree = "<group>"; };
 		22348EBA1C8F1562003B32D4 /* YTMyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTMyViewController.h; path = ViewController/My/YTMyViewController.h; sourceTree = "<group>"; };
@@ -147,6 +162,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2220A4AD1CB9091800E82650 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				2220A4B31CB9507E00E82650 /* RegisterViewController.h */,
+				2220A4B41CB9507E00E82650 /* RegisterViewController.m */,
+				2220A4B51CB9507E00E82650 /* RegisterViewController.xib */,
+				2220A4AE1CB94F7A00E82650 /* LoginViewController.h */,
+				2220A4AF1CB94F7A00E82650 /* LoginViewController.m */,
+				2220A4B01CB94F7A00E82650 /* LoginViewController.xib */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 		22348EB51C8F14A7003B32D4 /* YTLearn */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,6 +189,9 @@
 			children = (
 				22348EBA1C8F1562003B32D4 /* YTMyViewController.h */,
 				22348EBB1C8F1562003B32D4 /* YTMyViewController.m */,
+				2220A4A81CB8E1E300E82650 /* MyHeadView.h */,
+				2220A4A91CB8E1E300E82650 /* MyHeadView.m */,
+				2220A4AB1CB8E1F800E82650 /* MyHeadView.xib */,
 			);
 			name = My;
 			sourceTree = "<group>";
@@ -190,6 +221,7 @@
 		22674CD11BE60D820075484D /* YunTu */ = {
 			isa = PBXGroup;
 			children = (
+				22674CDE1BE60D820075484D /* Assets.xcassets */,
 				2264B3591CA016A400A0DED6 /* JZAlbumViewController.h */,
 				2264B35A1CA016A400A0DED6 /* JZAlbumViewController.m */,
 				2264B35B1CA016A400A0DED6 /* PhotoView.h */,
@@ -205,7 +237,6 @@
 				22674CD51BE60D820075484D /* AppDelegate.h */,
 				22674CD61BE60D820075484D /* AppDelegate.m */,
 				22674CDB1BE60D820075484D /* Main.storyboard */,
-				22674CDE1BE60D820075484D /* Assets.xcassets */,
 				22674CE01BE60D820075484D /* LaunchScreen.storyboard */,
 				22674CE31BE60D820075484D /* Info.plist */,
 				22674CD21BE60D820075484D /* Supporting Files */,
@@ -254,6 +285,7 @@
 		2284E3CF1C54AFE80090E562 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				2220A4AD1CB9091800E82650 /* Login */,
 				2284E3D31C54B0E40090E562 /* Base */,
 				22F3D3251C143BEF00437C98 /* YTExam */,
 				22348EB51C8F14A7003B32D4 /* YTLearn */,
@@ -457,9 +489,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2220A4B21CB94F7A00E82650 /* LoginViewController.xib in Resources */,
+				2220A4AC1CB8E1F800E82650 /* MyHeadView.xib in Resources */,
 				2264B3581C97050000A0DED6 /* yuntu0314.db3 in Resources */,
 				22674CE21BE60D820075484D /* LaunchScreen.storyboard in Resources */,
 				22674CDF1BE60D820075484D /* Assets.xcassets in Resources */,
+				2220A4B71CB9507E00E82650 /* RegisterViewController.xib in Resources */,
 				22674CDD1BE60D820075484D /* Main.storyboard in Resources */,
 				22D924DA1C905AE70034A0F5 /* answeredCollectionCell.xib in Resources */,
 				227C46531BEE3C8500804454 /* yuntu.db3 in Resources */,
@@ -543,11 +578,14 @@
 				2284E3E81C54CB100090E562 /* YTNavigationController.m in Sources */,
 				2284E3DE1C54C3FF0090E562 /* QuestionCell.m in Sources */,
 				22348EB91C8F1540003B32D4 /* YTLearnViewController.m in Sources */,
+				2220A4B11CB94F7A00E82650 /* LoginViewController.m in Sources */,
+				2220A4AA1CB8E1E300E82650 /* MyHeadView.m in Sources */,
 				2220A4A51CB0EA5300E82650 /* UserInfo.m in Sources */,
 				22F3D32B1C143E1300437C98 /* UIImage+ColorAtPixel.m in Sources */,
 				2264B35E1CA016A400A0DED6 /* PhotoView.m in Sources */,
 				2284E3D21C54B01F0090E562 /* BaseViewController.m in Sources */,
 				22D924D91C905AE70034A0F5 /* answeredCollectionCell.m in Sources */,
+				2220A4B61CB9507E00E82650 /* RegisterViewController.m in Sources */,
 				22674CD71BE60D820075484D /* AppDelegate.m in Sources */,
 				2284E3E51C54C5450090E562 /* UIViewController+NavUtils.m in Sources */,
 				22F3D33A1C143F2D00437C98 /* YTButton.m in Sources */,
