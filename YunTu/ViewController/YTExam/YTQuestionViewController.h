@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
+#import "YTGlobal.h"
 
 @interface YTQuestionViewController : BaseViewController
+
+@property (nonatomic, assign) YTAnswerType answerType;//练习模式
 
 @end

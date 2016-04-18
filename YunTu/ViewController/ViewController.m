@@ -105,6 +105,7 @@
 - (IBAction)showQuestions:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     YTQuestionViewController *questionVC = [storyboard instantiateViewControllerWithIdentifier:@"question_vc"];
+    questionVC.answerType = YTAnswerExam;
     questionVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:questionVC animated:YES];
 }

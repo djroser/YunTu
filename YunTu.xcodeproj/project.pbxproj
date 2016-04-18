@@ -452,7 +452,6 @@
 				TargetAttributes = {
 					22674CCE1BE60D820075484D = {
 						CreatedOnToolsVersion = 7.0;
-						DevelopmentTeam = EH7RXLDN3D;
 					};
 					22674CE71BE60D830075484D = {
 						CreatedOnToolsVersion = 7.0;
@@ -819,7 +818,7 @@
 				22674CFB1BE60D830075484D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		22674CFC1BE60D830075484D /* Build configuration list for PBXNativeTarget "YunTu" */ = {
 			isa = XCConfigurationList;
@@ -828,7 +827,7 @@
 				22674CFE1BE60D830075484D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		22674CFF1BE60D830075484D /* Build configuration list for PBXNativeTarget "YunTuTests" */ = {
 			isa = XCConfigurationList;
@@ -837,7 +836,7 @@
 				22674D011BE60D830075484D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		22674D021BE60D830075484D /* Build configuration list for PBXNativeTarget "YunTuUITests" */ = {
 			isa = XCConfigurationList;
@@ -846,7 +845,7 @@
 				22674D041BE60D830075484D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

@@ -13,7 +13,6 @@
 #import "YTButton.h"
 #import "AppUtil.h"
 #import "UIImage+Resize.h"
-#import "YTGlobal.h"
 #import "UIViewController+NavUtils.h"
 #import "answeredCollectionCell.h"
 #import "JZAlbumViewController.h"
@@ -36,7 +35,7 @@
 @property (strong, nonatomic) UIView *bottomView;
 @property (strong, nonatomic) UICollectionView *answeredCollectionView;//答题情况表
 @property (assign,nonatomic) NSUInteger collectionViewRowNum;
-@property (strong, nonatomic) NSArray *questionList;
+@property (strong, nonatomic) NSMutableArray *questionList;
 @property (weak, nonatomic) YTButton *pageButton;
 @property (weak, nonatomic) UIBarButtonItem *pageItem;
 @property (strong, nonatomic) UIImageView *imgvQuestion;
@@ -68,6 +67,14 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     return _arrImgQuestion;
 }
 
+- (NSMutableArray *)questionList
+{
+    if (!_questionList) {
+        _questionList = [NSMutableArray array];
+    }
+    return _questionList;
+}
+
 - (void)createBaseView
 {
     //导航栏视图
@@ -76,8 +83,6 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     [self createMainCollectionView];
     //答题情况表
     [self createBottomAnswerView];
-    //问题大图
-    [self createLargeQuestionView];
     
     self.tabBarItem.image = [[UIImage imageNamed:@"canvas1"]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
 }
@@ -123,28 +128,6 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     self.collectionView.tag = MainCollectionViewTag;
 }
 
-//初始化大图及蒙层
-- (void)createLargeQuestionView
-{
-//    self.largeImgMaskView = [[UIControl alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
-//    self.largeImgMaskView.backgroundColor = [UIColor blackColor];
-//    self.largeImgMaskView.alpha = 0.0;
-//    self.largeImgMaskView.hidden = YES;
-//    [self.largeImgMaskView addTarget:self action:@selector(didPressedLargeImgMaskView) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:self.largeImgMaskView];
-//    
-//    self.imgvQuestion = [[UIImageView alloc] init];
-//    self.imgvQuestion.userInteractionEnabled = YES;
-//    self.imgvQuestion.multipleTouchEnabled = YES;
-//    UIPinchGestureRecognizer* pinchGesture = [[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(scaleImage:)];
-//    // 为imageView添加手势处理器
-//    [self.imgvQuestion addGestureRecognizer:pinchGesture];
-//    
-//    self.imgvQuestion.hidden = YES;
-//    [self.view addSubview:self.imgvQuestion];
-}
-
-
 //初始化答题情况表
 - (void)createBottomAnswerView
 {
@@ -181,8 +164,48 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
 - (void)initDefaultData
 {
 //    [UserInfo sharedInstance].isOriginalDataBase = NO;
-    self.questionList = [[YTDataBaseManager sharedInstance] questionsList];
-    self.title = @"模拟考试";
+    
+    switch (self.answerType) {
+        case YTAnswerExam:
+        {
+            self.questionList = [[YTDataBaseManager sharedInstance] questionsList];
+            self.title = @"模拟考试";
+        }
+            break;
+        case YTAnswerOrder:
+        {
+            self.questionList = [[YTDataBaseManager sharedInstance] questionsList];
+            self.title = @"顺序练习";
+        }
+            break;
+        case YTAnswerSection:
+        {
+            self.questionList = [[YTDataBaseManager sharedInstance] questionsList];
+            self.title = @"章节练习";
+        }
+            break;
+        case YTAnswerRandom:
+        {
+            
+            NSMutableArray *array = [[YTDataBaseManager sharedInstance] questionsList];
+            while (self.questionList.count < 3) {
+                int r = arc4random() % array.count;
+                [self.questionList addObject:array[r]];
+                [array removeObjectAtIndex:r];
+            }
+            self.title = @"随机练习";
+        }
+            break;
+        case YTAnswerError:
+        {
+            self.questionList = [[YTDataBaseManager sharedInstance] questionsList];
+            self.title = @"错题练习";
+        }
+            break;
+        default:
+            break;
+    }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
