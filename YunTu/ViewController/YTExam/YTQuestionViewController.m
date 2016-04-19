@@ -187,7 +187,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
         case YTAnswerRandom:
         {
             
-            NSMutableArray *array = [[YTDataBaseManager sharedInstance] questionsList];
+            NSMutableArray *array = [[[YTDataBaseManager sharedInstance] questionsList] mutableCopy];
             while (self.questionList.count < 3) {
                 int r = arc4random() % array.count;
                 [self.questionList addObject:array[r]];

@@ -14,7 +14,8 @@
 #import "YTDataBaseManager.h"
 #import "UserInfo.h"
 @interface ViewController ()
-- (IBAction)showQuestions:(id)sender;
+
+
 @property (nonatomic, strong)NSArray *questionArray;
 @end
 
@@ -102,11 +103,44 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)showQuestions:(id)sender {
+//根据不同的枚举类型进入不同的练习模式
+- (void)pushToTestWithType:(YTAnswerType)type
+{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     YTQuestionViewController *questionVC = [storyboard instantiateViewControllerWithIdentifier:@"question_vc"];
-    questionVC.answerType = YTAnswerExam;
+    questionVC.answerType = type;
     questionVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:questionVC animated:YES];
 }
+
+- (IBAction)showQuestions:(id)sender {
+    [self pushToTestWithType:YTAnswerExam];
+}
+
+- (IBAction)didPressedOrderPractise:(id)sender {
+    
+}
+
+- (IBAction)didPressedSectionPractise:(id)sender {
+}
+
+- (IBAction)didPressedRandomPractise:(id)sender {
+    [self pushToTestWithType:YTAnswerRandom];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @end

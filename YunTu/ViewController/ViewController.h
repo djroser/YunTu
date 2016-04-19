@@ -10,6 +10,10 @@
 #import "BaseViewController.h"
 @interface ViewController : BaseViewController
 
+- (IBAction)showQuestions:(id)sender;//模拟考试
+- (IBAction)didPressedOrderPractise:(id)sender;//顺序练习
+- (IBAction)didPressedSectionPractise:(id)sender;//章节练习
+- (IBAction)didPressedRandomPractise:(id)sender;//随机练习
 
 @end
 
