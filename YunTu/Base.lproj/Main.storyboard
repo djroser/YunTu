@@ -387,28 +387,42 @@
                                                                 </variation>
                                                             </tableViewCellContentView>
                                                         </tableViewCell>
-                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="question_explain_cell" rowHeight="56" id="sWE-P1-Map">
-                                                            <rect key="frame" x="0.0" y="264" width="598" height="56"/>
+                                                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="question_explain_cell" rowHeight="92" id="sWE-P1-Map">
+                                                            <rect key="frame" x="0.0" y="264" width="598" height="92"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sWE-P1-Map" id="Vfm-He-KGM">
-                                                                <rect key="frame" x="0.0" y="0.0" width="598" height="55"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="598" height="91"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piw-gs-xi1">
-                                                                        <rect key="frame" x="20" y="8" width="558" height="39"/>
+                                                                        <rect key="frame" x="20" y="34" width="558" height="49"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="试题详解" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZU-KQ-YKy">
+                                                                        <rect key="frame" x="15" y="8" width="583" height="21"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="21" id="lxK-07-Foc"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
                                                                 <constraints>
                                                                     <constraint firstItem="piw-gs-xi1" firstAttribute="top" secondItem="Vfm-He-KGM" secondAttribute="top" constant="8" id="7Yg-y9-ScP"/>
                                                                     <constraint firstAttribute="bottom" secondItem="piw-gs-xi1" secondAttribute="bottom" constant="8" id="AXi-1s-fDK"/>
+                                                                    <constraint firstItem="piw-gs-xi1" firstAttribute="top" secondItem="SZU-KQ-YKy" secondAttribute="bottom" constant="5" id="JPF-am-JXp"/>
+                                                                    <constraint firstItem="SZU-KQ-YKy" firstAttribute="leading" secondItem="Vfm-He-KGM" secondAttribute="leading" constant="15" id="JlX-4p-Zx3"/>
                                                                     <constraint firstAttribute="bottom" secondItem="piw-gs-xi1" secondAttribute="bottom" constant="8" id="QBH-y5-j2b"/>
+                                                                    <constraint firstItem="SZU-KQ-YKy" firstAttribute="top" secondItem="Vfm-He-KGM" secondAttribute="top" constant="8" id="h8P-FC-jpr"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="SZU-KQ-YKy" secondAttribute="trailing" id="kxc-UM-TnA"/>
                                                                     <constraint firstItem="piw-gs-xi1" firstAttribute="leading" secondItem="Vfm-He-KGM" secondAttribute="leading" constant="20" id="nZA-bR-cvs"/>
                                                                     <constraint firstAttribute="trailing" secondItem="piw-gs-xi1" secondAttribute="trailing" constant="20" id="yXQ-yg-5uU"/>
                                                                 </constraints>
                                                                 <variation key="default">
                                                                     <mask key="constraints">
+                                                                        <exclude reference="7Yg-y9-ScP"/>
                                                                         <exclude reference="AXi-1s-fDK"/>
                                                                     </mask>
                                                                 </variation>

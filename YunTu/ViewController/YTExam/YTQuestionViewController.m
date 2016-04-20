@@ -461,7 +461,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
             height = [AppUtil contentHeightWithText:titleLabel constraintWidth:self.collectionView.frame.size.width - optionWidthDiffer fontSize:17] + 16;
         } else {
         titleLabel = questionItem.QExplain;
-        height = [AppUtil contentHeightWithText:titleLabel constraintWidth:self.collectionView.frame.size.width- explainWidthDiffer fontSize:17] + 16;
+        height = [AppUtil contentHeightWithText:titleLabel constraintWidth:self.collectionView.frame.size.width- explainWidthDiffer fontSize:17] + 16 + 26;
     }
     return height;
 }
