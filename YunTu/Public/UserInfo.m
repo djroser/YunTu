@@ -20,6 +20,11 @@
     return _shareManager;
 }
 
-
+- (void)setIsLogin:(BOOL)isLogin
+{
+    if (_isLogin != isLogin) {
+        _isLogin = isLogin;
+    }
+}
 
 @end

@@ -9,6 +9,9 @@
 #import "LoginViewController.h"
 #import "YTGlobal.h"
 #import "AppUtil.h"
+#import "Pods/AFNetworking/AFNetworking/AFNetworking.h"
+#import "UserInfo.h"
+
 @interface LoginViewController ()
 @end
 
@@ -131,7 +134,25 @@
 }
 
 - (void)initRequestLogin{
+    __weak typeof(self) WeakSelf = self;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
     
+    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+    paras[@"stuNum"] = _txtMobile.text;
+    paras[@"stuPwd"] = _txtPwd.text;
+    [manager GET:YTUserLoginUrl parameters:paras success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        [WeakSelf.navigationController popViewControllerAnimated:YES];
+        if (WeakSelf.delegate && [WeakSelf.delegate respondsToSelector:@selector(didLoginDone)]) {
+            [UserInfo sharedInstance].stuNum = _txtMobile.text;
+            [UserInfo sharedInstance].stuName = _txtPwd.text;
+            [WeakSelf.delegate didLoginDone];
+        }
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"登录失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alert show];
+    }];
 }
 
 

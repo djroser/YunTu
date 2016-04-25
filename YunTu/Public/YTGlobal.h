@@ -36,3 +36,10 @@ typedef enum YTAnswerType {
     YTAnswerRandom = 4,     // 4:随机练习
     YTAnswerError = 5,      // 5:错题练习
 }YTAnswerType;
+
+
+//=======================================URL======================================
+#define YTUserLoginUrl                       @""
+#define YTUserRegisterUrl                    @""
+#define YTQuestionListUrl                    @""
+#define YTImportScoreUrl                     @""

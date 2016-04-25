@@ -8,9 +8,10 @@
 
 #import "YTMyViewController.h"
 #import "MyHeadView.h"
+#import "UserInfo.h"
 
 @interface YTMyViewController ()
-
+@property (nonatomic,strong)MyHeadView *myHeaderView;
 @end
 
 @implementation YTMyViewController
@@ -37,10 +38,10 @@
 - (void)createBaseView
 {
     self.title = @"我";
-    MyHeadView *headerView = [[[NSBundle mainBundle]loadNibNamed:@"MyHeadView" owner:nil options:nil] firstObject];
-    headerView.frame = CGRectMake(0, 0, _mainTableview.frame.size.width, 175);
-    [headerView.btnLogin addTarget:self action:@selector(didPressLogin) forControlEvents:UIControlEventTouchUpInside];
-    [_mainTableview setTableHeaderView:headerView];
+    _myHeaderView = [[[NSBundle mainBundle]loadNibNamed:@"MyHeadView" owner:nil options:nil] firstObject];
+    _myHeaderView.frame = CGRectMake(0, 0, _mainTableview.frame.size.width, 175);
+    [_myHeaderView.btnLogin addTarget:self action:@selector(didPressLogin) forControlEvents:UIControlEventTouchUpInside];
+    [_mainTableview setTableHeaderView:_myHeaderView];
 }
 
 #pragma mark -UITableViewDataSource
@@ -78,17 +79,27 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)refreshUserInfo
+{
+    _myHeaderView.lblUserName.text = [UserInfo sharedInstance].stuName;
+    _myHeaderView.imgvUserType.image = [[UserInfo sharedInstance].stuMale isEqualToString:@"0"] ? [UIImage imageNamed:@"女的"] : [UIImage imageNamed:@"女的"];
+}
+
 #pragma mark - LoginDelegate
 - (void)didLoginDone
 {
-    
+    [self refreshUserInfo];
 }
 
 - (void)didPressLogin
 {
-    LoginViewController *loginVC = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-    loginVC.delegate = self;
-    [self.navigationController pushViewController:loginVC animated:YES];
+    if ([UserInfo sharedInstance].isLogin) {
+        //个人信息界面（可不做）、退出登录等
+    } else {
+        LoginViewController *loginVC = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        loginVC.delegate = self;
+        [self.navigationController pushViewController:loginVC animated:YES];
+    }
 }
 
 @end
