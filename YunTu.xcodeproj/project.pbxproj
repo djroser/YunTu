@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22005A8E1CCF7B26005D2EC2 /* YTTabButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 22005A8D1CCF7B26005D2EC2 /* YTTabButton.m */; };
 		2220A4A51CB0EA5300E82650 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220A4A41CB0EA5300E82650 /* UserInfo.m */; };
 		2220A4AA1CB8E1E300E82650 /* MyHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220A4A91CB8E1E300E82650 /* MyHeadView.m */; };
 		2220A4AC1CB8E1F800E82650 /* MyHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2220A4AB1CB8E1F800E82650 /* MyHeadView.xib */; };
@@ -64,6 +65,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22005A8C1CCF7B26005D2EC2 /* YTTabButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTTabButton.h; path = CustomButton/YTTabButton.h; sourceTree = "<group>"; };
+		22005A8D1CCF7B26005D2EC2 /* YTTabButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTTabButton.m; path = CustomButton/YTTabButton.m; sourceTree = "<group>"; };
 		2220A4A31CB0EA5300E82650 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfo.h; path = Public/UserInfo.h; sourceTree = "<group>"; };
 		2220A4A41CB0EA5300E82650 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfo.m; path = Public/UserInfo.m; sourceTree = "<group>"; };
 		2220A4A81CB8E1E300E82650 /* MyHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyHeadView.h; path = ViewController/My/MyHeadView.h; sourceTree = "<group>"; };
@@ -361,6 +364,8 @@
 				22F3D3391C143F2D00437C98 /* YTButton.m */,
 				22F3D32C1C143E2C00437C98 /* OBShapedButton.h */,
 				22F3D32D1C143E2C00437C98 /* OBShapedButton.m */,
+				22005A8C1CCF7B26005D2EC2 /* YTTabButton.h */,
+				22005A8D1CCF7B26005D2EC2 /* YTTabButton.m */,
 			);
 			name = CustomButton;
 			sourceTree = "<group>";
@@ -587,6 +592,7 @@
 				2220A4B61CB9507E00E82650 /* RegisterViewController.m in Sources */,
 				22674CD71BE60D820075484D /* AppDelegate.m in Sources */,
 				2284E3E51C54C5450090E562 /* UIViewController+NavUtils.m in Sources */,
+				22005A8E1CCF7B26005D2EC2 /* YTTabButton.m in Sources */,
 				22F3D33A1C143F2D00437C98 /* YTButton.m in Sources */,
 				2284E3E21C54C4180090E562 /* AppUtil.m in Sources */,
 				22F3D3371C143F1900437C98 /* YTQuestionItem.m in Sources */,

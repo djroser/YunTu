@@ -259,7 +259,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="adJ-LG-pV6">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="560"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="lCw-gS-T7n">
                                     <size key="itemSize" width="598" height="566"/>
@@ -269,7 +269,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="collect_cell" id="89g-70-6jW">
-                                        <rect key="frame" x="0.0" y="17" width="598" height="566"/>
+                                        <rect key="frame" x="0.0" y="-3" width="598" height="566"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="598" height="566"/>
@@ -461,7 +461,7 @@
                             <constraint firstAttribute="trailing" secondItem="adJ-LG-pV6" secondAttribute="trailing" id="KQH-c9-N4E"/>
                             <constraint firstItem="2Gg-GZ-kHE" firstAttribute="top" secondItem="adJ-LG-pV6" secondAttribute="bottom" id="LmZ-Zp-udf"/>
                             <constraint firstAttribute="bottom" secondItem="adJ-LG-pV6" secondAttribute="bottom" id="PGe-uw-D5w"/>
-                            <constraint firstAttribute="bottom" secondItem="adJ-LG-pV6" secondAttribute="bottom" id="bZ1-06-iOC"/>
+                            <constraint firstAttribute="bottom" secondItem="adJ-LG-pV6" secondAttribute="bottom" constant="40" id="bZ1-06-iOC"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">

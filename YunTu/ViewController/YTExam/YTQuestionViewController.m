@@ -17,6 +17,7 @@
 #import "answeredCollectionCell.h"
 #import "JZAlbumViewController.h"
 #import "UserInfo.h"
+#import "YTTabButton.h"
 
 #define titleWidthDiffer        43
 #define titleImageWidthDiffer   16
@@ -118,7 +119,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
 - (void)createMainCollectionView
 {
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc]init];
-    layout.itemSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 64);
+    layout.itemSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height - 64 - 40);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     layout.minimumInteritemSpacing = 0;
     layout.minimumLineSpacing = 0;
@@ -139,8 +140,38 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     [self.maskView addTarget:self action:@selector(didPressedMaskView) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.maskView];
     
-    self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, ScreenHeight, ScreenWidth, ScreenHeight/3*2)];
-    self.bottomView.backgroundColor = [UIColor yellowColor];
+    self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 64-40, ScreenWidth, ScreenHeight/3*2)];
+    self.bottomView.backgroundColor = [UIColor blueColor];
+    
+    //交卷按钮
+    YTTabButton *handBtn = [[YTTabButton alloc]initWithFrame:CGRectMake(15, 0, 80, 40)];
+    [handBtn addTarget:self action:@selector(didPressHandExams) forControlEvents:UIControlEventTouchUpInside];
+    [handBtn setTitle:@"交卷" forState:UIControlStateNormal];
+    handBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [handBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [handBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
+    [_bottomView addSubview:handBtn];
+    //答对题目按钮
+    YTTabButton *correctBtn = [[YTTabButton alloc]initWithFrame:CGRectMake(ScreenWidth/2 - 80, 0, 80, 40)];
+    [correctBtn setTitle:@"正确" forState:UIControlStateNormal];
+    correctBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [correctBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [correctBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
+    [_bottomView addSubview:correctBtn];
+    //答错题目按钮
+    YTTabButton *errorBtn = [[YTTabButton alloc]initWithFrame:CGRectMake(ScreenWidth/2, 0, 80, 40)];
+    [errorBtn setTitle:@"错误" forState:UIControlStateNormal];
+    errorBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [errorBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [errorBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
+    [_bottomView addSubview:errorBtn];
+    //题目序号
+    YTTabButton *storeBtn = [[YTTabButton alloc]initWithFrame:CGRectMake(ScreenWidth - 80, 0, 80, 40)];
+    [storeBtn setTitle:@"题号" forState:UIControlStateNormal];
+    storeBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [storeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [storeBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
+    [_bottomView addSubview:storeBtn];
     
     //答题情况集合视图
     UICollectionViewFlowLayout *layout2 = [[UICollectionViewFlowLayout alloc]init];
@@ -149,7 +180,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     layout2.minimumInteritemSpacing = 10;
     layout2.minimumLineSpacing = 10;
     layout2.sectionInset = UIEdgeInsetsMake(10, 10, 10, 10);
-    self.answeredCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.bottomView.frame.size.height) collectionViewLayout:layout2];
+    self.answeredCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.bottomView.frame.size.height - 44) collectionViewLayout:layout2];
     [self.answeredCollectionView registerNib:[UINib nibWithNibName:@"answeredCollectionCell" bundle:nil] forCellWithReuseIdentifier:answerCollectionCellID];
     self.answeredCollectionView.tag = AnsweredCollectionViewTag;
     self.answeredCollectionView.userInteractionEnabled = YES;
@@ -650,6 +681,13 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     _collectionViewRowNum = indexPath.row;
 }
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        
+    }
+}
+
 #pragma mark - 点击事件
 - (void)didPressPageItem
 {
@@ -668,9 +706,9 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     bShowBottomView = NO;
     [UIView animateWithDuration:0.3 animations:^{
         self.maskView.alpha = 0.0;
-        self.bottomView.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, self.view.frame.size.height/3*2);
+        self.bottomView.frame = CGRectMake(0, self.view.frame.size.height - 40, self.view.frame.size.width, self.view.frame.size.height/3*2);
     } completion:^(BOOL finished) {
-        self.maskView.hidden = YES;
+//        self.maskView.hidden = YES;
     }];
     
 }
@@ -684,6 +722,12 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     } completion:^(BOOL finished) {
         self.largeImgMaskView.hidden = YES;
     }];
+}
+
+- (void)didPressHandExams
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"您已经回答了3题，考试得分0分，确定要交卷嘛？" delegate:self cancelButtonTitle:@"继续答题" otherButtonTitles:@"交卷", nil];
+    [alert show];
 }
 
 @end

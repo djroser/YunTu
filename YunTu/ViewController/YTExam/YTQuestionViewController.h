@@ -11,6 +11,9 @@
 #import "YTGlobal.h"
 
 @interface YTQuestionViewController : BaseViewController
+<
+UIAlertViewDelegate
+>
 
 @property (nonatomic, assign) YTAnswerType answerType;//练习模式
 
