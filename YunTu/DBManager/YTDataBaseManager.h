@@ -7,11 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "YTQuestionItem.h"
 @interface YTDataBaseManager : NSObject
 
 @property (nonatomic,strong)NSMutableArray *questionsList;
+@property (nonatomic,strong)NSMutableArray *wrongQuestionsList;
 + (instancetype)sharedInstance;
 
 - (void)saveQuestionListDataBaseWithArray:(NSArray *)array;
+- (void)saveWrongQuestionListDataBaseWithItem:(YTQuestionItem *)item;
 @end

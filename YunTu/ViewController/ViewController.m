@@ -128,17 +128,9 @@
     [self pushToTestWithType:YTAnswerRandom];
 }
 
-
-
-
-
-
-
-
-
-
-
-
+- (IBAction)didPressedWrongPractise:(id)sender {
+    [self pushToTestWithType:YTAnswerWrong];
+}
 
 
 

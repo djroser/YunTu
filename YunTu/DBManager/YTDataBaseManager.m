@@ -8,7 +8,6 @@
 
 #import "YTDataBaseManager.h"
 #import "FMDB.h"
-#import "YTQuestionItem.h"
 #import "YTGlobal.h"
 #import "UserInfo.h"
 #import "AppUtil.h"
@@ -94,6 +93,32 @@
     
 }
 
+- (void)checkTableWrongQuestion
+{
+    //获取Document文件夹下的数据库文件，没有则创建
+    _dbQueue = [FMDatabaseQueue databaseQueueWithPath:[[self class] databaseFilePath]];
+    
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        //监测数据库中我要需要的表是否已经存在
+        NSString *existsSql = [NSString stringWithFormat:@"select count(name) as countNum from sqlite_master where type = 'table' and name = '%@'", @"wrongQuestion"];
+        FMResultSet *rs = [db executeQuery:existsSql];
+        
+        while ([rs next]) {
+            NSInteger count = [rs intForColumn:@"countNum"];
+            NSLog(@"The table count: %li", count);
+            if (count == 1) {
+                NSLog(@"log_keepers table is existed.");
+                return;
+            }
+            NSLog(@"log_keepers is not existed.");
+            
+        }
+        [rs close];
+//        [db executeUpdate:@"CREATE TABLE wrongQuestion (QNum text NOT NULL PRIMARY KEY,QTitle text,QOption1 text,QOption2 text,QOption3 text,QOption4 text,QAnswer text,QExplain text,QRightNum text,QLargeImgUrl text,QShortImgUrl text,QSection text,QType text,QVersion text)"];
+        
+    }];
+}
+
 - (NSMutableArray *)questionsList
 {
     if (!_questionsList) {
@@ -124,6 +149,37 @@
     return _questionsList;
 }
 
+- (NSMutableArray *)wrongQuestionList
+{
+    if (!_wrongQuestionsList) {
+        _wrongQuestionsList = [NSMutableArray new];
+        [_dbQueue inDatabase:^(FMDatabase *db) {
+            FMResultSet *rs = [db executeQuery:@"select * from wrongQuestion"];
+            while ([rs next]) {
+                YTQuestionItem *wrongQuestionItem = [YTQuestionItem new];
+                wrongQuestionItem.QNum = [rs stringForColumn:@"QNum"];
+                wrongQuestionItem.QTitle = [rs stringForColumn:@"QTitle"];
+                wrongQuestionItem.QOption1 = [rs stringForColumn:@"QOption1"];
+                wrongQuestionItem.QOption2 = [rs stringForColumn:@"QOption2"];
+                wrongQuestionItem.QOption3 = [rs stringForColumn:@"QOption3"];
+                wrongQuestionItem.QOption4 = [rs stringForColumn:@"QOption4"];
+                wrongQuestionItem.QAnswer = [rs stringForColumn:@"QAnswer"];
+                wrongQuestionItem.QExplain = [rs stringForColumn:@"QExplain"];
+                wrongQuestionItem.QRightNum = [rs stringForColumn:@"QRightNum"];
+                wrongQuestionItem.QLargeImgUrl = [rs stringForColumn:@"QLargeImgUrl"];
+                wrongQuestionItem.QShortImgUrl = [rs stringForColumn:@"QShortImgUrl"];
+                wrongQuestionItem.QSection = [rs stringForColumn:@"QSection"];
+                wrongQuestionItem.QType = [rs stringForColumn:@"QType"];
+                wrongQuestionItem.QVersion = [rs stringForColumn:@"QVersion"];
+                [_wrongQuestionsList addObject:wrongQuestionItem];
+            }
+            [rs close];
+        }];
+        
+    }
+    return _wrongQuestionsList;
+}
+
 - (void)saveQuestionListDataBaseWithArray:(NSArray *)array
 {
     //删除全部数据
@@ -139,6 +195,14 @@
     }];
 }
 
+- (void)saveWrongQuestionListDataBaseWithItem:(YTQuestionItem *)item
+{
+//    [self checkTableWrongQuestion];
+    //插入数据
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+            [db executeUpdate:@"insert into wrongQuestion (QNum,QTitle,QOption1,QOption2,QOption3, QOption4,QAnswer, QExplain,QRightNum,QLargeImgUrl,QShortImgUrl,QSection,QType,QVersion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",item.QNum,item.QTitle,item.QOption1,item.QOption2,item.QOption3,item.QOption4,item.QAnswer,item.QExplain,item.QRightNum,item.QLargeImgUrl,item.QShortImgUrl,item.QSection,item.QType,item.QVersion];
+    }];
+}
 
 
 

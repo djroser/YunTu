@@ -34,7 +34,7 @@ typedef enum YTAnswerType {
     YTAnswerOrder = 2,      // 2:顺序练习
     YTAnswerSection = 3,    // 3:章节练习
     YTAnswerRandom = 4,     // 4:随机练习
-    YTAnswerError = 5,      // 5:错题练习
+    YTAnswerWrong = 5,      // 5:错题练习
 }YTAnswerType;
 
 

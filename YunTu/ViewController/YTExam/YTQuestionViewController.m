@@ -227,9 +227,9 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
             self.title = @"随机练习";
         }
             break;
-        case YTAnswerError:
+        case YTAnswerWrong:
         {
-            self.questionList = [[YTDataBaseManager sharedInstance] questionsList];
+            self.questionList = [[YTDataBaseManager sharedInstance] wrongQuestionsList];
             self.title = @"错题练习";
         }
             break;
@@ -588,6 +588,10 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
                 break;
         }
         questionItem.isAnswered = YES;
+        //答错则存入错题表
+        if (!questionItem.isAnsweredRight) {
+            [[YTDataBaseManager sharedInstance]saveWrongQuestionListDataBaseWithItem:questionItem];
+        }
         [self.answeredCollectionView reloadData];
     }
 }
