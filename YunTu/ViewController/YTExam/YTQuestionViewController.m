@@ -229,7 +229,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
             break;
         case YTAnswerWrong:
         {
-            self.questionList = [[YTDataBaseManager sharedInstance] wrongQuestionsList];
+            self.questionList = [YTDataBaseManager sharedInstance].wrongQuestionsList;
             self.title = @"错题练习";
         }
             break;

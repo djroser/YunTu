@@ -47,11 +47,13 @@
 - (void)openDatabase
 {
     if ([UserInfo sharedInstance].isOriginalDataBase) {
-        //原始题库
-        NSString* docsdir = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
-        NSLog(@"docPath--%@",docsdir);
-        //    NSString* dbpath = [docsdir stringByAppendingPathComponent:@"AppConfig.sqlite"];
-        NSString *path = [[NSBundle mainBundle]pathForResource:@"yuntu0314" ofType:@"db3"];
+//        //原始题库
+//        NSString* docsdir = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+//        NSLog(@"docPath--%@",docsdir);
+//        //    NSString* dbpath = [docsdir stringByAppendingPathComponent:@"AppConfig.sqlite"];
+//        NSString *path = [[NSBundle mainBundle]pathForResource:@"yuntu0314" ofType:@"db3"];
+        [self copyOriginalDBToDocument];
+        NSString *path = [[AppUtil cachesDirectory] stringByAppendingPathComponent:@"yuntu0314.db3"];
         _dbQueue = [FMDatabaseQueue databaseQueueWithPath:path];
     } else {
         //题库曾经更新过
@@ -65,10 +67,39 @@
     return [[AppUtil cachesDirectory] stringByAppendingPathComponent:@"yuntu0520.db3"];
 }
 
+//复制本地数据库文件到安装目录
+- (void)copyOriginalDBToDocument
+{
+    //复制本地数据库文件到安装目录
+    NSFileManager*fileManager =[NSFileManager defaultManager];
+    NSError*error;
+    //APP安装目录中的document目录路径
+    NSString*dbPath =[[AppUtil cachesDirectory] stringByAppendingPathComponent:@"yuntu0314.db3"];
+    if([fileManager fileExistsAtPath:dbPath]== NO)
+    {
+        //项目中的数据库文件路径
+        NSString *resourcePath = [[NSBundle mainBundle]pathForResource:@"yuntu0314" ofType:@"db3"];
+        [fileManager copyItemAtPath:resourcePath toPath:dbPath error:&error];
+    }
+    else
+    {
+        //更新APP Documnet目录的数据库文件，如果存在则先删除再复制最新的数据库文件过去。等本地数据库设计好后，下面的代码需要注释掉。
+        NSError *error;
+        if ([fileManager removeItemAtPath:dbPath error:&error] != YES)
+        {
+            NSLog(@"Unable to delete file: %@", [error localizedDescription]);
+        }
+        NSString *resourcePath = [[NSBundle mainBundle]pathForResource:@"yuntu0314" ofType:@"db3"];
+        [fileManager copyItemAtPath:resourcePath toPath:dbPath error:&error];
+    }
+}
+
 -(void)checkTableQuestion
 {
     //获取Document文件夹下的数据库文件，没有则创建
-    _dbQueue = [FMDatabaseQueue databaseQueueWithPath:[[self class] databaseFilePath]];
+    if (![UserInfo sharedInstance].isOriginalDataBase) {
+        _dbQueue = [FMDatabaseQueue databaseQueueWithPath:[[self class] databaseFilePath]];
+    }
     
     [_dbQueue inDatabase:^(FMDatabase *db) {
         //监测数据库中我要需要的表是否已经存在
@@ -80,6 +111,7 @@
             NSLog(@"The table count: %li", count);
             if (count == 1) {
                 NSLog(@"log_keepers table is existed.");
+                [rs close];
                 return;
             }
             NSLog(@"log_keepers is not existed.");
@@ -96,7 +128,9 @@
 - (void)checkTableWrongQuestion
 {
     //获取Document文件夹下的数据库文件，没有则创建
-    _dbQueue = [FMDatabaseQueue databaseQueueWithPath:[[self class] databaseFilePath]];
+    if (![UserInfo sharedInstance].isOriginalDataBase) {
+        _dbQueue = [FMDatabaseQueue databaseQueueWithPath:[[self class] databaseFilePath]];
+    }
     
     [_dbQueue inDatabase:^(FMDatabase *db) {
         //监测数据库中我要需要的表是否已经存在
@@ -108,13 +142,14 @@
             NSLog(@"The table count: %li", count);
             if (count == 1) {
                 NSLog(@"log_keepers table is existed.");
+                [rs close];
                 return;
             }
             NSLog(@"log_keepers is not existed.");
             
         }
         [rs close];
-//        [db executeUpdate:@"CREATE TABLE wrongQuestion (QNum text NOT NULL PRIMARY KEY,QTitle text,QOption1 text,QOption2 text,QOption3 text,QOption4 text,QAnswer text,QExplain text,QRightNum text,QLargeImgUrl text,QShortImgUrl text,QSection text,QType text,QVersion text)"];
+        [db executeUpdate:@"CREATE TABLE wrongQuestion (QNum text NOT NULL PRIMARY KEY,QTitle text,QOption1 text,QOption2 text,QOption3 text,QOption4 text,QAnswer text,QExplain text,QRightNum text,QLargeImgUrl text,QShortImgUrl text,QSection text,QType text,QVersion text)"];
         
     }];
 }
@@ -149,8 +184,10 @@
     return _questionsList;
 }
 
-- (NSMutableArray *)wrongQuestionList
+- (NSMutableArray *)wrongQuestionsList
 {
+    [_wrongQuestionsList removeAllObjects];
+    _wrongQuestionsList = nil;
     if (!_wrongQuestionsList) {
         _wrongQuestionsList = [NSMutableArray new];
         [_dbQueue inDatabase:^(FMDatabase *db) {
@@ -195,13 +232,53 @@
     }];
 }
 
-- (void)saveWrongQuestionListDataBaseWithItem:(YTQuestionItem *)item
+//答错插入到错题表
+- (void)updateInsertWrongQuestionListWithItem:(YTQuestionItem *)item
 {
-//    [self checkTableWrongQuestion];
     //插入数据
     [_dbQueue inDatabase:^(FMDatabase *db) {
-            [db executeUpdate:@"insert into wrongQuestion (QNum,QTitle,QOption1,QOption2,QOption3, QOption4,QAnswer, QExplain,QRightNum,QLargeImgUrl,QShortImgUrl,QSection,QType,QVersion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",item.QNum,item.QTitle,item.QOption1,item.QOption2,item.QOption3,item.QOption4,item.QAnswer,item.QExplain,item.QRightNum,item.QLargeImgUrl,item.QShortImgUrl,item.QSection,item.QType,item.QVersion];
-    }];
+        [db executeUpdate:@"insert into wrongQuestion (QNum,QTitle,QOption1,QOption2,QOption3, QOption4,QAnswer, QExplain,QRightNum,QLargeImgUrl,QShortImgUrl,QSection,QType,QVersion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",item.QNum,item.QTitle,item.QOption1,item.QOption2,item.QOption3,item.QOption4,item.QAnswer,item.QExplain,item.QRightNum,item.QLargeImgUrl,item.QShortImgUrl,item.QSection,item.QType,item.QVersion];
+        }];
+}
+
+- (void)saveWrongQuestionListDataBaseWithItem:(YTQuestionItem *)item
+{
+    dispatch_queue_t queue = dispatch_queue_create("com.dispatch.serial", DISPATCH_QUEUE_SERIAL);
+    dispatch_async(queue, ^{
+        [self checkTableWrongQuestion];
+    });
+    dispatch_async(queue, ^{
+        //监测错题表中错题QNum是否存在
+        [_dbQueue inDatabase:^(FMDatabase *db) {
+            NSString *existsSql = [NSString stringWithFormat:@"select count(QNum) as countNum from wrongQuestion where QNum = '%@'", item.QNum];
+            FMResultSet *rs = [db executeQuery:existsSql];
+            while ([rs next]) {
+                NSInteger count = [rs intForColumn:@"countNum"];
+                if (count == 1) {
+                    NSLog(@"QNum is exist!");
+                    [rs close];
+                    return;
+                }
+                NSLog(@"QNum is not existed.");
+                dispatch_async(queue, ^{
+                    //插入数据
+                    [_dbQueue inDatabase:^(FMDatabase *db) {
+                        [db executeUpdate:@"insert into wrongQuestion (QNum,QTitle,QOption1,QOption2,QOption3, QOption4,QAnswer, QExplain,QRightNum,QLargeImgUrl,QShortImgUrl,QSection,QType,QVersion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",item.QNum,item.QTitle,item.QOption1,item.QOption2,item.QOption3,item.QOption4,item.QAnswer,item.QExplain,item.QRightNum,item.QLargeImgUrl,item.QShortImgUrl,item.QSection,item.QType,item.QVersion];
+                    }];
+                });
+            }
+            [rs close];
+        }];
+        
+    });
+    
+    
+//    dispatch_async(queue, ^{
+//        //插入数据
+//        [_dbQueue inDatabase:^(FMDatabase *db) {
+//            [db executeUpdate:@"insert into wrongQuestion (QNum,QTitle,QOption1,QOption2,QOption3, QOption4,QAnswer, QExplain,QRightNum,QLargeImgUrl,QShortImgUrl,QSection,QType,QVersion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",item.QNum,item.QTitle,item.QOption1,item.QOption2,item.QOption3,item.QOption4,item.QAnswer,item.QExplain,item.QRightNum,item.QLargeImgUrl,item.QShortImgUrl,item.QSection,item.QType,item.QVersion];
+//        }];
+//    });
 }
 
 
