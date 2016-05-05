@@ -7,6 +7,7 @@
 //
 
 #import "YTLearnViewController.h"
+#import "WebViewController.h"
 
 @interface YTLearnViewController ()
 
@@ -17,11 +18,42 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createBaseView];
+    [self initMusic];
+}
+
+- (void)initMusic
+{
+    //从bundle路径下读取音频文件
+    NSString *string = [[NSBundle mainBundle] pathForResource:@"yunxueMusic" ofType:@"m4a"];
+    //把音频文件转换成url格式
+    NSURL *url = [NSURL fileURLWithPath:string];
+    //初始化音频类 并且添加播放文件
+    avAudioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+    //设置代理
+    avAudioPlayer.delegate = self;
+    //设置初始音量大小
+    // avAudioPlayer.volume = 1;
+    //设置音乐播放次数  -1为一直循环
+    avAudioPlayer.numberOfLoops = -1;
+    //预播放
+    [avAudioPlayer prepareToPlay];
+    
+    [avAudioPlayer play];
 }
 
 - (void)createBaseView
 {
     self.title = @"云学";
+
+    UIImage *imgRest = [UIImage imageNamed:@"submit_btn_rest"];
+    UIImage *imgPressed = [UIImage imageNamed:@"submit_btn_pressed"];
+    UIEdgeInsets edge=UIEdgeInsetsMake(10, 10, 10, 10);
+    imgRest = [imgRest resizableImageWithCapInsets:edge resizingMode:UIImageResizingModeStretch];
+    imgPressed = [imgPressed resizableImageWithCapInsets:edge resizingMode:UIImageResizingModeStretch];
+    [_btnInternational setBackgroundImage:imgRest forState:UIControlStateNormal];
+    [_btnInternational setBackgroundImage:imgPressed forState:UIControlStateHighlighted];
+    [_btnMorphology setBackgroundImage:imgRest forState:UIControlStateNormal];
+    [_btnMorphology setBackgroundImage:imgPressed forState:UIControlStateHighlighted];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,4 +71,21 @@
 }
 */
 
+- (IBAction)didPressedMorphology:(id)sender {
+    WebViewController *webVC = [self.storyboard instantiateViewControllerWithIdentifier:@"web_view_scene"];
+    webVC.title = @"形态学分类法";
+    webVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:webVC animated:YES];
+}
+
+- (IBAction)didPressedInternational:(id)sender {
+}
+
+- (IBAction)didPressedStartMusic:(id)sender {
+    [avAudioPlayer play];
+}
+
+- (IBAction)didPressedStopMusic:(id)sender {
+    [avAudioPlayer pause];
+}
 @end

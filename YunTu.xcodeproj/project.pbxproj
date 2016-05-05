@@ -28,6 +28,13 @@
 		22674CED1BE60D830075484D /* YunTuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CEC1BE60D830075484D /* YunTuTests.m */; };
 		22674CF81BE60D830075484D /* YunTuUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CF71BE60D830075484D /* YunTuUITests.m */; };
 		227C46531BEE3C8500804454 /* yuntu.db3 in Resources */ = {isa = PBXBuildFile; fileRef = 227C46521BEE3C8500804454 /* yuntu.db3 */; };
+		2283FA521CDB21A30075A78C /* yunxueMusic.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2283FA511CDB20030075A78C /* yunxueMusic.m4a */; };
+		2283FA551CDB297E0075A78C /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283FA541CDB297E0075A78C /* WebViewController.m */; };
+		2283FA591CDB2F0D0075A78C /* xingtaixue.html in Resources */ = {isa = PBXBuildFile; fileRef = 2283FA581CDB2F0D0075A78C /* xingtaixue.html */; };
+		2283FA5D1CDB31F20075A78C /* YTGlobalKindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283FA5B1CDB31F20075A78C /* YTGlobalKindViewController.m */; };
+		2283FA5E1CDB31F20075A78C /* YTGlobalKindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2283FA5C1CDB31F20075A78C /* YTGlobalKindViewController.xib */; };
+		2283FA621CDB32750075A78C /* YTGlobalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283FA601CDB32750075A78C /* YTGlobalDetailViewController.m */; };
+		2283FA631CDB32750075A78C /* YTGlobalDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2283FA611CDB32750075A78C /* YTGlobalDetailViewController.xib */; };
 		2284E3D21C54B01F0090E562 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3D11C54B01F0090E562 /* BaseViewController.m */; };
 		2284E3D91C54C3EA0090E562 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3D81C54C3EA0090E562 /* ViewController.m */; };
 		2284E3DE1C54C3FF0090E562 /* QuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3DB1C54C3FF0090E562 /* QuestionCell.m */; };
@@ -102,6 +109,16 @@
 		22674CF71BE60D830075484D /* YunTuUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YunTuUITests.m; sourceTree = "<group>"; };
 		22674CF91BE60D830075484D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		227C46521BEE3C8500804454 /* yuntu.db3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = yuntu.db3; sourceTree = "<group>"; };
+		2283FA511CDB20030075A78C /* yunxueMusic.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = yunxueMusic.m4a; sourceTree = "<group>"; };
+		2283FA531CDB297E0075A78C /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		2283FA541CDB297E0075A78C /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		2283FA581CDB2F0D0075A78C /* xingtaixue.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = xingtaixue.html; sourceTree = "<group>"; };
+		2283FA5A1CDB31F20075A78C /* YTGlobalKindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTGlobalKindViewController.h; path = ViewController/YTLearn/YTGlobalKindViewController.h; sourceTree = "<group>"; };
+		2283FA5B1CDB31F20075A78C /* YTGlobalKindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTGlobalKindViewController.m; path = ViewController/YTLearn/YTGlobalKindViewController.m; sourceTree = "<group>"; };
+		2283FA5C1CDB31F20075A78C /* YTGlobalKindViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = YTGlobalKindViewController.xib; path = ViewController/YTLearn/YTGlobalKindViewController.xib; sourceTree = "<group>"; };
+		2283FA5F1CDB32750075A78C /* YTGlobalDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTGlobalDetailViewController.h; path = ViewController/YTLearn/YTGlobalDetailViewController.h; sourceTree = "<group>"; };
+		2283FA601CDB32750075A78C /* YTGlobalDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTGlobalDetailViewController.m; path = ViewController/YTLearn/YTGlobalDetailViewController.m; sourceTree = "<group>"; };
+		2283FA611CDB32750075A78C /* YTGlobalDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = YTGlobalDetailViewController.xib; path = ViewController/YTLearn/YTGlobalDetailViewController.xib; sourceTree = "<group>"; };
 		2284E3CE1C549E350090E562 /* YTGlobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YTGlobal.h; path = Public/YTGlobal.h; sourceTree = "<group>"; };
 		2284E3D01C54B01F0090E562 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewController.h; path = ViewController/BaseViewController.h; sourceTree = "<group>"; };
 		2284E3D11C54B01F0090E562 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewController.m; path = ViewController/BaseViewController.m; sourceTree = "<group>"; };
@@ -183,6 +200,12 @@
 			children = (
 				22348EB71C8F1540003B32D4 /* YTLearnViewController.h */,
 				22348EB81C8F1540003B32D4 /* YTLearnViewController.m */,
+				2283FA5A1CDB31F20075A78C /* YTGlobalKindViewController.h */,
+				2283FA5B1CDB31F20075A78C /* YTGlobalKindViewController.m */,
+				2283FA5C1CDB31F20075A78C /* YTGlobalKindViewController.xib */,
+				2283FA5F1CDB32750075A78C /* YTGlobalDetailViewController.h */,
+				2283FA601CDB32750075A78C /* YTGlobalDetailViewController.m */,
+				2283FA611CDB32750075A78C /* YTGlobalDetailViewController.xib */,
 			);
 			name = YTLearn;
 			sourceTree = "<group>";
@@ -229,6 +252,8 @@
 				2264B35A1CA016A400A0DED6 /* JZAlbumViewController.m */,
 				2264B35B1CA016A400A0DED6 /* PhotoView.h */,
 				2264B35C1CA016A400A0DED6 /* PhotoView.m */,
+				2283FA581CDB2F0D0075A78C /* xingtaixue.html */,
+				2283FA511CDB20030075A78C /* yunxueMusic.m4a */,
 				2264B3571C97026100A0DED6 /* yuntu0314.db3 */,
 				2284E3CF1C54AFE80090E562 /* ViewController */,
 				2284E3CD1C549DBB0090E562 /* Public */,
@@ -304,6 +329,8 @@
 				2284E3D81C54C3EA0090E562 /* ViewController.m */,
 				228D29511C1D3E7900B8A3BF /* MainTabController.h */,
 				228D29521C1D3E7900B8A3BF /* MainTabController.m */,
+				2283FA531CDB297E0075A78C /* WebViewController.h */,
+				2283FA541CDB297E0075A78C /* WebViewController.m */,
 				2284E3D01C54B01F0090E562 /* BaseViewController.h */,
 				2284E3D11C54B01F0090E562 /* BaseViewController.m */,
 				2284E3E61C54CB100090E562 /* YTNavigationController.h */,
@@ -494,6 +521,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2283FA521CDB21A30075A78C /* yunxueMusic.m4a in Resources */,
+				2283FA591CDB2F0D0075A78C /* xingtaixue.html in Resources */,
 				2220A4B21CB94F7A00E82650 /* LoginViewController.xib in Resources */,
 				2220A4AC1CB8E1F800E82650 /* MyHeadView.xib in Resources */,
 				2264B3581C97050000A0DED6 /* yuntu0314.db3 in Resources */,
@@ -502,6 +531,8 @@
 				2220A4B71CB9507E00E82650 /* RegisterViewController.xib in Resources */,
 				22674CDD1BE60D820075484D /* Main.storyboard in Resources */,
 				22D924DA1C905AE70034A0F5 /* answeredCollectionCell.xib in Resources */,
+				2283FA631CDB32750075A78C /* YTGlobalDetailViewController.xib in Resources */,
+				2283FA5E1CDB31F20075A78C /* YTGlobalKindViewController.xib in Resources */,
 				227C46531BEE3C8500804454 /* yuntu.db3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -593,12 +624,15 @@
 				2220A4B61CB9507E00E82650 /* RegisterViewController.m in Sources */,
 				22674CD71BE60D820075484D /* AppDelegate.m in Sources */,
 				2284E3E51C54C5450090E562 /* UIViewController+NavUtils.m in Sources */,
+				2283FA5D1CDB31F20075A78C /* YTGlobalKindViewController.m in Sources */,
 				22005A8E1CCF7B26005D2EC2 /* YTTabButton.m in Sources */,
 				22F3D33A1C143F2D00437C98 /* YTButton.m in Sources */,
 				2284E3E21C54C4180090E562 /* AppUtil.m in Sources */,
 				22F3D3371C143F1900437C98 /* YTQuestionItem.m in Sources */,
+				2283FA551CDB297E0075A78C /* WebViewController.m in Sources */,
 				22674CD41BE60D820075484D /* main.m in Sources */,
 				22F3D3241C0AEE8000437C98 /* UIImage+Resize.m in Sources */,
+				2283FA621CDB32750075A78C /* YTGlobalDetailViewController.m in Sources */,
 				2264B35D1CA016A400A0DED6 /* JZAlbumViewController.m in Sources */,
 				22F3D3341C143F0700437C98 /* YTDataBaseManager.m in Sources */,
 			);
