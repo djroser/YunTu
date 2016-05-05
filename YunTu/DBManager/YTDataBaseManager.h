@@ -16,4 +16,6 @@
 
 - (void)saveQuestionListDataBaseWithArray:(NSArray *)array;
 - (void)saveWrongQuestionListDataBaseWithItem:(YTQuestionItem *)item;
+//错题表中删除某条错题
+- (void)deleteWrongQuestionListWithItem:(YTQuestionItem *)item;
 @end

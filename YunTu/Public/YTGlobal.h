@@ -9,7 +9,8 @@
 #define RGBA(r,g,b,a)						[UIColor colorWithRed:(float)r/255.0f green:(float)g/255.0f blue:(float)b/255.0f alpha:a]
 //用于导航栏
 #define def_BG_Blue                        RGBA(55,145,231,1)
-
+//用于考试底部tab
+#define def_BG_DarkBlue                    RGBA(46,64,85,1)
 
 
 
@@ -17,6 +18,7 @@
 #define def_text_trueAnswer                  RGBA(85,196,192,1)
 //用于答错的文字
 #define def_text_falseAnswer                  RGBA(238,93,93,1)
+
 
 //=======================================注册登录界面======================================
 #define txt_Sign_NoUserName                   @"用户名不能为空"
@@ -43,3 +45,9 @@ typedef enum YTAnswerType {
 #define YTUserRegisterUrl                    @""
 #define YTQuestionListUrl                    @""
 #define YTImportScoreUrl                     @""
+
+
+
+
+
+

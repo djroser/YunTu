@@ -95,7 +95,8 @@
     }
     
     id currentPhotoView = [_subViewList objectAtIndex:index];
-    if (![currentPhotoView isKindOfClass:[PhotoView class]]) {
+//    if (![currentPhotoView isKindOfClass:[PhotoView class]]) {
+    if (self.bUrlArray) {
         //url数组
         CGRect frame = CGRectMake(index*_scrollView.frame.size.width, 0, self.view.frame.size.width, self.view.frame.size.height);
         PhotoView *photoV = [[PhotoView alloc] initWithFrame:frame withPhotoUrl:[self.imgArr objectAtIndex:index]];
@@ -103,7 +104,11 @@
         [self.scrollView insertSubview:photoV atIndex:0];
         [_subViewList replaceObjectAtIndex:index withObject:photoV];
     }else{
-        PhotoView *photoV = (PhotoView *)currentPhotoView;
+        CGRect frame = CGRectMake(index*_scrollView.frame.size.width, 0, self.view.frame.size.width, self.view.frame.size.height);
+        PhotoView *photoV = [[PhotoView alloc] initWithFrame:frame withPhotoImage:self.imgArr[index]];
+        photoV.delegate = self;
+        [self.scrollView insertSubview:photoV atIndex:0];
+        [_subViewList replaceObjectAtIndex:index withObject:photoV];
     }
     
 }

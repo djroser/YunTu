@@ -133,6 +133,15 @@
 }
 
 
+- (IBAction)didPressedExamCount:(id)sender {
+    
+}
+
+- (IBAction)didPressedFavorites:(id)sender {
+    
+}
+
+
 
 
 @end

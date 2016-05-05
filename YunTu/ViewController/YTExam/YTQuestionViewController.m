@@ -18,6 +18,8 @@
 #import "JZAlbumViewController.h"
 #import "UserInfo.h"
 #import "YTTabButton.h"
+#import "Pods/AFNetworking/AFNetworking/AFNetworking.h"
+#import "Pods/MBProgressHUD/MBProgressHUD.h"
 
 #define titleWidthDiffer        43
 #define titleImageWidthDiffer   16
@@ -25,7 +27,8 @@
 #define explainWidthDiffer      40
 #define MainCollectionViewTag   222
 #define AnsweredCollectionViewTag 333
-
+#define DeleteAlertTag            888
+#define HandInAlertTag            999
 @interface YTQuestionViewController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate,UIScrollViewDelegate,UIGestureRecognizerDelegate>
 {
     BOOL bShowBottomView;
@@ -37,11 +40,16 @@
 @property (strong, nonatomic) UICollectionView *answeredCollectionView;//答题情况表
 @property (assign,nonatomic) NSUInteger collectionViewRowNum;
 @property (strong, nonatomic) NSMutableArray *questionList;
-@property (weak, nonatomic) YTButton *pageButton;
+@property (weak, nonatomic) YTTabButton *pageButton;//页数
+@property (strong, nonatomic) YTTabButton *correctBtn;//底部答对题数按钮
+@property (strong, nonatomic) YTTabButton *wrongBtn;//底部答错题数按钮
 @property (weak, nonatomic) UIBarButtonItem *pageItem;
 @property (strong, nonatomic) UIImageView *imgvQuestion;
 @property (strong, nonatomic) UIControl *largeImgMaskView;
 @property (strong, nonatomic) NSMutableArray *arrImgQuestion;
+@property (assign, nonatomic) NSUInteger rightQuesCount;//答对题数
+@property (assign, nonatomic) NSUInteger wrongQuesCount;//答错题数
+@property (assign, nonatomic) NSUInteger testScore;//分数
 @end
 
 static NSString *titleID = @"question_title_cell";
@@ -91,15 +99,23 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
 //导航栏视图
 - (void)createNavgationView
 {
-    //页数按钮
-    YTButton *pageBtn = [[YTButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
-    NSString *pageStr = [NSString stringWithFormat:@"%lu/%lu",(unsigned long)_collectionViewRowNum + 1,(unsigned long)_questionList.count];
-    [pageBtn setTitle:pageStr forState:UIControlStateNormal];
-    pageBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [pageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [pageBtn setImage:[UIImage imageNamed:@"test_top_card"] forState:UIControlStateNormal];
-    [pageBtn addTarget:self action:@selector(didPressPageItem) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *pageItem = [[UIBarButtonItem alloc]initWithCustomView:pageBtn];
+    //删除按钮
+    YTButton *deleteBtn = [[YTButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
+    deleteBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [deleteBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [deleteBtn setImage:[UIImage imageNamed:@"test_top_card"] forState:UIControlStateNormal];
+    [deleteBtn addTarget:self action:@selector(didPressDelete) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *deleteItem = [[UIBarButtonItem alloc]initWithCustomView:deleteBtn];
+
+    //查看题解按钮
+    YTButton *explainBtn = [[YTButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [explainBtn setTitle:@"题解" forState:UIControlStateNormal];
+    explainBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [explainBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [explainBtn addTarget:self action:@selector(didPressExplain) forControlEvents:UIControlEventTouchUpInside];
+    [explainBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
+    UIBarButtonItem *explainItem = [[UIBarButtonItem alloc]initWithCustomView:explainBtn];
     
     
     //收藏按钮
@@ -109,10 +125,12 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     [storeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [storeBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
     UIBarButtonItem *storeItem = [[UIBarButtonItem alloc]initWithCustomView:storeBtn];
-    
-    self.navigationItem.rightBarButtonItems = @[pageItem,storeItem];
-    self.pageButton = pageBtn;
-    self.pageItem = pageItem;
+    //错题练习模式多个删除本题按钮
+    if (self.answerType == YTAnswerWrong) {
+        self.navigationItem.rightBarButtonItems = @[deleteItem,storeItem,explainItem];
+    } else {
+        self.navigationItem.rightBarButtonItems = @[storeItem,explainItem];
+    }
 }
 
 //初始化主集合视图
@@ -141,7 +159,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     [self.view addSubview:self.maskView];
     
     self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height - 64-40, ScreenWidth, ScreenHeight/3*2)];
-    self.bottomView.backgroundColor = [UIColor blueColor];
+    self.bottomView.backgroundColor = def_BG_DarkBlue;
     
     //交卷按钮
     YTTabButton *handBtn = [[YTTabButton alloc]initWithFrame:CGRectMake(15, 0, 80, 40)];
@@ -152,26 +170,30 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     [handBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
     [_bottomView addSubview:handBtn];
     //答对题目按钮
-    YTTabButton *correctBtn = [[YTTabButton alloc]initWithFrame:CGRectMake(ScreenWidth/2 - 80, 0, 80, 40)];
-    [correctBtn setTitle:@"正确" forState:UIControlStateNormal];
-    correctBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [correctBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [correctBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
-    [_bottomView addSubview:correctBtn];
+    self.correctBtn = [[YTTabButton alloc]initWithFrame:CGRectMake(ScreenWidth/2 - 80, 0, 80, 40)];
+    [self.correctBtn setTitle:@"正确" forState:UIControlStateNormal];
+    self.correctBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [self.correctBtn addTarget:self action:@selector(didPressPageItem) forControlEvents:UIControlEventTouchUpInside];
+    [self.correctBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.correctBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
+    [_bottomView addSubview:self.correctBtn];
     //答错题目按钮
-    YTTabButton *errorBtn = [[YTTabButton alloc]initWithFrame:CGRectMake(ScreenWidth/2, 0, 80, 40)];
-    [errorBtn setTitle:@"错误" forState:UIControlStateNormal];
-    errorBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [errorBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [errorBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
-    [_bottomView addSubview:errorBtn];
+    self.wrongBtn = [[YTTabButton alloc]initWithFrame:CGRectMake(ScreenWidth/2, 0, 80, 40)];
+    [self.wrongBtn setTitle:@"错误" forState:UIControlStateNormal];
+    self.wrongBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [self.wrongBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.wrongBtn addTarget:self action:@selector(didPressPageItem) forControlEvents:UIControlEventTouchUpInside];
+    [self.wrongBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
+    [_bottomView addSubview:self.wrongBtn];
     //题目序号
-    YTTabButton *storeBtn = [[YTTabButton alloc]initWithFrame:CGRectMake(ScreenWidth - 80, 0, 80, 40)];
-    [storeBtn setTitle:@"题号" forState:UIControlStateNormal];
-    storeBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [storeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [storeBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
-    [_bottomView addSubview:storeBtn];
+    YTTabButton *pageBtn = [[YTTabButton alloc]initWithFrame:CGRectMake(ScreenWidth - 80, 0, 80, 40)];
+    [pageBtn setTitle:[NSString stringWithFormat:@"%lu/%lu",(unsigned long)_collectionViewRowNum + 1,(unsigned long)_questionList.count] forState:UIControlStateNormal];
+    [pageBtn addTarget:self action:@selector(didPressPageItem) forControlEvents:UIControlEventTouchUpInside];
+    pageBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [pageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [pageBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
+    [_bottomView addSubview:pageBtn];
+    self.pageButton = pageBtn;
     
     //答题情况集合视图
     UICollectionViewFlowLayout *layout2 = [[UICollectionViewFlowLayout alloc]init];
@@ -195,11 +217,16 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
 - (void)initDefaultData
 {
 //    [UserInfo sharedInstance].isOriginalDataBase = NO;
+    self.wrongQuesCount = 0;
+    self.rightQuesCount = 0;
+    self.testScore = 0;
     
     switch (self.answerType) {
         case YTAnswerExam:
         {
+            NSMutableArray *array = [[[YTDataBaseManager sharedInstance] questionsList] mutableCopy];
             self.questionList = [[YTDataBaseManager sharedInstance] questionsList];
+            
             self.title = @"模拟考试";
         }
             break;
@@ -306,7 +333,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     if (section == 0) {
         return (questionItem.QShortImgUrl == NULL ? 1 : 2);
     } else if (section == 1){
-        return ([questionItem.QType integerValue] == 0 ? 4 : 2);
+        return ([questionItem.QType integerValue] == 1 ? 4 : 2);
     } else {
         return 1;
     }
@@ -515,7 +542,13 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
         JZAlbumViewController *jzAlbumVC = [[JZAlbumViewController alloc]init];
         jzAlbumVC.currentIndex = 0;//这个参数表示当前图片的index，默认是0
         [self.arrImgQuestion removeAllObjects];
-        [self.arrImgQuestion addObject:@"http://c.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=7fbeb14496ef76c6c4dff379fc7f969f/faedab64034f78f06d55f9967f310a55b3191c7c.jpg"];
+        if ([UserInfo sharedInstance].isOriginalDataBase) {
+            [self.arrImgQuestion addObject:[UIImage imageNamed:questionItem.QLargeImgUrl]];
+            jzAlbumVC.bUrlArray = NO;
+        } else {
+            [self.arrImgQuestion addObject:@"http://c.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=7fbeb14496ef76c6c4dff379fc7f969f/faedab64034f78f06d55f9967f310a55b3191c7c.jpg"];
+            jzAlbumVC.bUrlArray = YES;
+        }
         jzAlbumVC.imgArr = self.arrImgQuestion;//图片数组，可以是url，也可以是UIImage
         [self.navigationController presentViewController:jzAlbumVC animated:YES completion:^{
             
@@ -591,7 +624,11 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
         //答错则存入错题表
         if (!questionItem.isAnsweredRight) {
             [[YTDataBaseManager sharedInstance]saveWrongQuestionListDataBaseWithItem:questionItem];
+            self.wrongQuesCount  += 1;
+        } else {
+            self.rightQuesCount  += 1;
         }
+        [self refreshBottomBtnTitle];
         [self.answeredCollectionView reloadData];
     }
 }
@@ -606,6 +643,12 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     }
 }
 
+//刷新正确错误title
+- (void)refreshBottomBtnTitle
+{
+    [self.correctBtn setTitle:[NSString stringWithFormat:@"正确%zd",self.rightQuesCount] forState:UIControlStateNormal];
+    [self.wrongBtn setTitle:[NSString stringWithFormat:@"错误%zd",self.wrongQuesCount] forState:UIControlStateNormal];
+}
 
 //回答正确自动进入下一题
 - (void)scrollToNextQuestion
@@ -685,11 +728,69 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     _collectionViewRowNum = indexPath.row;
 }
 
+#pragma mark - 提交试卷
+- (void)postExamScore
+{
+    __weak typeof(self) weakSelf = self;
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    
+    NSMutableDictionary *paras = [NSMutableDictionary dictionary];
+    paras[@"stuNum"] = [UserInfo sharedInstance].stuNum;//学号必传
+    paras[@"stuName"] = [UserInfo sharedInstance].stuName;//姓名必传
+    paras[@"stuMajor"] = [UserInfo sharedInstance].stuNum;//专业
+    // 实例化NSDateFormatter
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-mm-dd"];
+    paras[@"date"] = [formatter stringFromDate:[NSDate date]];//日期
+    paras[@"score"] = [UserInfo sharedInstance].stuNum;//分数必传
+
+    [manager POST:YTImportScoreUrl parameters:paras success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        [self show:@"提交成功！" icon:@"" view:self.view];
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        [self show:@"提交失败！" icon:@"" view:self.view];
+    }];
+}
+
+- (void)show:(NSString *)text icon:(NSString *)icon view:(UIView *)view
+{
+    if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];
+    // 快速显示一个提示信息
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    hud.labelText = text;
+    // 设置图片
+//    hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MBProgressHUD.bundle/%@", icon]]];
+    // 再设置模式
+    hud.mode = MBProgressHUDModeCustomView;
+    
+    // 隐藏时候从父控件中移除
+    hud.removeFromSuperViewOnHide = YES;
+    
+    // 1秒之后再消失
+    [hud hide:YES afterDelay:0.7];
+}
+
+//删除某条错题
+- (void)deleteQuestionItem
+{
+    YTQuestionItem *questionItem = self.questionList[_collectionViewRowNum];
+    [[YTDataBaseManager sharedInstance] deleteWrongQuestionListWithItem:questionItem];
+    [self show:@"删除成功！" icon:@"" view:self.view];
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 1) {
-        
+    if (alertView.tag == DeleteAlertTag) {
+        if (buttonIndex == 1) {
+            [self deleteQuestionItem];
+        }
+    } else if (alertView.tag == HandInAlertTag) {
+        if (buttonIndex == 1) {
+            [self postExamScore];
+        }
     }
+    
 }
 
 #pragma mark - 点击事件
@@ -703,6 +804,20 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     } completion:^(BOOL finished) {
         
     }];
+}
+
+- (void)didPressDelete
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"确定从错题集中删除本题？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alert.tag = DeleteAlertTag;
+    [alert show];
+}
+
+- (void)didPressExplain
+{
+    YTQuestionItem *questionItem = self.questionList[_collectionViewRowNum];
+    questionItem.isShowAnswerExplain = YES;
+    [self.collectionView reloadData];
 }
 
 - (void)didPressedMaskView
@@ -731,6 +846,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
 - (void)didPressHandExams
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"您已经回答了3题，考试得分0分，确定要交卷嘛？" delegate:self cancelButtonTitle:@"继续答题" otherButtonTitles:@"交卷", nil];
+    alert.tag = HandInAlertTag;
     [alert show];
 }
 

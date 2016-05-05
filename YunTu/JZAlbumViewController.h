@@ -27,5 +27,6 @@
  */
 @property(nonatomic, assign) NSInteger currentIndex;
 
+@property(nonatomic, assign) BOOL bUrlArray;
 
 @end

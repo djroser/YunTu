@@ -81,17 +81,17 @@
         NSString *resourcePath = [[NSBundle mainBundle]pathForResource:@"yuntu0314" ofType:@"db3"];
         [fileManager copyItemAtPath:resourcePath toPath:dbPath error:&error];
     }
-    else
-    {
-        //更新APP Documnet目录的数据库文件，如果存在则先删除再复制最新的数据库文件过去。等本地数据库设计好后，下面的代码需要注释掉。
-        NSError *error;
-        if ([fileManager removeItemAtPath:dbPath error:&error] != YES)
-        {
-            NSLog(@"Unable to delete file: %@", [error localizedDescription]);
-        }
-        NSString *resourcePath = [[NSBundle mainBundle]pathForResource:@"yuntu0314" ofType:@"db3"];
-        [fileManager copyItemAtPath:resourcePath toPath:dbPath error:&error];
-    }
+//    else
+//    {
+//        //更新APP Documnet目录的数据库文件，如果存在则先删除再复制最新的数据库文件过去。等本地数据库设计好后，下面的代码需要注释掉。
+//        NSError *error;
+//        if ([fileManager removeItemAtPath:dbPath error:&error] != YES)
+//        {
+//            NSLog(@"Unable to delete file: %@", [error localizedDescription]);
+//        }
+//        NSString *resourcePath = [[NSBundle mainBundle]pathForResource:@"yuntu0314" ofType:@"db3"];
+//        [fileManager copyItemAtPath:resourcePath toPath:dbPath error:&error];
+//    }
 }
 
 -(void)checkTableQuestion
@@ -229,6 +229,15 @@
         for (YTQuestionItem *item in array) {
             [db executeUpdate:@"insert into Question (QNum,QTitle,QOption1,QOption2,QOption3, QOption4,QAnswer, QExplain,QRightNum,QLargeImgUrl,QShortImgUrl,QSection,QType,QVersion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",item.QNum,item.QTitle,item.QOption1,item.QOption2,item.QOption3,item.QOption4,item.QAnswer,item.QExplain,item.QRightNum,item.QLargeImgUrl,item.QShortImgUrl,item.QSection,item.QType,item.QVersion];
         }
+    }];
+}
+
+//错题表中删除某条错题
+- (void)deleteWrongQuestionListWithItem:(YTQuestionItem *)item
+{
+    //插入数据
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        [db executeUpdate:@"DELETE FROM wrongQuestion WHERE QNum = ?",item.QNum];
     }];
 }
 

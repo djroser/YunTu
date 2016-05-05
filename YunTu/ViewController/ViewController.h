@@ -15,6 +15,10 @@
 - (IBAction)didPressedSectionPractise:(id)sender;//章节练习
 - (IBAction)didPressedRandomPractise:(id)sender;//随机练习
 - (IBAction)didPressedWrongPractise:(id)sender;//错题练习
+- (IBAction)didPressedExamCount:(id)sender;//统计
+
+- (IBAction)didPressedFavorites:(id)sender;//收藏
+
 
 @end
 
