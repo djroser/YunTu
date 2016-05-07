@@ -7,7 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface YTGlobalKindViewController : UIViewController
+@interface YTGlobalKindViewController :BaseViewController
+<
+UITableViewDataSource,
+UITableViewDelegate
+>
+
+@property (weak, nonatomic) IBOutlet UITableView *mainTableView;
+
+@property (nonatomic, strong) NSArray *yunArray;
 
 @end

@@ -27,6 +27,7 @@
 
 
 #define VersionNumKey                       @"yuntu_versionNum"
+#define isOriginalDataBaseKey               @"isOriginalDataBaseKey"
 
 #define ScreenWidth                      [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight                     [UIScreen mainScreen].bounds.size.height
@@ -37,13 +38,19 @@ typedef enum YTAnswerType {
     YTAnswerSection = 3,    // 3:章节练习
     YTAnswerRandom = 4,     // 4:随机练习
     YTAnswerWrong = 5,      // 5:错题练习
+    YTAnswerStore = 6,      // 6:收藏练习
 }YTAnswerType;
 
+typedef enum YTGlobalType {
+    YTGlobalCJY = 1,
+    YTGlobalJYY = 2,
+    YTGlobalJY = 3,
+}YTGlobalType;
 
 //=======================================URL======================================
 #define YTUserLoginUrl                       @""
 #define YTUserRegisterUrl                    @""
-#define YTQuestionListUrl                    @""
+#define YTQuestionListUrl                    @"http://202.195.239.188:83/WebService1.asmx/DownLoadQuestion"
 #define YTImportScoreUrl                     @""
 
 

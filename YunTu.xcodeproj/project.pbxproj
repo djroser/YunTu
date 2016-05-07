@@ -35,6 +35,7 @@
 		2283FA5E1CDB31F20075A78C /* YTGlobalKindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2283FA5C1CDB31F20075A78C /* YTGlobalKindViewController.xib */; };
 		2283FA621CDB32750075A78C /* YTGlobalDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283FA601CDB32750075A78C /* YTGlobalDetailViewController.m */; };
 		2283FA631CDB32750075A78C /* YTGlobalDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2283FA611CDB32750075A78C /* YTGlobalDetailViewController.xib */; };
+		2283FA661CDB6DF10075A78C /* YTGlobalDetailItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283FA651CDB6DF10075A78C /* YTGlobalDetailItem.m */; };
 		2284E3D21C54B01F0090E562 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3D11C54B01F0090E562 /* BaseViewController.m */; };
 		2284E3D91C54C3EA0090E562 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3D81C54C3EA0090E562 /* ViewController.m */; };
 		2284E3DE1C54C3FF0090E562 /* QuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3DB1C54C3FF0090E562 /* QuestionCell.m */; };
@@ -119,6 +120,8 @@
 		2283FA5F1CDB32750075A78C /* YTGlobalDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTGlobalDetailViewController.h; path = ViewController/YTLearn/YTGlobalDetailViewController.h; sourceTree = "<group>"; };
 		2283FA601CDB32750075A78C /* YTGlobalDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTGlobalDetailViewController.m; path = ViewController/YTLearn/YTGlobalDetailViewController.m; sourceTree = "<group>"; };
 		2283FA611CDB32750075A78C /* YTGlobalDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = YTGlobalDetailViewController.xib; path = ViewController/YTLearn/YTGlobalDetailViewController.xib; sourceTree = "<group>"; };
+		2283FA641CDB6DF10075A78C /* YTGlobalDetailItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTGlobalDetailItem.h; path = Model/YTGlobalDetailItem.h; sourceTree = "<group>"; };
+		2283FA651CDB6DF10075A78C /* YTGlobalDetailItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTGlobalDetailItem.m; path = Model/YTGlobalDetailItem.m; sourceTree = "<group>"; };
 		2284E3CE1C549E350090E562 /* YTGlobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YTGlobal.h; path = Public/YTGlobal.h; sourceTree = "<group>"; };
 		2284E3D01C54B01F0090E562 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewController.h; path = ViewController/BaseViewController.h; sourceTree = "<group>"; };
 		2284E3D11C54B01F0090E562 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewController.m; path = ViewController/BaseViewController.m; sourceTree = "<group>"; };
@@ -371,6 +374,8 @@
 			children = (
 				22F3D3351C143F1900437C98 /* YTQuestionItem.h */,
 				22F3D3361C143F1900437C98 /* YTQuestionItem.m */,
+				2283FA641CDB6DF10075A78C /* YTGlobalDetailItem.h */,
+				2283FA651CDB6DF10075A78C /* YTGlobalDetailItem.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -613,6 +618,7 @@
 				228D29531C1D3E7900B8A3BF /* MainTabController.m in Sources */,
 				2284E3E81C54CB100090E562 /* YTNavigationController.m in Sources */,
 				2284E3DE1C54C3FF0090E562 /* QuestionCell.m in Sources */,
+				2283FA661CDB6DF10075A78C /* YTGlobalDetailItem.m in Sources */,
 				22348EB91C8F1540003B32D4 /* YTLearnViewController.m in Sources */,
 				2220A4B11CB94F7A00E82650 /* LoginViewController.m in Sources */,
 				2220A4AA1CB8E1E300E82650 /* MyHeadView.m in Sources */,

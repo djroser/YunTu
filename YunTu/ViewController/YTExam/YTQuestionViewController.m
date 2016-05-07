@@ -122,6 +122,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     YTButton *storeBtn = [[YTButton alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     [storeBtn setTitle:@"收藏" forState:UIControlStateNormal];
     storeBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    [storeBtn addTarget:self action:@selector(didPressStore) forControlEvents:UIControlEventTouchUpInside];
     [storeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [storeBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
     UIBarButtonItem *storeItem = [[UIBarButtonItem alloc]initWithCustomView:storeBtn];
@@ -224,10 +225,33 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     switch (self.answerType) {
         case YTAnswerExam:
         {
-            NSMutableArray *array = [[[YTDataBaseManager sharedInstance] questionsList] mutableCopy];
-            self.questionList = [[YTDataBaseManager sharedInstance] questionsList];
-            
             self.title = @"模拟考试";
+            NSMutableArray *array1 = [[[YTDataBaseManager sharedInstance] questionsListWithSectionNum:1] mutableCopy];
+            NSMutableArray *array2 = [[[YTDataBaseManager sharedInstance] questionsListWithSectionNum:2] mutableCopy];
+            NSMutableArray *array3 = [[[YTDataBaseManager sharedInstance] questionsListWithSectionNum:3] mutableCopy];
+            while (self.questionList.count < 15) {
+                if (array1.count > 0) {
+                    int r1 = arc4random() % array1.count;
+                    [self.questionList addObject:array1[r1]];
+                    [array1 removeObjectAtIndex:r1];
+                }
+                if (self.questionList.count >=15) {
+                    return;
+                }
+                if (array2.count > 0) {
+                    int r2 = arc4random() % array2.count;
+                    [self.questionList addObject:array2[r2]];
+                    [array2 removeObjectAtIndex:r2];
+                }
+                if (self.questionList.count >=15) {
+                    return;
+                }
+                if (array3.count > 0) {
+                    int r3 = arc4random() % array3.count;
+                    [self.questionList addObject:array3[r3]];
+                    [array3 removeObjectAtIndex:r3];
+                }
+            }
         }
             break;
         case YTAnswerOrder:
@@ -238,18 +262,21 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
             break;
         case YTAnswerSection:
         {
-            self.questionList = [[YTDataBaseManager sharedInstance] questionsList];
+            self.questionList = [[YTDataBaseManager sharedInstance] questionsListWithSectionNum:self.sectionNum];
             self.title = @"章节练习";
         }
             break;
         case YTAnswerRandom:
         {
-            
             NSMutableArray *array = [[[YTDataBaseManager sharedInstance] questionsList] mutableCopy];
-            while (self.questionList.count < 3) {
-                int r = arc4random() % array.count;
-                [self.questionList addObject:array[r]];
-                [array removeObjectAtIndex:r];
+            if ([YTDataBaseManager sharedInstance].questionsList.count < 10) {
+                self.questionList = [YTDataBaseManager sharedInstance].questionsList;
+            } else {
+                while (self.questionList.count < 10) {
+                    int r = arc4random() % array.count;
+                    [self.questionList addObject:array[r]];
+                    [array removeObjectAtIndex:r];
+                }
             }
             self.title = @"随机练习";
         }
@@ -258,6 +285,12 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
         {
             self.questionList = [YTDataBaseManager sharedInstance].wrongQuestionsList;
             self.title = @"错题练习";
+        }
+            break;
+        case YTAnswerStore:
+        {
+            self.questionList = [YTDataBaseManager sharedInstance].storeQuestionsList;
+            self.title = @"收藏练习";
         }
             break;
         default:
@@ -818,6 +851,14 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     YTQuestionItem *questionItem = self.questionList[_collectionViewRowNum];
     questionItem.isShowAnswerExplain = YES;
     [self.collectionView reloadData];
+}
+
+//收藏
+- (void)didPressStore
+{
+    YTQuestionItem *item = _questionList[_collectionViewRowNum];
+    [[YTDataBaseManager sharedInstance] saveStoreQuestionListDataBaseWithItem:item];
+    [self show:@"收藏成功！" icon:@"" view:self.view];
 }
 
 - (void)didPressedMaskView

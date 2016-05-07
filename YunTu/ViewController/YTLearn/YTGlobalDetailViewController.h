@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YTGlobal.h"
+#import "BaseViewController.h"
 
-@interface YTGlobalDetailViewController : UIViewController
+@interface YTGlobalDetailViewController :BaseViewController
+<
+UITableViewDataSource,
+UITableViewDelegate
+>
+@property (nonatomic, copy) NSString *sTitle;
 
+@property (nonatomic, strong) NSArray *detailArray;
+
+@property (nonatomic,assign) YTGlobalType globalType;
 @end

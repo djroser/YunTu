@@ -57,7 +57,7 @@
         _dbQueue = [FMDatabaseQueue databaseQueueWithPath:path];
     } else {
         //题库曾经更新过
-        [self checkTableQuestion];
+        [self checkAllTable];
         
     }
     
@@ -94,18 +94,30 @@
 //    }
 }
 
--(void)checkTableQuestion
+- (void)checkAllTable
 {
     //获取Document文件夹下的数据库文件，没有则创建
     if (![UserInfo sharedInstance].isOriginalDataBase) {
         _dbQueue = [FMDatabaseQueue databaseQueueWithPath:[[self class] databaseFilePath]];
     }
-    
+    dispatch_queue_t queue = dispatch_queue_create("com.dispatch.serial", DISPATCH_QUEUE_SERIAL);
+    dispatch_async(queue, ^{
+        [self checkTableQuestion];
+    });
+    dispatch_async(queue, ^{
+        [self checkTableStoreQuestion];
+    });
+    dispatch_async(queue, ^{
+        [self checkTableWrongQuestion];
+    });
+}
+
+-(void)checkTableQuestion
+{
     [_dbQueue inDatabase:^(FMDatabase *db) {
         //监测数据库中我要需要的表是否已经存在
         NSString *existsSql = [NSString stringWithFormat:@"select count(name) as countNum from sqlite_master where type = 'table' and name = '%@'", @"Question"];
         FMResultSet *rs = [db executeQuery:existsSql];
-        
         while ([rs next]) {
             NSInteger count = [rs intForColumn:@"countNum"];
             NSLog(@"The table count: %li", count);
@@ -115,23 +127,15 @@
                 return;
             }
             NSLog(@"log_keepers is not existed.");
-            //创建表
-            //[membersDB executeUpdate:@"CREATE TABLE PersonList (Name text, Age integer, Sex integer,Phone text, Address text, Photo blob)"];
-//            [db executeUpdate:@"CREATE TABLE Question (QNum text NOT NULL PRIMARY KEY,QTitle text,QOption1 text,QOption2 text,QOption3 text,QOption4 text,QAnswer text,QExplain text,QRightNum text,QLargeImgUrl text,QShortImgUrl text,QSection text,QType text,QVersion text)"];
         }
         [rs close];
-//        [db executeUpdate:@"CREATE TABLE Question (QNum text NOT NULL PRIMARY KEY,QTitle text,QOption1 text,QOption2 text,QOption3 text,QOption4 text,QAnswer text,QExplain text,QRightNum text,QLargeImgUrl text,QShortImgUrl text,QSection text,QType text,QVersion text)"];
+        [db executeUpdate:@"CREATE TABLE Question (QNum text NOT NULL PRIMARY KEY,QTitle text,QOption1 text,QOption2 text,QOption3 text,QOption4 text,QAnswer text,QExplain text,QRightNum text,QLargeImgUrl text,QShortImgUrl text,QSection text,QType text,QVersion text)"];
     }];
     
 }
 
 - (void)checkTableWrongQuestion
 {
-    //获取Document文件夹下的数据库文件，没有则创建
-    if (![UserInfo sharedInstance].isOriginalDataBase) {
-        _dbQueue = [FMDatabaseQueue databaseQueueWithPath:[[self class] databaseFilePath]];
-    }
-    
     [_dbQueue inDatabase:^(FMDatabase *db) {
         //监测数据库中我要需要的表是否已经存在
         NSString *existsSql = [NSString stringWithFormat:@"select count(name) as countNum from sqlite_master where type = 'table' and name = '%@'", @"wrongQuestion"];
@@ -154,8 +158,35 @@
     }];
 }
 
+- (void)checkTableStoreQuestion
+{
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        //监测数据库中我要需要的表是否已经存在
+        NSString *existsSql = [NSString stringWithFormat:@"select count(name) as countNum from sqlite_master where type = 'table' and name = '%@'", @"storeQuestion"];
+        FMResultSet *rs = [db executeQuery:existsSql];
+        
+        while ([rs next]) {
+            NSInteger count = [rs intForColumn:@"countNum"];
+            NSLog(@"The table count: %li", count);
+            if (count == 1) {
+                NSLog(@"log_keepers table is existed.");
+                [rs close];
+                return;
+            }
+            NSLog(@"log_keepers is not existed.");
+            
+        }
+        [rs close];
+        [db executeUpdate:@"CREATE TABLE storeQuestion (QNum text NOT NULL PRIMARY KEY,QTitle text,QOption1 text,QOption2 text,QOption3 text,QOption4 text,QAnswer text,QExplain text,QRightNum text,QLargeImgUrl text,QShortImgUrl text,QSection text,QType text,QVersion text)"];
+        
+    }];
+}
+
+
 - (NSMutableArray *)questionsList
 {
+    [_questionsList removeAllObjects];
+    _questionsList = nil;
     if (!_questionsList) {
         _questionsList = [NSMutableArray new];
         [_dbQueue inDatabase:^(FMDatabase *db) {
@@ -182,6 +213,33 @@
         }];
     }
     return _questionsList;
+}
+- (NSMutableArray *)questionsListWithSectionNum:(NSUInteger)section
+{
+        NSMutableArray *array = [NSMutableArray new];
+        [_dbQueue inDatabase:^(FMDatabase *db) {
+            FMResultSet *rs = [db executeQuery:@"select * from Question WHERE QSection = ?",[NSString stringWithFormat:@"%lu",(unsigned long)section]];
+            while ([rs next]) {
+                YTQuestionItem *questionItem = [YTQuestionItem new];
+                questionItem.QNum = [rs stringForColumn:@"QNum"];
+                questionItem.QTitle = [rs stringForColumn:@"QTitle"];
+                questionItem.QOption1 = [rs stringForColumn:@"QOption1"];
+                questionItem.QOption2 = [rs stringForColumn:@"QOption2"];
+                questionItem.QOption3 = [rs stringForColumn:@"QOption3"];
+                questionItem.QOption4 = [rs stringForColumn:@"QOption4"];
+                questionItem.QAnswer = [rs stringForColumn:@"QAnswer"];
+                questionItem.QExplain = [rs stringForColumn:@"QExplain"];
+                questionItem.QRightNum = [rs stringForColumn:@"QRightNum"];
+                questionItem.QLargeImgUrl = [rs stringForColumn:@"QLargeImgUrl"];
+                questionItem.QShortImgUrl = [rs stringForColumn:@"QShortImgUrl"];
+                questionItem.QSection = [rs stringForColumn:@"QSection"];
+                questionItem.QType = [rs stringForColumn:@"QType"];
+                questionItem.QVersion = [rs stringForColumn:@"QVersion"];
+                [array addObject:questionItem];
+            }
+            [rs close];
+        }];
+    return array;
 }
 
 - (NSMutableArray *)wrongQuestionsList
@@ -216,6 +274,40 @@
     }
     return _wrongQuestionsList;
 }
+
+- (NSMutableArray *)storeQuestionsList
+{
+    [_storeQuestionsList removeAllObjects];
+    _storeQuestionsList = nil;
+    if (!_storeQuestionsList) {
+        _storeQuestionsList = [NSMutableArray new];
+        [_dbQueue inDatabase:^(FMDatabase *db) {
+            FMResultSet *rs = [db executeQuery:@"select * from storeQuestion"];
+            while ([rs next]) {
+                YTQuestionItem *wrongQuestionItem = [YTQuestionItem new];
+                wrongQuestionItem.QNum = [rs stringForColumn:@"QNum"];
+                wrongQuestionItem.QTitle = [rs stringForColumn:@"QTitle"];
+                wrongQuestionItem.QOption1 = [rs stringForColumn:@"QOption1"];
+                wrongQuestionItem.QOption2 = [rs stringForColumn:@"QOption2"];
+                wrongQuestionItem.QOption3 = [rs stringForColumn:@"QOption3"];
+                wrongQuestionItem.QOption4 = [rs stringForColumn:@"QOption4"];
+                wrongQuestionItem.QAnswer = [rs stringForColumn:@"QAnswer"];
+                wrongQuestionItem.QExplain = [rs stringForColumn:@"QExplain"];
+                wrongQuestionItem.QRightNum = [rs stringForColumn:@"QRightNum"];
+                wrongQuestionItem.QLargeImgUrl = [rs stringForColumn:@"QLargeImgUrl"];
+                wrongQuestionItem.QShortImgUrl = [rs stringForColumn:@"QShortImgUrl"];
+                wrongQuestionItem.QSection = [rs stringForColumn:@"QSection"];
+                wrongQuestionItem.QType = [rs stringForColumn:@"QType"];
+                wrongQuestionItem.QVersion = [rs stringForColumn:@"QVersion"];
+                [_storeQuestionsList addObject:wrongQuestionItem];
+            }
+            [rs close];
+        }];
+        
+    }
+    return _storeQuestionsList;
+}
+
 
 - (void)saveQuestionListDataBaseWithArray:(NSArray *)array
 {
@@ -290,6 +382,45 @@
 //    });
 }
 
+- (void)saveStoreQuestionListDataBaseWithItem:(YTQuestionItem *)item
+{
+    dispatch_queue_t queue = dispatch_queue_create("com.dispatch.serial", DISPATCH_QUEUE_SERIAL);
+    dispatch_async(queue, ^{
+        [self checkTableStoreQuestion];
+    });
+    dispatch_async(queue, ^{
+        //监测错题表中错题QNum是否存在
+        [_dbQueue inDatabase:^(FMDatabase *db) {
+            NSString *existsSql = [NSString stringWithFormat:@"select count(QNum) as countNum from storeQuestion where QNum = '%@'", item.QNum];
+            FMResultSet *rs = [db executeQuery:existsSql];
+            while ([rs next]) {
+                NSInteger count = [rs intForColumn:@"countNum"];
+                if (count == 1) {
+                    NSLog(@"QNum is exist!");
+                    [rs close];
+                    return;
+                }
+                NSLog(@"QNum is not existed.");
+                dispatch_async(queue, ^{
+                    //插入数据
+                    [_dbQueue inDatabase:^(FMDatabase *db) {
+                        [db executeUpdate:@"insert into storeQuestion (QNum,QTitle,QOption1,QOption2,QOption3, QOption4,QAnswer,QExplain,QRightNum,QLargeImgUrl,QShortImgUrl,QSection,QType,QVersion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",item.QNum,item.QTitle,item.QOption1,item.QOption2,item.QOption3,item.QOption4,item.QAnswer,item.QExplain,item.QRightNum,item.QLargeImgUrl,item.QShortImgUrl,item.QSection,item.QType,item.QVersion];
+                    }];
+                });
+            }
+            [rs close];
+        }];
+        
+    });
+    
+    
+    //    dispatch_async(queue, ^{
+    //        //插入数据
+    //        [_dbQueue inDatabase:^(FMDatabase *db) {
+    //            [db executeUpdate:@"insert into wrongQuestion (QNum,QTitle,QOption1,QOption2,QOption3, QOption4,QAnswer, QExplain,QRightNum,QLargeImgUrl,QShortImgUrl,QSection,QType,QVersion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",item.QNum,item.QTitle,item.QOption1,item.QOption2,item.QOption3,item.QOption4,item.QAnswer,item.QExplain,item.QRightNum,item.QLargeImgUrl,item.QShortImgUrl,item.QSection,item.QType,item.QVersion];
+    //        }];
+    //    });
+}
 
 
 

@@ -72,5 +72,9 @@
     self.networkErrorView.hidden = NO;
 }
 
+- (void)popBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

@@ -12,10 +12,14 @@
 
 @property (nonatomic,strong)NSMutableArray *questionsList;
 @property (nonatomic,strong)NSMutableArray *wrongQuestionsList;
+@property (nonatomic,strong)NSMutableArray *storeQuestionsList;
 + (instancetype)sharedInstance;
 
+- (void)openDatabase;
 - (void)saveQuestionListDataBaseWithArray:(NSArray *)array;
 - (void)saveWrongQuestionListDataBaseWithItem:(YTQuestionItem *)item;
+- (void)saveStoreQuestionListDataBaseWithItem:(YTQuestionItem *)item;
 //错题表中删除某条错题
 - (void)deleteWrongQuestionListWithItem:(YTQuestionItem *)item;
+- (NSMutableArray *)questionsListWithSectionNum:(NSUInteger)section;//按章节取题
 @end

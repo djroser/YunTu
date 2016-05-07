@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 @interface ViewController : BaseViewController
+<
+UIActionSheetDelegate
+>
 
 - (IBAction)showQuestions:(id)sender;//模拟考试
 - (IBAction)didPressedOrderPractise:(id)sender;//顺序练习

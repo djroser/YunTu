@@ -8,6 +8,7 @@
 
 #import "YTLearnViewController.h"
 #import "WebViewController.h"
+#import "YTGlobalKindViewController.h"
 
 @interface YTLearnViewController ()
 
@@ -72,13 +73,17 @@
 */
 
 - (IBAction)didPressedMorphology:(id)sender {
-    WebViewController *webVC = [self.storyboard instantiateViewControllerWithIdentifier:@"web_view_scene"];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    WebViewController *webVC = [storyboard instantiateViewControllerWithIdentifier:@"web_view_scene"];
     webVC.title = @"形态学分类法";
     webVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:webVC animated:YES];
 }
 
 - (IBAction)didPressedInternational:(id)sender {
+    YTGlobalKindViewController *globalVC = [[YTGlobalKindViewController alloc]initWithNibName:@"YTGlobalKindViewController" bundle:nil];
+    globalVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:globalVC animated:YES];
 }
 
 - (IBAction)didPressedStartMusic:(id)sender {

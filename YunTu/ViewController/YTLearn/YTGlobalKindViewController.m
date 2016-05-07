@@ -7,6 +7,8 @@
 //
 
 #import "YTGlobalKindViewController.h"
+#import "AppUtil.h"
+#import "YTGlobalDetailViewController.h"
 
 @interface YTGlobalKindViewController ()
 
@@ -16,7 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    self.navigationItem.leftBarButtonItem = [AppUtil leftBarItemWithTarget:self action:@selector(popBack)];
+    self.yunArray = [NSArray arrayWithObjects:@"层积云",@"积雨云",@"积云", nil];
+    self.mainTableView.tableFooterView = [[UIView alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +28,54 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.yunArray.count;
 }
-*/
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *ID = @"yun_cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+    }
+    cell.textLabel.text = self.yunArray[indexPath.row];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    return cell;
+}
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self pushToDetailVCWithIndexPath:indexPath];
+}
+
+- (void)pushToDetailVCWithIndexPath:(NSIndexPath *)indexPath
+{
+    YTGlobalDetailViewController *globalDetailVC = [[YTGlobalDetailViewController alloc] initWithNibName:@"YTGlobalDetailViewController" bundle:nil];
+    switch (indexPath.row) {
+        case 0:
+            globalDetailVC.globalType = YTGlobalCJY;
+            break;
+        case 1:
+            globalDetailVC.globalType = YTGlobalJYY;
+            break;
+        case 2:
+            globalDetailVC.globalType = YTGlobalJY;
+            break;
+        default:
+            break;
+    }
+    globalDetailVC.sTitle = self.yunArray[indexPath.row];
+    [self.navigationController pushViewController:globalDetailVC animated:YES];
+}
+
+- (void)popBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

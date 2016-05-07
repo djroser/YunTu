@@ -16,5 +16,5 @@ UIAlertViewDelegate
 >
 
 @property (nonatomic, assign) YTAnswerType answerType;//练习模式
-
+@property (nonatomic, assign) NSUInteger sectionNum;//章节模式
 @end

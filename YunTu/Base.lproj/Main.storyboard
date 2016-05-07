@@ -656,7 +656,7 @@
         <!--Web View Controller-->
         <scene sceneID="3Aa-1a-b99">
             <objects>
-                <viewController storyboardIdentifier="web_view_scene" id="yZp-X3-VDY" customClass="WebViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="web_view_scene" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yZp-X3-VDY" customClass="WebViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ZBh-yA-pnb"/>
                         <viewControllerLayoutGuide type="bottom" id="vtw-8j-OCB"/>
