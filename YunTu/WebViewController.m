@@ -40,17 +40,27 @@
 }
 
 - (void)loadPage {
-    NSString *fileName = [[NSBundle mainBundle] pathForResource:@"xingtaixue" ofType:@"html"];
-    NSFileManager *fm = [NSFileManager defaultManager];
-    if ([fm fileExistsAtPath:fileName isDirectory:nil]) {
-        NSLog(@"YES");
-    }
+//    NSString *fileName = [[NSBundle mainBundle] pathForResource:@"xingtaixue" ofType:@"html"];
+//    NSFileManager *fm = [NSFileManager defaultManager];
+//    if ([fm fileExistsAtPath:fileName isDirectory:nil]) {
+//        NSLog(@"YES");
+//    }
+//    
+//    NSError *error = nil;
+//    NSString *htmlString = [NSString stringWithContentsOfFile:fileName encoding:NSUTF8StringEncoding error:&error];
+//    [self.webview loadHTMLString:htmlString baseURL:nil];
     
-    NSError *error = nil;
-    NSString *htmlString = [NSString stringWithContentsOfFile:fileName encoding:NSUTF8StringEncoding error:&error];
-    [self.webview loadHTMLString:htmlString baseURL:nil];
 //    NSURLRequest *request =[NSURLRequest requestWithURL:self.linkUrl];
 //    [self.webview loadRequest:request];
+    
+    
+    NSURL *baseURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"xingtaixue" ofType:@"html"];
+    NSString *html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    [self.webview loadHTMLString:html baseURL:baseURL];
+    
+    
+    
 }
 
 - (IBAction)reloadPage:(id)sender {

@@ -20,6 +20,7 @@
 #import "YTTabButton.h"
 #import "Pods/AFNetworking/AFNetworking/AFNetworking.h"
 #import "Pods/MBProgressHUD/MBProgressHUD.h"
+#import "Pods/SDWebImage/SDWebImage/UIImageView+WebCache.h"
 
 #define titleWidthDiffer        43
 #define titleImageWidthDiffer   16
@@ -395,7 +396,9 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
                 UIImageView *questionView = (UIImageView *)[cell viewWithTag:1];
                 questionView.hidden = questionItem.QShortImgUrl == NULL ? YES : NO;
                 if (!questionView.hidden) {
+                    
                     UIImage *normalImage = [UIImage imageNamed:questionItem.QShortImgUrl];
+//                    [questionView sd_setImageWithURL:[NSURL URLWithString:questionItem.QShortImgUrl] placeholderImage:[UIImage imageNamed:@"卞卞"] options:0];
                     normalImage = [self autoResizeImage:normalImage];
                     questionView.image = normalImage;
                     self.imgvQuestion.frame = CGRectMake(8, (ScreenHeight-normalImage.size.height)/2, normalImage.size.width, normalImage.size.height);
@@ -531,8 +534,11 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
                     normalImage = [normalImage resizeToSize:CGSizeMake(imageWidth, imageHeight)];
                 }
                 questionView.image = normalImage;
+                height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1;
+            } else {
+                height = 1;
             }
-            height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1;
+            
           }
         } else if (indexPath.section == 1) {
             switch (indexPath.row) {
@@ -778,8 +784,12 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     [formatter setDateFormat:@"yyyy-mm-dd"];
     paras[@"date"] = [formatter stringFromDate:[NSDate date]];//日期
     paras[@"score"] = [UserInfo sharedInstance].stuNum;//分数必传
+    
+    paras[@"stuNum"] = @"20121308077";//学号必传
+    paras[@"stuName"] = @"dingjian";//姓名必传
+    paras[@"score"] = @"100";//分数必传
 
-    [manager POST:YTImportScoreUrl parameters:paras success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    [manager GET:YTImportScoreUrl parameters:paras success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         [self show:@"提交成功！" icon:@"" view:self.view];
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         [self show:@"提交失败！" icon:@"" view:self.view];

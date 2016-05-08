@@ -38,7 +38,8 @@
         
         
         
-        [self.imageView setImageWithURL:[NSURL URLWithString:photoUrl] placeholderImage:[UIImage imageNamed:@"卞卞"] options:0];
+//        [self.imageView setImageWithURL:[NSURL URLWithString:photoUrl] placeholderImage:[UIImage imageNamed:@"卞卞"] options:0];
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:photoUrl] placeholderImage:[UIImage imageNamed:@"卞卞"] options:0];
         
 //        SDWebImageManager *manager = [SDWebImageManager sharedManager];
 //        BOOL isCached = [manager cachedImageExistsForURL:[NSURL URLWithString:photoUrl]];

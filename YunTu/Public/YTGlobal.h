@@ -50,8 +50,8 @@ typedef enum YTGlobalType {
 //=======================================URL======================================
 #define YTUserLoginUrl                       @""
 #define YTUserRegisterUrl                    @""
-#define YTQuestionListUrl                    @"http://202.195.239.188:83/WebService1.asmx/DownLoadQuestion"
-#define YTImportScoreUrl                     @""
+#define YTQuestionListUrl                    @"http://172.16.102.176:83/WebService1.asmx/DownLoadQuestion"
+#define YTImportScoreUrl                     @"http://172.16.102.176:83/WebService1.asmx/ImportScore"
 
 
 

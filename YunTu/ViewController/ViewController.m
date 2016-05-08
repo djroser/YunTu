@@ -49,48 +49,52 @@
 {
     __weak typeof(self) WeakSelf = self;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    AFJSONResponseSerializer *jsonReponseSerializer = [AFJSONResponseSerializer serializer];
+    // This will make the AFJSONResponseSerializer accept any content type
+    jsonReponseSerializer.acceptableContentTypes = nil;
+    manager.responseSerializer = jsonReponseSerializer;
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-//    if ([[NSUserDefaults standardUserDefaults] objectForKey:VersionNumKey]) {
-//        paras[@"versionNum"] = [[NSUserDefaults standardUserDefaults] objectForKey:VersionNumKey];
-//    } else {
-//        paras[@"versionNum"] = @"0";
-//    }
-    paras[@"versionNum"] = @"0";
-    [manager POST:YTQuestionListUrl parameters:paras success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:VersionNumKey]) {
+        paras[@"versionNum"] = [[NSUserDefaults standardUserDefaults] objectForKey:VersionNumKey];
+    } else {
+        paras[@"versionNum"] = @"0";
+    }
+//    paras[@"versionNum"] = @"0";
+    [manager GET:YTQuestionListUrl parameters:paras success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         NSLog(@"res---%@",responseObject);
-//        if ([responseObject[@"versionNum"] integerValue] > [[[NSUserDefaults standardUserDefaults] objectForKey:VersionNumKey] integerValue]) {
-//            
-//            //服务端版本号高于本地则更新题库
-//            NSMutableArray *dicArray = [NSMutableArray array];
-//            for (NSDictionary *dict in responseObject[@"questionList"]) {
-//                YTQuestionItem *item = [YTQuestionItem questionWithDict:dict];
-//                [dicArray addObject:item];
-//            }
-//            if (dicArray) {
-//                self.questionArray = dicArray;
-//                [UserInfo sharedInstance].isOriginalDataBase = NO;
-//                [WeakSelf cacheQuestionListWithUpdateType:responseObject[@"updateType"]];
-//            }
-//            
-//        }
-//                    NSMutableArray *dicArray = [NSMutableArray array];
-//                    for (NSDictionary *dict in responseObject[@"questionList"]) {
-//                        YTQuestionItem *item = [YTQuestionItem questionWithDict:dict];
-//                        [dicArray addObject:item];
-//                    }
-//                    if (dicArray) {
-//                        self.questionArray = dicArray;
-//                        [UserInfo sharedInstance].isOriginalDataBase = NO;
-//                        [WeakSelf cacheQuestionListWithUpdateType:responseObject[@"updateType"]];
-//                    }
+        if ([responseObject[@"versionNum"] integerValue] > [[[NSUserDefaults standardUserDefaults] objectForKey:VersionNumKey] integerValue]) {
+            
+            //服务端版本号高于本地则更新题库
+            NSMutableArray *dicArray = [NSMutableArray array];
+            for (NSDictionary *dict in responseObject[@"questionList"]) {
+                YTQuestionItem *item = [YTQuestionItem questionWithDict:dict];
+                [dicArray addObject:item];
+            }
+            if (dicArray) {
+                self.questionArray = dicArray;
+                [UserInfo sharedInstance].isOriginalDataBase = NO;
+                [WeakSelf cacheQuestionListWithUpdateType:responseObject[@"updateType"]];
+            }
+            
+        }
+                    NSMutableArray *dicArray = [NSMutableArray array];
+                    for (NSDictionary *dict in responseObject[@"questionList"]) {
+                        YTQuestionItem *item = [YTQuestionItem questionWithDict:dict];
+                        [dicArray addObject:item];
+                    }
+                    if (dicArray) {
+                        self.questionArray = dicArray;
+                        [UserInfo sharedInstance].isOriginalDataBase = NO;
+                        [WeakSelf cacheQuestionListWithUpdateType:responseObject[@"updateType"]];
+                        [[NSUserDefaults standardUserDefaults] setValue:responseObject[@"versionNum"] forKey:VersionNumKey];
+                        [[NSUserDefaults standardUserDefaults] synchronize];
+                    }
 
         NSLog(@"success");
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-        NSLog(@"请求失败！");
+        NSLog(@"failed");
     }];
     
     

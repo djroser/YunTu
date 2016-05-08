@@ -324,6 +324,41 @@
     }];
 }
 
+- (void)saveQuestionListDataBaseIncreUpdateWithArray:(NSArray *)array
+{
+    dispatch_queue_t queue = dispatch_queue_create("com.dispatch.serial", DISPATCH_QUEUE_SERIAL);
+    
+    dispatch_async(queue, ^{
+        for (YTQuestionItem *item in array) {
+            //监测
+            [_dbQueue inDatabase:^(FMDatabase *db) {
+                NSString *existsSql = [NSString stringWithFormat:@"select count(QNum) as countNum from Question where QNum = '%@'", item.QNum];
+                FMResultSet *rs = [db executeQuery:existsSql];
+                while ([rs next]) {
+                    NSInteger count = [rs intForColumn:@"countNum"];
+                    if (count == 1) {
+                        NSLog(@"QNum is exist!");
+                        [rs close];
+                        return;
+                    }
+                    NSLog(@"QNum is not existed.");
+                    dispatch_async(queue, ^{
+                        //插入数据
+                        [_dbQueue inDatabase:^(FMDatabase *db) {
+                            for (YTQuestionItem *item in array) {
+                                [db executeUpdate:@"insert into Question (QNum,QTitle,QOption1,QOption2,QOption3, QOption4,QAnswer, QExplain,QRightNum,QLargeImgUrl,QShortImgUrl,QSection,QType,QVersion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",item.QNum,item.QTitle,item.QOption1,item.QOption2,item.QOption3,item.QOption4,item.QAnswer,item.QExplain,item.QRightNum,item.QLargeImgUrl,item.QShortImgUrl,item.QSection,item.QType,item.QVersion];
+                            }
+                        }];
+                    });
+                }
+                [rs close];
+            }];
+        }
+        
+    });
+
+}
+
 //错题表中删除某条错题
 - (void)deleteWrongQuestionListWithItem:(YTQuestionItem *)item
 {

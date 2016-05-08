@@ -17,6 +17,8 @@
 
 - (void)openDatabase;
 - (void)saveQuestionListDataBaseWithArray:(NSArray *)array;
+//增量更新数据库
+- (void)saveQuestionListDataBaseIncreUpdateWithArray:(NSArray *)array;
 - (void)saveWrongQuestionListDataBaseWithItem:(YTQuestionItem *)item;
 - (void)saveStoreQuestionListDataBaseWithItem:(YTQuestionItem *)item;
 //错题表中删除某条错题

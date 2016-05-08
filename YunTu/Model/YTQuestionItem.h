@@ -5,7 +5,7 @@
 //  Created by 丁健 on 15/11/2.
 //  Copyright © 2015年 丁健. All rights reserved.
 //
-
+#define YTDEBUG                              @"YTDEBUG"
 #import <Foundation/Foundation.h>
 
 @interface YTQuestionItem : NSObject
@@ -25,6 +25,7 @@
 @property(nonatomic,copy)NSString *QVersion;
 
 
+@property(nonatomic,copy)NSString *YTBeforeUrl;
 //逻辑判断
 @property(nonatomic,assign)BOOL isAnswered;
 @property(nonatomic,assign)BOOL isAnsweredRight;

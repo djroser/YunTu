@@ -9,6 +9,7 @@
 #import "YTGlobalDetailViewController.h"
 #import "YTGlobalDetailItem.h"
 #import "AppUtil.h"
+#import "YTGlobalMoreViewController.h"
 
 @interface YTGlobalDetailViewController ()
 
@@ -120,11 +121,14 @@
 }
 
 #pragma mark - UITableViewDelegate
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//    [self pushToDetailVCWithIndexPath:indexPath];
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    YTGlobalMoreViewController *globalMoreVC = [[YTGlobalMoreViewController alloc] initWithNibName:@"YTGlobalMoreViewController" bundle:nil];
+    YTGlobalDetailItem *item = self.detailArray[indexPath.row];
+    globalMoreVC.globalItem = item;
+    [self.navigationController pushViewController:globalMoreVC animated:YES];
+}
 
 //- (void)pushToDetailVCWithIndexPath:(NSIndexPath *)indexPath
 //{

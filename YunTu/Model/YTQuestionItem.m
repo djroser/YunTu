@@ -24,8 +24,11 @@
         self.QExplain = dict[@"QExplain"];
         self.QRightNum = dict[@"QRightNum"];
 
-        self.QLargeImgUrl = dict[@"QLargeImgUrl"];
-        self.QShortImgUrl = dict[@"QShortImgUrl"];
+        NSString *imageUrl = dict[@"QLargeImgUrl"];
+        self.QLargeImgUrl = [self.YTBeforeUrl stringByAppendingString:imageUrl];
+        self.QShortImgUrl = [self.YTBeforeUrl stringByAppendingString:imageUrl];
+//        self.QLargeImgUrl = dict[@"QLargeImgUrl"];
+//        self.QShortImgUrl = dict[@"QLargeImgUrl"];
         self.QSection = dict[@"QSection"];
         self.QType = dict[@"QType"];
         self.QVersion = dict[@"QVersion"];
@@ -33,6 +36,15 @@
     }
     return self;
 }
+
+- (NSString *)YTBeforeUrl
+{
+#ifdef YTDEBUG
+    return @"http://172.16.102.176:83";
+#endif
+    return @"vlab.nuist.edu.cn";
+}
+
 
 + (instancetype)questionWithDict:(NSDictionary *)dict
 {
