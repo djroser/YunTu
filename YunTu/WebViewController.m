@@ -53,14 +53,10 @@
 //    NSURLRequest *request =[NSURLRequest requestWithURL:self.linkUrl];
 //    [self.webview loadRequest:request];
     
-    
     NSURL *baseURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
     NSString *path = [[NSBundle mainBundle] pathForResource:@"xingtaixue" ofType:@"html"];
     NSString *html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     [self.webview loadHTMLString:html baseURL:baseURL];
-    
-    
-    
 }
 
 - (IBAction)reloadPage:(id)sender {

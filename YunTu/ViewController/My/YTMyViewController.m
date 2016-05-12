@@ -82,7 +82,7 @@
 - (void)refreshUserInfo
 {
     _myHeaderView.lblUserName.text = [UserInfo sharedInstance].stuName;
-    _myHeaderView.imgvUserType.image = [[UserInfo sharedInstance].stuMale isEqualToString:@"0"] ? [UIImage imageNamed:@"女的"] : [UIImage imageNamed:@"女的"];
+//    _myHeaderView.imgvUserType.image = [[UserInfo sharedInstance].stuMale isEqualToString:@"0"] ? [UIImage imageNamed:@"女的"] : [UIImage imageNamed:@"女的"];
 }
 
 #pragma mark - LoginDelegate
@@ -98,6 +98,7 @@
     } else {
         LoginViewController *loginVC = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
         loginVC.delegate = self;
+        loginVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:loginVC animated:YES];
     }
 }

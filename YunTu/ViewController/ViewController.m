@@ -13,6 +13,8 @@
 #import "YTGlobal.h"
 #import "YTDataBaseManager.h"
 #import "UserInfo.h"
+#import "Pods/MBProgressHUD/MBProgressHUD.h"
+#import "AppUtil.h"
 @interface ViewController ()
 
 
@@ -60,9 +62,18 @@
     } else {
         paras[@"versionNum"] = @"0";
     }
-//    paras[@"versionNum"] = @"0";
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"正在同步";
+    // 设置图片
+    //    hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MBProgressHUD.bundle/%@", icon]]];
+    // 再设置模式
+    hud.mode = MBProgressHUDModeCustomView;
+    // 隐藏时候从父控件中移除
+    hud.removeFromSuperViewOnHide = YES;
     [manager GET:YTQuestionListUrl parameters:paras success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        [hud hide:YES];
         NSLog(@"res---%@",responseObject);
+        NSLog(@"isOriginalDataBase--------%d",[UserInfo sharedInstance].isOriginalDataBase);
         if ([responseObject[@"versionNum"] integerValue] > [[[NSUserDefaults standardUserDefaults] objectForKey:VersionNumKey] integerValue]) {
             
             //服务端版本号高于本地则更新题库
@@ -73,31 +84,36 @@
             }
             if (dicArray) {
                 self.questionArray = dicArray;
+                [[YTDataBaseManager sharedInstance] openDatabase];
                 [UserInfo sharedInstance].isOriginalDataBase = NO;
                 [WeakSelf cacheQuestionListWithUpdateType:responseObject[@"updateType"]];
+                [[NSUserDefaults standardUserDefaults] setValue:responseObject[@"versionNum"] forKey:VersionNumKey];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                [AppUtil show:@"同步成功" icon:@"" view:self.view];
             }
             
         }
-                    NSMutableArray *dicArray = [NSMutableArray array];
-                    for (NSDictionary *dict in responseObject[@"questionList"]) {
-                        YTQuestionItem *item = [YTQuestionItem questionWithDict:dict];
-                        [dicArray addObject:item];
-                    }
-                    if (dicArray) {
-                        self.questionArray = dicArray;
-                        [UserInfo sharedInstance].isOriginalDataBase = NO;
-                        [WeakSelf cacheQuestionListWithUpdateType:responseObject[@"updateType"]];
-                        [[NSUserDefaults standardUserDefaults] setValue:responseObject[@"versionNum"] forKey:VersionNumKey];
-                        [[NSUserDefaults standardUserDefaults] synchronize];
-                    }
-
+//                    NSMutableArray *dicArray = [NSMutableArray array];
+//                    for (NSDictionary *dict in responseObject[@"questionList"]) {
+//                        YTQuestionItem *item = [YTQuestionItem questionWithDict:dict];
+//                        [dicArray addObject:item];
+//                    }
+//                    if (dicArray) {
+//                        self.questionArray = dicArray;
+//                        [UserInfo sharedInstance].isOriginalDataBase = NO;
+//                        [WeakSelf cacheQuestionListWithUpdateType:responseObject[@"updateType"]];
+//                        [[NSUserDefaults standardUserDefaults] setValue:responseObject[@"versionNum"] forKey:VersionNumKey];
+//                        [[NSUserDefaults standardUserDefaults] synchronize];
+//                        [AppUtil show:@"同步成功" icon:@"" view:self.view];
+//                    }
+//
         NSLog(@"success");
         
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        [hud hide:YES];
+        [AppUtil show:@"同步失败" icon:@"" view:self.view];
         NSLog(@"failed");
     }];
-    
-    
 }
 
 - (void)cacheQuestionListWithUpdateType:(NSString *)updateType

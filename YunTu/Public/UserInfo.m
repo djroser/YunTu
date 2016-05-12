@@ -32,15 +32,14 @@
 {
     if (_isOriginalDataBase != isOriginalDataBase) {
         _isOriginalDataBase = isOriginalDataBase;
-        [self saveIsOriginalDataBase];
     }
 }
 
-- (void)saveIsOriginalDataBase
-{
-    [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithBool:_isOriginalDataBase] forKey:isOriginalDataBaseKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-}
+//- (void)saveIsOriginalDataBase
+//{
+//    [[NSUserDefaults standardUserDefaults]setValue:[NSNumber numberWithBool:_isOriginalDataBase] forKey:isOriginalDataBaseKey];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    
+//}
 
 @end

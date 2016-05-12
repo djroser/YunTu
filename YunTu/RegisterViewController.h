@@ -23,43 +23,18 @@
     UIAlertViewDelegate
 >
 
-@property (strong,nonatomic) IBOutlet UIButton *btnBack;
+@property (weak, nonatomic) IBOutlet UITextField *txtfStuNum;
+@property (weak, nonatomic) IBOutlet UITextField *txtfStuName;
+@property (weak, nonatomic) IBOutlet UITextField *txtfStuMajor;
+@property (weak, nonatomic) IBOutlet UITextField *txtfPwd;
+@property (weak, nonatomic) IBOutlet UIButton *btnRegisterUser;
 
-@property (weak, nonatomic) IBOutlet UILabel *lblFirstTitle;
-@property (weak, nonatomic) IBOutlet UILabel *lblSecondTitle;
-@property (weak, nonatomic) IBOutlet UILabel *lblThird;
-
-@property (weak, nonatomic) IBOutlet UIScrollView *contentScroller;
-
-
-
-@property (strong, nonatomic) IBOutlet UIView *viewStepFirst;
-@property (weak, nonatomic) IBOutlet UITextField *txtMobileFirst;
-@property (weak, nonatomic) IBOutlet UIButton *btnFirstNext;
-
-@property (strong, nonatomic) IBOutlet UIView *viewStepSecond;
-@property (weak, nonatomic) IBOutlet UITextField *txtMobileSecond;
-@property (weak, nonatomic) IBOutlet UITextField *txtPwdSecond;
-@property (weak, nonatomic) IBOutlet UISwitch *switchPwd;
-@property (weak, nonatomic) IBOutlet UIButton *btnSecondNext;
-
-@property (strong, nonatomic) IBOutlet UIView *viewStepThird;
-@property (weak, nonatomic) IBOutlet UITextField *txtVerifyCode;
-@property (weak, nonatomic) IBOutlet UIButton *btnThirdNext;
-@property (weak, nonatomic) IBOutlet UILabel *lblVerifyCodeMsg;
-@property (weak, nonatomic) IBOutlet UIButton *btnSendVerifyCode;
 
 @property (nonatomic,weak) id<RegisterUserDelegate> delegate;
 
 
-- (IBAction)didPressedFirstNext:(id)sender;
-- (IBAction)didPressedSecondNext:(id)sender;
-- (IBAction)didPressedThirdNext:(id)sender;
-- (IBAction)didPressedSendVerifyCode:(id)sender;
-- (IBAction)didPressedSwitch:(id)sender;
-- (IBAction)didPressedBack:(id)sender;
+- (IBAction)didPressedRegister:(id)sender;
 
-- (IBAction)didPressToAttention:(id)sender;
 
 @end
 

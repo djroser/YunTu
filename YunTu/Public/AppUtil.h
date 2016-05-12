@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "Pods/MBProgressHUD/MBProgressHUD.h"
 @interface AppUtil : NSObject
 
 //计算高度
@@ -18,4 +19,6 @@
 + (NSString *)cachesDirectory;
 //判断手机号是否合法
 +(BOOL)isPhoneNumber:(NSString *)phoneNumber;
+
++ (void)show:(NSString *)text icon:(NSString *)icon view:(UIView *)view;
 @end

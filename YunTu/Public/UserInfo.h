@@ -17,7 +17,7 @@
 //登录相关参数
 @property (nonatomic,strong) NSString *stuNum;
 @property (nonatomic,strong) NSString *stuName;
-@property (nonatomic,strong) NSString *stuMale;//性别
+@property (nonatomic,strong) NSString *stuMajor;//性别
 
 @property (nonatomic) BOOL isLogin;
 @end

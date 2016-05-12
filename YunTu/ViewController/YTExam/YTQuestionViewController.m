@@ -105,7 +105,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     [deleteBtn setTitle:@"删除" forState:UIControlStateNormal];
     deleteBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [deleteBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [deleteBtn setImage:[UIImage imageNamed:@"test_top_card"] forState:UIControlStateNormal];
+    [deleteBtn setImage:[UIImage imageNamed:@"test_top_delete"] forState:UIControlStateNormal];
     [deleteBtn addTarget:self action:@selector(didPressDelete) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *deleteItem = [[UIBarButtonItem alloc]initWithCustomView:deleteBtn];
 
@@ -115,7 +115,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     explainBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [explainBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [explainBtn addTarget:self action:@selector(didPressExplain) forControlEvents:UIControlEventTouchUpInside];
-    [explainBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
+    [explainBtn setImage:[UIImage imageNamed:@"test_top_pencil"] forState:UIControlStateNormal];
     UIBarButtonItem *explainItem = [[UIBarButtonItem alloc]initWithCustomView:explainBtn];
     
     
@@ -169,7 +169,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     [handBtn setTitle:@"交卷" forState:UIControlStateNormal];
     handBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [handBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [handBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
+    [handBtn setImage:[UIImage imageNamed:@"test_top_beiti"] forState:UIControlStateNormal];
     [_bottomView addSubview:handBtn];
     //答对题目按钮
     self.correctBtn = [[YTTabButton alloc]initWithFrame:CGRectMake(ScreenWidth/2 - 80, 0, 80, 40)];
@@ -177,7 +177,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     self.correctBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [self.correctBtn addTarget:self action:@selector(didPressPageItem) forControlEvents:UIControlEventTouchUpInside];
     [self.correctBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.correctBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
+    [self.correctBtn setImage:[UIImage imageNamed:@"success-white"] forState:UIControlStateNormal];
     [_bottomView addSubview:self.correctBtn];
     //答错题目按钮
     self.wrongBtn = [[YTTabButton alloc]initWithFrame:CGRectMake(ScreenWidth/2, 0, 80, 40)];
@@ -185,7 +185,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     self.wrongBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [self.wrongBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.wrongBtn addTarget:self action:@selector(didPressPageItem) forControlEvents:UIControlEventTouchUpInside];
-    [self.wrongBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
+    [self.wrongBtn setImage:[UIImage imageNamed:@"icon_practise_top_x"] forState:UIControlStateNormal];
     [_bottomView addSubview:self.wrongBtn];
     //题目序号
     YTTabButton *pageBtn = [[YTTabButton alloc]initWithFrame:CGRectMake(ScreenWidth - 80, 0, 80, 40)];
@@ -193,7 +193,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     [pageBtn addTarget:self action:@selector(didPressPageItem) forControlEvents:UIControlEventTouchUpInside];
     pageBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [pageBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [pageBtn setImage:[UIImage imageNamed:@"test_top_shoucnag_n"] forState:UIControlStateNormal];
+    [pageBtn setImage:[UIImage imageNamed:@"test_top_card"] forState:UIControlStateNormal];
     [_bottomView addSubview:pageBtn];
     self.pageButton = pageBtn;
     
@@ -666,6 +666,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
             self.wrongQuesCount  += 1;
         } else {
             self.rightQuesCount  += 1;
+            self.testScore += self.wrongQuesCount * 1;
         }
         [self refreshBottomBtnTitle];
         [self.answeredCollectionView reloadData];

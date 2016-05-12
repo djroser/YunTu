@@ -11,6 +11,7 @@
 #import "AppUtil.h"
 #import "Pods/AFNetworking/AFNetworking/AFNetworking.h"
 #import "UserInfo.h"
+#import <MBProgressHUD.h>
 
 @interface LoginViewController ()
 @end
@@ -32,8 +33,7 @@
 
 
 - (void)createBaseView{
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:_btnBack];
-    self.navigationItem.leftBarButtonItem = leftItem;
+    self.navigationItem.leftBarButtonItem = [AppUtil leftBarItemWithTarget:self action:@selector(popBack)];
     
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:_btnRegister];
     self.navigationItem.rightBarButtonItem = rightItem;
@@ -55,9 +55,11 @@
 
 
 #pragma mark - Button Event
-- (IBAction)didPressedBack:(id)sender {
+- (void)popBack
+{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 -(IBAction)didPressedRegister:(id)sender
 {
@@ -74,9 +76,6 @@
     }
     else if (_txtPwd.text.length <= 0) {
         sErrorMsg = txt_Sign_NoPassWord;//@"密码不能为空"
-    }
-    else if (![AppUtil isPhoneNumber:_txtMobile.text]) {
-        sErrorMsg = txt_Sign_ErrUnPd;//@"手机号不合法"
     }
     
     if (sErrorMsg.length > 0) {
@@ -142,7 +141,16 @@
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
     paras[@"stuNum"] = _txtMobile.text;
     paras[@"stuPwd"] = _txtPwd.text;
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"正在登录";
+    // 设置图片
+//    hud.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"MBProgressHUD.bundle/%@", icon]]];
+    // 再设置模式
+    hud.mode = MBProgressHUDModeCustomView;
+    // 隐藏时候从父控件中移除
+    hud.removeFromSuperViewOnHide = YES;
     [manager GET:YTUserLoginUrl parameters:paras success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+        [hud hide:YES];
         [WeakSelf.navigationController popViewControllerAnimated:YES];
         if (WeakSelf.delegate && [WeakSelf.delegate respondsToSelector:@selector(didLoginDone)]) {
             [UserInfo sharedInstance].stuNum = _txtMobile.text;
@@ -150,6 +158,7 @@
             [WeakSelf.delegate didLoginDone];
         }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        [hud hide:YES];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"登录失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [alert show];
     }];

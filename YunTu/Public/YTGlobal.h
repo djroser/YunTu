@@ -25,6 +25,9 @@
 #define txt_Sign_NoPassWord                   @"密码不能为空"
 #define txt_Sign_ErrUnPd                      @"用户名不合法"
 
+#define txt_Sign_NoStuNum                   @"学号不能为空"
+#define txt_Sign_NoStuName                   @"姓名不能为空"
+#define txt_Sign_NoStuMajor                  @"专业不能为空"
 
 #define VersionNumKey                       @"yuntu_versionNum"
 #define isOriginalDataBaseKey               @"isOriginalDataBaseKey"
@@ -48,10 +51,10 @@ typedef enum YTGlobalType {
 }YTGlobalType;
 
 //=======================================URL======================================
-#define YTUserLoginUrl                       @""
-#define YTUserRegisterUrl                    @""
-#define YTQuestionListUrl                    @"http://172.16.102.176:83/WebService1.asmx/DownLoadQuestion"
-#define YTImportScoreUrl                     @"http://172.16.102.176:83/WebService1.asmx/ImportScore"
+#define YTUserLoginUrl                       @"http://202.195.237.234:81/WebService1.asmx/StudentIsExist"
+#define YTUserRegisterUrl                    @"http://202.195.237.234:81/WebService1.asmx/StudentRegister"
+#define YTQuestionListUrl                    @"http://202.195.237.234:81/WebService1.asmx/DownLoadQuestion"
+#define YTImportScoreUrl                     @"http://202.195.237.234:81/WebService1.asmx/ImportScore"
 
 
 
