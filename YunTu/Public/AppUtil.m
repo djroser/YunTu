@@ -39,7 +39,7 @@
 }
 
 + (NSString *)cachesDirectory {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *path = [paths objectAtIndex:0];
 #ifdef DEBUG
     NSLog(@"%@", path);

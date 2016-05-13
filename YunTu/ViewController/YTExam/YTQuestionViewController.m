@@ -396,13 +396,16 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
                 UIImageView *questionView = (UIImageView *)[cell viewWithTag:1];
                 questionView.hidden = questionItem.QShortImgUrl == NULL ? YES : NO;
                 if (!questionView.hidden) {
+                    if ([UserInfo sharedInstance].isOriginalDataBase) {
+                        UIImage *normalImage = [UIImage imageNamed:questionItem.QShortImgUrl];
+                        normalImage = [self autoResizeImage:normalImage];
+                        questionView.image = normalImage;
+                    } else {
+//                        NSLog(@"URL------%@",questionItem.QShortImgUrl);
+                        
+                        [questionView sd_setImageWithURL:[NSURL URLWithString:questionItem.QShortImgUrl] placeholderImage:[UIImage imageNamed:@"app"] options:0];
+                    }
                     
-                    UIImage *normalImage = [UIImage imageNamed:questionItem.QShortImgUrl];
-//                    [questionView sd_setImageWithURL:[NSURL URLWithString:questionItem.QShortImgUrl] placeholderImage:[UIImage imageNamed:@"卞卞"] options:0];
-                    normalImage = [self autoResizeImage:normalImage];
-                    questionView.image = normalImage;
-                    self.imgvQuestion.frame = CGRectMake(8, (ScreenHeight-normalImage.size.height)/2, normalImage.size.width, normalImage.size.height);
-                    self.imgvQuestion.image = normalImage;
                 }
             }
         } else if (indexPath.section == 1) {
@@ -527,14 +530,17 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
             UIImageView *questionView = (UIImageView *)[cell viewWithTag:1];
             questionView.hidden = questionItem.QShortImgUrl == NULL ? YES : NO;
             if (!questionView.hidden) {
-                UIImage *normalImage = [UIImage imageNamed:questionItem.QShortImgUrl];
-                if (normalImage.size.width > self.collectionView.frame.size.width - titleImageWidthDiffer) {
-                    CGFloat imageWidth = self.collectionView.frame.size.width - titleImageWidthDiffer;
-                    CGFloat imageHeight = normalImage.size.height * (imageWidth / normalImage.size.width);
-                    normalImage = [normalImage resizeToSize:CGSizeMake(imageWidth, imageHeight)];
+                if ([UserInfo sharedInstance].isOriginalDataBase) {
+                    UIImage *normalImage = [UIImage imageNamed:questionItem.QShortImgUrl];
+                    normalImage = [self autoResizeImage:normalImage];
+                    questionView.image = normalImage;
+                    height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1;
+                } else {
+                    
+                    [questionView sd_setImageWithURL:[NSURL URLWithString:questionItem.QShortImgUrl] placeholderImage:[UIImage imageNamed:@"app"] options:0];
+                    return 250;
+//                    height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1;
                 }
-                questionView.image = normalImage;
-                height = [cell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height + 1;
             } else {
                 height = 1;
             }
@@ -569,15 +575,6 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     YTQuestionItem *questionItem = _questionList[_collectionViewRowNum];
     if (indexPath.section == 0 && indexPath.row == 1) {
         //点击问题的图片
-#warning 图片的下载缓存问题待解决
-//        self.largeImgMaskView.hidden = NO;
-//        self.imgvQuestion.hidden = NO;
-//        [UIView animateWithDuration:0.2 animations:^{
-//            self.largeImgMaskView.alpha = 1.0;
-//            
-//        } completion:^(BOOL finished) {
-//            bShowLargeImage = YES;
-//        }];
         JZAlbumViewController *jzAlbumVC = [[JZAlbumViewController alloc]init];
         jzAlbumVC.currentIndex = 0;//这个参数表示当前图片的index，默认是0
         [self.arrImgQuestion removeAllObjects];
@@ -585,7 +582,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
             [self.arrImgQuestion addObject:[UIImage imageNamed:questionItem.QLargeImgUrl]];
             jzAlbumVC.bUrlArray = NO;
         } else {
-            [self.arrImgQuestion addObject:@"http://c.hiphotos.baidu.com/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=7fbeb14496ef76c6c4dff379fc7f969f/faedab64034f78f06d55f9967f310a55b3191c7c.jpg"];
+            [self.arrImgQuestion addObject:questionItem.QLargeImgUrl];
             jzAlbumVC.bUrlArray = YES;
         }
         jzAlbumVC.imgArr = self.arrImgQuestion;//图片数组，可以是url，也可以是UIImage
@@ -666,7 +663,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
             self.wrongQuesCount  += 1;
         } else {
             self.rightQuesCount  += 1;
-            self.testScore += self.wrongQuesCount * 1;
+            self.testScore = self.rightQuesCount * 1;
         }
         [self refreshBottomBtnTitle];
         [self.answeredCollectionView reloadData];
@@ -774,21 +771,24 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     __weak typeof(self) weakSelf = self;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    AFJSONResponseSerializer *jsonReponseSerializer = [AFJSONResponseSerializer serializer];
+    // This will make the AFJSONResponseSerializer accept any content type
+    jsonReponseSerializer.acceptableContentTypes = nil;
+    manager.responseSerializer = jsonReponseSerializer;
     
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
-    paras[@"stuNum"] = [UserInfo sharedInstance].stuNum;//学号必传
-    paras[@"stuName"] = [UserInfo sharedInstance].stuName;//姓名必传
-    paras[@"stuMajor"] = [UserInfo sharedInstance].stuNum;//专业
+//    paras[@"stuNum"] = [UserInfo sharedInstance].stuNum;//学号必传
+//    paras[@"stuName"] = [UserInfo sharedInstance].stuName;//姓名必传
+//    paras[@"stuMajor"] = [UserInfo sharedInstance].stuNum;//专业
     // 实例化NSDateFormatter
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-mm-dd"];
     paras[@"date"] = [formatter stringFromDate:[NSDate date]];//日期
-    paras[@"score"] = [UserInfo sharedInstance].stuNum;//分数必传
     
-    paras[@"stuNum"] = @"20121308077";//学号必传
-    paras[@"stuName"] = @"dingjian";//姓名必传
-    paras[@"score"] = @"100";//分数必传
+    paras[@"stuNum"] = [UserInfo sharedInstance].stuNum;//学号必传
+    paras[@"stuName"] = @"丁健";//姓名必传
+    paras[@"stuMajor"] = @"计算机科学与技术";//专业
+    paras[@"score"] = [NSString stringWithFormat:@"%zd",self.testScore];//分数必传
 
     [manager GET:YTImportScoreUrl parameters:paras success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         [self show:@"提交成功！" icon:@"" view:self.view];
@@ -884,20 +884,21 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     
 }
 
-- (void)didPressedLargeImgMaskView
-{
-    bShowLargeImage = NO;
-    [UIView animateWithDuration:0.2 animations:^{
-        self.largeImgMaskView.alpha = 0.0;
-        self.imgvQuestion.hidden = YES;
-    } completion:^(BOOL finished) {
-        self.largeImgMaskView.hidden = YES;
-    }];
-}
+//- (void)didPressedLargeImgMaskView
+//{
+//    bShowLargeImage = NO;
+//    [UIView animateWithDuration:0.2 animations:^{
+//        self.largeImgMaskView.alpha = 0.0;
+//        self.imgvQuestion.hidden = YES;
+//    } completion:^(BOOL finished) {
+//        self.largeImgMaskView.hidden = YES;
+//    }];
+//}
 
 - (void)didPressHandExams
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"您已经回答了3题，考试得分0分，确定要交卷嘛？" delegate:self cancelButtonTitle:@"继续答题" otherButtonTitles:@"交卷", nil];
+    NSString *message = [NSString stringWithFormat:@"您已经回答了%zd题，考试得分%zd分，确定要交卷嘛？",self.rightQuesCount + self.wrongQuesCount,self.testScore];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:self cancelButtonTitle:@"继续答题" otherButtonTitles:@"交卷", nil];
     alert.tag = HandInAlertTag;
     [alert show];
 }

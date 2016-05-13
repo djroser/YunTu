@@ -9,6 +9,7 @@
 #import "YTMyViewController.h"
 #import "MyHeadView.h"
 #import "UserInfo.h"
+#import "YTUserViewController.h"
 
 @interface YTMyViewController ()
 @property (nonatomic,strong)MyHeadView *myHeaderView;
@@ -24,6 +25,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self refreshUserInfo];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.tabBarController.tabBar.hidden = NO;
     [_mainTableview setContentOffset:(CGPoint){0,-44} animated:NO];
@@ -81,7 +83,11 @@
 
 - (void)refreshUserInfo
 {
-    _myHeaderView.lblUserName.text = [UserInfo sharedInstance].stuName;
+    if ([UserInfo sharedInstance].isLogin) {
+        _myHeaderView.lblUserName.text = [UserInfo sharedInstance].stuName;
+    } else {
+        _myHeaderView.lblUserName.text = @"请登录";
+    }
 //    _myHeaderView.imgvUserType.image = [[UserInfo sharedInstance].stuMale isEqualToString:@"0"] ? [UIImage imageNamed:@"女的"] : [UIImage imageNamed:@"女的"];
 }
 
@@ -95,6 +101,9 @@
 {
     if ([UserInfo sharedInstance].isLogin) {
         //个人信息界面（可不做）、退出登录等
+        YTUserViewController *userVC = [[YTUserViewController alloc] initWithNibName:@"YTUserViewController" bundle:nil];
+        userVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:userVC animated:YES];
     } else {
         LoginViewController *loginVC = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
         loginVC.delegate = self;

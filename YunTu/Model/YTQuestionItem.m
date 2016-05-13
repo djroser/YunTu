@@ -39,10 +39,7 @@
 
 - (NSString *)YTBeforeUrl
 {
-#ifdef YTDEBUG
-    return @"http://172.16.102.176:83";
-#endif
-    return @"vlab.nuist.edu.cn";
+    return @"http://202.195.237.234:81";
 }
 
 

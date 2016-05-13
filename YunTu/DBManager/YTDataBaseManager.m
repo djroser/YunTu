@@ -96,11 +96,13 @@
 
 - (void)checkAllTable
 {
-    //获取Document文件夹下的数据库文件，没有则创建
-    if (![UserInfo sharedInstance].isOriginalDataBase) {
-        _dbQueue = [FMDatabaseQueue databaseQueueWithPath:[[self class] databaseFilePath]];
-    }
-    dispatch_queue_t queue = dispatch_queue_create("com.dispatch.serial", DISPATCH_QUEUE_SERIAL);
+    dispatch_queue_t queue = dispatch_queue_create("checkAllTable.dispatch.serial", DISPATCH_QUEUE_SERIAL);
+    dispatch_async(queue, ^{
+        //获取Document文件夹下的数据库文件，没有则创建
+        if (![UserInfo sharedInstance].isOriginalDataBase) {
+            _dbQueue = [FMDatabaseQueue databaseQueueWithPath:[[self class] databaseFilePath]];
+        }
+    });
     dispatch_async(queue, ^{
         [self checkTableQuestion];
     });
@@ -109,6 +111,9 @@
     });
     dispatch_async(queue, ^{
         [self checkTableWrongQuestion];
+    });
+    dispatch_async(queue, ^{
+        [self checkTableExamResult];
     });
 }
 
@@ -179,6 +184,29 @@
         [rs close];
         [db executeUpdate:@"CREATE TABLE storeQuestion (QNum text NOT NULL PRIMARY KEY,QTitle text,QOption1 text,QOption2 text,QOption3 text,QOption4 text,QAnswer text,QExplain text,QRightNum text,QLargeImgUrl text,QShortImgUrl text,QSection text,QType text,QVersion text)"];
         
+    }];
+}
+
+- (void)checkTableExamResult
+{
+    [_dbQueue inDatabase:^(FMDatabase *db) {
+        //监测数据库中我要需要的表是否已经存在
+        NSString *existsSql = [NSString stringWithFormat:@"select count(name) as countNum from sqlite_master where type = 'table' and name = '%@'", @"examResult"];
+        FMResultSet *rs = [db executeQuery:existsSql];
+        
+        while ([rs next]) {
+            NSInteger count = [rs intForColumn:@"countNum"];
+            NSLog(@"The table count: %li", count);
+            if (count == 1) {
+                NSLog(@"examResult table is existed.");
+                [rs close];
+                return;
+            }
+            NSLog(@"examResult is not existed.");
+            
+        }
+        [rs close];
+        [db executeUpdate:@"CREATE TABLE examResult (stuNum text NOT NULL UNIQUE,stuName text,stuMajor text,examDate text NOT NULL PRIMARY KEY UNIQUE,examScore text)"];
     }];
 }
 
@@ -311,6 +339,7 @@
 
 - (void)saveQuestionListDataBaseWithArray:(NSArray *)array
 {
+    
     //删除全部数据
     [_dbQueue inDatabase:^(FMDatabase *db) {
         [db executeUpdate:@"DELETE FROM Question"];
@@ -326,7 +355,7 @@
 
 - (void)saveQuestionListDataBaseIncreUpdateWithArray:(NSArray *)array
 {
-    dispatch_queue_t queue = dispatch_queue_create("com.dispatch.serial", DISPATCH_QUEUE_SERIAL);
+    dispatch_queue_t queue = dispatch_queue_create("saveQuestion.dispatch.serial", DISPATCH_QUEUE_SERIAL);
     
     dispatch_async(queue, ^{
         for (YTQuestionItem *item in array) {
@@ -379,7 +408,7 @@
 
 - (void)saveWrongQuestionListDataBaseWithItem:(YTQuestionItem *)item
 {
-    dispatch_queue_t queue = dispatch_queue_create("com.dispatch.serial", DISPATCH_QUEUE_SERIAL);
+    dispatch_queue_t queue = dispatch_queue_create("saveWrong.dispatch.serial", DISPATCH_QUEUE_SERIAL);
     dispatch_async(queue, ^{
         [self checkTableWrongQuestion];
     });
@@ -408,18 +437,11 @@
         
     });
     
-    
-//    dispatch_async(queue, ^{
-//        //插入数据
-//        [_dbQueue inDatabase:^(FMDatabase *db) {
-//            [db executeUpdate:@"insert into wrongQuestion (QNum,QTitle,QOption1,QOption2,QOption3, QOption4,QAnswer, QExplain,QRightNum,QLargeImgUrl,QShortImgUrl,QSection,QType,QVersion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",item.QNum,item.QTitle,item.QOption1,item.QOption2,item.QOption3,item.QOption4,item.QAnswer,item.QExplain,item.QRightNum,item.QLargeImgUrl,item.QShortImgUrl,item.QSection,item.QType,item.QVersion];
-//        }];
-//    });
 }
 
 - (void)saveStoreQuestionListDataBaseWithItem:(YTQuestionItem *)item
 {
-    dispatch_queue_t queue = dispatch_queue_create("com.dispatch.serial", DISPATCH_QUEUE_SERIAL);
+    dispatch_queue_t queue = dispatch_queue_create("saveStore.dispatch.serial", DISPATCH_QUEUE_SERIAL);
     dispatch_async(queue, ^{
         [self checkTableStoreQuestion];
     });
@@ -448,13 +470,6 @@
         
     });
     
-    
-    //    dispatch_async(queue, ^{
-    //        //插入数据
-    //        [_dbQueue inDatabase:^(FMDatabase *db) {
-    //            [db executeUpdate:@"insert into wrongQuestion (QNum,QTitle,QOption1,QOption2,QOption3, QOption4,QAnswer, QExplain,QRightNum,QLargeImgUrl,QShortImgUrl,QSection,QType,QVersion) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",item.QNum,item.QTitle,item.QOption1,item.QOption2,item.QOption3,item.QOption4,item.QAnswer,item.QExplain,item.QRightNum,item.QLargeImgUrl,item.QShortImgUrl,item.QSection,item.QType,item.QVersion];
-    //        }];
-    //    });
 }
 
 

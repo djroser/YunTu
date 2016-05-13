@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "YTGlobal.h"
 #import "UserInfo.h"
+#import "YTDataBaseManager.h"
 @interface AppDelegate ()
 
 @end
@@ -53,6 +54,7 @@
     } else {
         [UserInfo sharedInstance].isOriginalDataBase = NO;
     }
+    [YTDataBaseManager sharedInstance];
 }
 
 @end

@@ -5,7 +5,6 @@
 //  Created by 丁健 on 15/11/2.
 //  Copyright © 2015年 丁健. All rights reserved.
 //
-#define YTDEBUG                              @"YTDEBUG"
 #import <Foundation/Foundation.h>
 
 @interface YTQuestionItem : NSObject

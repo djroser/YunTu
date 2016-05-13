@@ -13,6 +13,7 @@
 #import "UserInfo.h"
 #import <MBProgressHUD.h>
 
+
 @interface LoginViewController ()
 @end
 
@@ -121,7 +122,8 @@
 
 -(void)didUserRegisterDone
 {
-    [self.navigationController popViewControllerAnimated:NO];
+    self.txtMobile.text = [UserInfo sharedInstance].stuNum;
+    [self.txtPwd endEditing:NO];
 }
 
 //点键盘外部endEditing
@@ -136,7 +138,10 @@
     __weak typeof(self) WeakSelf = self;
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    AFJSONResponseSerializer *jsonReponseSerializer = [AFJSONResponseSerializer serializer];
+    // This will make the AFJSONResponseSerializer accept any content type
+    jsonReponseSerializer.acceptableContentTypes = nil;
+    manager.responseSerializer = jsonReponseSerializer;
     
     NSMutableDictionary *paras = [NSMutableDictionary dictionary];
     paras[@"stuNum"] = _txtMobile.text;
@@ -154,7 +159,8 @@
         [WeakSelf.navigationController popViewControllerAnimated:YES];
         if (WeakSelf.delegate && [WeakSelf.delegate respondsToSelector:@selector(didLoginDone)]) {
             [UserInfo sharedInstance].stuNum = _txtMobile.text;
-            [UserInfo sharedInstance].stuName = _txtPwd.text;
+            [UserInfo sharedInstance].stuName = _txtMobile.text;
+            [UserInfo sharedInstance].isLogin = YES;
             [WeakSelf.delegate didLoginDone];
         }
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {

@@ -84,8 +84,8 @@
             }
             if (dicArray) {
                 self.questionArray = dicArray;
-                [[YTDataBaseManager sharedInstance] openDatabase];
                 [UserInfo sharedInstance].isOriginalDataBase = NO;
+                [[YTDataBaseManager sharedInstance] openDatabase];
                 [WeakSelf cacheQuestionListWithUpdateType:responseObject[@"updateType"]];
                 [[NSUserDefaults standardUserDefaults] setValue:responseObject[@"versionNum"] forKey:VersionNumKey];
                 [[NSUserDefaults standardUserDefaults] synchronize];
