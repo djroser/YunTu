@@ -46,6 +46,10 @@
 		2283FAB31CE5D8590075A78C /* YTUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283FAB11CE5D8590075A78C /* YTUserViewController.m */; };
 		2283FAB41CE5D8590075A78C /* YTUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2283FAB21CE5D8590075A78C /* YTUserViewController.xib */; };
 		2283FAB71CE5F99F0075A78C /* YTExamResultItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283FAB61CE5F99F0075A78C /* YTExamResultItem.m */; };
+		2283FABB1CE60A5C0075A78C /* YTExamResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283FAB91CE60A5C0075A78C /* YTExamResultViewController.m */; };
+		2283FABC1CE60A5C0075A78C /* YTExamResultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2283FABA1CE60A5C0075A78C /* YTExamResultViewController.xib */; };
+		2283FAC01CE708D10075A78C /* ExamResultCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283FABE1CE708D10075A78C /* ExamResultCell.m */; };
+		2283FAC11CE708D10075A78C /* ExamResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2283FABF1CE708D10075A78C /* ExamResultCell.xib */; };
 		2284E3D21C54B01F0090E562 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3D11C54B01F0090E562 /* BaseViewController.m */; };
 		2284E3D91C54C3EA0090E562 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3D81C54C3EA0090E562 /* ViewController.m */; };
 		2284E3DE1C54C3FF0090E562 /* QuestionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284E3DB1C54C3FF0090E562 /* QuestionCell.m */; };
@@ -145,6 +149,12 @@
 		2283FAB21CE5D8590075A78C /* YTUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = YTUserViewController.xib; path = ViewController/My/YTUserViewController.xib; sourceTree = "<group>"; };
 		2283FAB51CE5F99F0075A78C /* YTExamResultItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTExamResultItem.h; path = Model/YTExamResultItem.h; sourceTree = "<group>"; };
 		2283FAB61CE5F99F0075A78C /* YTExamResultItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTExamResultItem.m; path = Model/YTExamResultItem.m; sourceTree = "<group>"; };
+		2283FAB81CE60A5C0075A78C /* YTExamResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YTExamResultViewController.h; path = ViewController/YTExam/YTExamResultViewController.h; sourceTree = "<group>"; };
+		2283FAB91CE60A5C0075A78C /* YTExamResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YTExamResultViewController.m; path = ViewController/YTExam/YTExamResultViewController.m; sourceTree = "<group>"; };
+		2283FABA1CE60A5C0075A78C /* YTExamResultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = YTExamResultViewController.xib; path = ViewController/YTExam/YTExamResultViewController.xib; sourceTree = "<group>"; };
+		2283FABD1CE708D10075A78C /* ExamResultCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExamResultCell.h; path = ViewController/YTExam/ExamResultCell.h; sourceTree = "<group>"; };
+		2283FABE1CE708D10075A78C /* ExamResultCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExamResultCell.m; path = ViewController/YTExam/ExamResultCell.m; sourceTree = "<group>"; };
+		2283FABF1CE708D10075A78C /* ExamResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExamResultCell.xib; path = ViewController/YTExam/ExamResultCell.xib; sourceTree = "<group>"; };
 		2284E3CE1C549E350090E562 /* YTGlobal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = YTGlobal.h; path = Public/YTGlobal.h; sourceTree = "<group>"; };
 		2284E3D01C54B01F0090E562 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseViewController.h; path = ViewController/BaseViewController.h; sourceTree = "<group>"; };
 		2284E3D11C54B01F0090E562 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseViewController.m; path = ViewController/BaseViewController.m; sourceTree = "<group>"; };
@@ -407,6 +417,12 @@
 				22D924D81C905AE70034A0F5 /* answeredCollectionCell.xib */,
 				2284E3DC1C54C3FF0090E562 /* YTQuestionViewController.h */,
 				2284E3DD1C54C3FF0090E562 /* YTQuestionViewController.m */,
+				2283FAB81CE60A5C0075A78C /* YTExamResultViewController.h */,
+				2283FAB91CE60A5C0075A78C /* YTExamResultViewController.m */,
+				2283FABA1CE60A5C0075A78C /* YTExamResultViewController.xib */,
+				2283FABD1CE708D10075A78C /* ExamResultCell.h */,
+				2283FABE1CE708D10075A78C /* ExamResultCell.m */,
+				2283FABF1CE708D10075A78C /* ExamResultCell.xib */,
 			);
 			name = YTExam;
 			sourceTree = "<group>";
@@ -572,6 +588,7 @@
 			files = (
 				2283FA521CDB21A30075A78C /* yunxueMusic.m4a in Resources */,
 				2283FA591CDB2F0D0075A78C /* xingtaixue.html in Resources */,
+				2283FABC1CE60A5C0075A78C /* YTExamResultViewController.xib in Resources */,
 				2220A4B21CB94F7A00E82650 /* LoginViewController.xib in Resources */,
 				2283FAAA1CDF91AB0075A78C /* 5.jpg in Resources */,
 				2220A4AC1CB8E1F800E82650 /* MyHeadView.xib in Resources */,
@@ -588,6 +605,7 @@
 				2283FA631CDB32750075A78C /* YTGlobalDetailViewController.xib in Resources */,
 				2283FA5E1CDB31F20075A78C /* YTGlobalKindViewController.xib in Resources */,
 				2283FAA71CDF91AB0075A78C /* 2.jpg in Resources */,
+				2283FAC11CE708D10075A78C /* ExamResultCell.xib in Resources */,
 				227C46531BEE3C8500804454 /* yuntu.db3 in Resources */,
 				2283FAA61CDF91AB0075A78C /* 1.jpg in Resources */,
 			);
@@ -663,6 +681,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2284E3D91C54C3EA0090E562 /* ViewController.m in Sources */,
+				2283FABB1CE60A5C0075A78C /* YTExamResultViewController.m in Sources */,
 				22348EBC1C8F1562003B32D4 /* YTMyViewController.m in Sources */,
 				22F3D32E1C143E2C00437C98 /* OBShapedButton.m in Sources */,
 				2284E3DF1C54C3FF0090E562 /* YTQuestionViewController.m in Sources */,
@@ -694,6 +713,7 @@
 				2283FAB31CE5D8590075A78C /* YTUserViewController.m in Sources */,
 				2283FA621CDB32750075A78C /* YTGlobalDetailViewController.m in Sources */,
 				2264B35D1CA016A400A0DED6 /* JZAlbumViewController.m in Sources */,
+				2283FAC01CE708D10075A78C /* ExamResultCell.m in Sources */,
 				22F3D3341C143F0700437C98 /* YTDataBaseManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

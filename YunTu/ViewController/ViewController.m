@@ -15,6 +15,7 @@
 #import "UserInfo.h"
 #import "Pods/MBProgressHUD/MBProgressHUD.h"
 #import "AppUtil.h"
+#import "YTExamResultViewController.h"
 @interface ViewController ()
 
 
@@ -199,7 +200,9 @@
 
 
 - (IBAction)didPressedExamCount:(id)sender {
-    
+    YTExamResultViewController *examResultVC = [[YTExamResultViewController alloc] initWithNibName:@"YTExamResultViewController" bundle:nil];
+    examResultVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:examResultVC animated:YES];
 }
 
 - (IBAction)didPressedFavorites:(id)sender {

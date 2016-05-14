@@ -206,7 +206,7 @@
             
         }
         [rs close];
-        [db executeUpdate:@"CREATE TABLE examResult (stuNum text NOT NULL UNIQUE,stuName text,stuMajor text,examDate text NOT NULL PRIMARY KEY UNIQUE,examScore text)"];
+        [db executeUpdate:@"CREATE TABLE examResult (stuNum text NOT NULL,stuName text,stuMajor text,examDate text NOT NULL PRIMARY KEY,examScore text)"];
     }];
 }
 
@@ -334,6 +334,30 @@
         
     }
     return _storeQuestionsList;
+}
+
+- (NSMutableArray *)examResultList
+{
+    [_examResultList removeAllObjects];
+    _examResultList = nil;
+    if (!_examResultList) {
+        _examResultList = [NSMutableArray new];
+        [_dbQueue inDatabase:^(FMDatabase *db) {
+            FMResultSet *rs = [db executeQuery:@"select * from examResult"];
+            while ([rs next]) {
+                YTExamResultItem *item = [YTExamResultItem new];
+                item.stuNum = [rs stringForColumn:@"stuNum"];
+                item.stuName = [rs stringForColumn:@"stuName"];
+                item.stuMajor = [rs stringForColumn:@"stuMajor"];
+                item.examDate = [rs stringForColumn:@"examDate"];
+                item.examScore = [rs stringForColumn:@"examScore"];
+                [_examResultList addObject:item];
+            }
+            [rs close];
+        }];
+        
+    }
+    return _examResultList;
 }
 
 
@@ -472,6 +496,37 @@
     
 }
 
+- (void)saveExamResultDataBaseWithItem:(YTExamResultItem *)item
+{
+    dispatch_queue_t queue = dispatch_queue_create("saveExamResult.dispatch.serial", DISPATCH_QUEUE_SERIAL);
+    dispatch_async(queue, ^{
+        [self checkTableExamResult];
+    });
+    dispatch_async(queue, ^{
+        [_dbQueue inDatabase:^(FMDatabase *db) {
+            NSString *existsSql = [NSString stringWithFormat:@"select count(stuNum) as countNum from examResult where stuNum = '%@' and examDate = '%@'", item.stuNum,item.examDate];
+            FMResultSet *rs = [db executeQuery:existsSql];
+            while ([rs next]) {
+                NSInteger count = [rs intForColumn:@"countNum"];
+                if (count == 1) {
+                    NSLog(@"examResult is exist!");
+                    [rs close];
+                    return;
+                }
+                NSLog(@"examResult is not existed.");
+                dispatch_async(queue, ^{
+                    //插入数据
+                    [_dbQueue inDatabase:^(FMDatabase *db) {
+                        [db executeUpdate:@"insert into examResult (stuNum,stuName,stuMajor,examDate,examScore) values(?,?,?,?,?)",item.stuNum,item.stuName,item.stuMajor,item.examDate,item.examScore];
+                    }];
+                });
+            }
+            [rs close];
+        }];
+        
+    });
+    
+}
 
 
 

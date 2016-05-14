@@ -21,6 +21,7 @@
 #import "Pods/AFNetworking/AFNetworking/AFNetworking.h"
 #import "Pods/MBProgressHUD/MBProgressHUD.h"
 #import "Pods/SDWebImage/SDWebImage/UIImageView+WebCache.h"
+#import "YTExamResultItem.h"
 
 #define titleWidthDiffer        43
 #define titleImageWidthDiffer   16
@@ -177,7 +178,7 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     self.correctBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     [self.correctBtn addTarget:self action:@selector(didPressPageItem) forControlEvents:UIControlEventTouchUpInside];
     [self.correctBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.correctBtn setImage:[UIImage imageNamed:@"success-white"] forState:UIControlStateNormal];
+    [self.correctBtn setImage:[UIImage imageNamed:@"tab_right"] forState:UIControlStateNormal];
     [_bottomView addSubview:self.correctBtn];
     //答错题目按钮
     self.wrongBtn = [[YTTabButton alloc]initWithFrame:CGRectMake(ScreenWidth/2, 0, 80, 40)];
@@ -789,11 +790,20 @@ static NSString *answerCollectionCellID = @"answer_collection_cell";
     paras[@"stuName"] = @"丁健";//姓名必传
     paras[@"stuMajor"] = @"计算机科学与技术";//专业
     paras[@"score"] = [NSString stringWithFormat:@"%zd",self.testScore];//分数必传
-
+    
+    YTExamResultItem *item = [[YTExamResultItem alloc] init];
+//    item.stuNum = paras[@"stuNum"];
+    item.stuNum = @"20121308077";
+    item.stuName = paras[@"stuName"];
+    item.stuMajor = paras[@"stuMajor"];
+    item.examDate = [NSString stringWithFormat:@"%@",[NSDate date]];
+    item.examScore = paras[@"score"];
     [manager GET:YTImportScoreUrl parameters:paras success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
         [self show:@"提交成功！" icon:@"" view:self.view];
+        [[YTDataBaseManager sharedInstance]saveExamResultDataBaseWithItem:item];
     } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
         [self show:@"提交失败！" icon:@"" view:self.view];
+        [[YTDataBaseManager sharedInstance]saveExamResultDataBaseWithItem:item];
     }];
 }
 

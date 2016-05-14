@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "YTQuestionItem.h"
+#import "YTExamResultItem.h"
 @interface YTDataBaseManager : NSObject
 
 @property (nonatomic,strong)NSMutableArray *questionsList;
 @property (nonatomic,strong)NSMutableArray *wrongQuestionsList;
 @property (nonatomic,strong)NSMutableArray *storeQuestionsList;
+@property (nonatomic,strong)NSMutableArray *examResultList;
 + (instancetype)sharedInstance;
 
 - (void)openDatabase;
@@ -21,6 +23,7 @@
 - (void)saveQuestionListDataBaseIncreUpdateWithArray:(NSArray *)array;
 - (void)saveWrongQuestionListDataBaseWithItem:(YTQuestionItem *)item;
 - (void)saveStoreQuestionListDataBaseWithItem:(YTQuestionItem *)item;
+- (void)saveExamResultDataBaseWithItem:(YTExamResultItem *)item;
 //错题表中删除某条错题
 - (void)deleteWrongQuestionListWithItem:(YTQuestionItem *)item;
 - (NSMutableArray *)questionsListWithSectionNum:(NSUInteger)section;//按章节取题

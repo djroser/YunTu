@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"国际学分类法";
     self.navigationItem.leftBarButtonItem = [AppUtil leftBarItemWithTarget:self action:@selector(popBack)];
     self.yunArray = [NSArray arrayWithObjects:@"层积云",@"积雨云",@"积云", nil];
     self.mainTableView.tableFooterView = [[UIView alloc] init];
