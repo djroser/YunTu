@@ -18,6 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"用户信息";
     [self initData];
 }
 
@@ -29,8 +30,14 @@
 - (void)initData
 {
     _lblStuNum.text = [UserInfo sharedInstance].stuNum;
-    _lblStuName.text = [UserInfo sharedInstance].stuName;
-    _lblStuMajor.text = [[UserInfo sharedInstance].stuMajor isEqualToString:@""] ? @"计算机科学与技术" : [UserInfo sharedInstance].stuMajor;
+//    _lblStuName.text = [UserInfo sharedInstance].stuName;
+    _lblStuName.text = @"丁健";
+    if ([UserInfo sharedInstance].stuMajor) {
+        _lblStuMajor.text = [UserInfo sharedInstance].stuMajor;
+    } else {
+        _lblStuMajor.text = @"计算机科学与技术";
+    }
+    
     //button
     UIImage *imgRest = [UIImage imageNamed:@"btn_action_common_rest"];
     UIImage *imgDisable = [UIImage imageNamed:@"btn_action_common_disable"];
