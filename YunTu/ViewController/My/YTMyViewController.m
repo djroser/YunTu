@@ -10,6 +10,7 @@
 #import "MyHeadView.h"
 #import "UserInfo.h"
 #import "YTUserViewController.h"
+#import "WebViewController.h"
 
 @interface YTMyViewController ()
 @property (nonatomic,strong)MyHeadView *myHeaderView;
@@ -64,6 +65,18 @@
 }
 
 #pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    WebViewController *webVC = [storyboard instantiateViewControllerWithIdentifier:@"web_view_scene"];
+    webVC.title = @"关于云图";
+    webVC.isAboutYuntu = YES;
+    webVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:webVC animated:YES];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 44;

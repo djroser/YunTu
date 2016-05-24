@@ -27,6 +27,7 @@
 		22674CE21BE60D820075484D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22674CE01BE60D820075484D /* LaunchScreen.storyboard */; };
 		22674CED1BE60D830075484D /* YunTuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CEC1BE60D830075484D /* YunTuTests.m */; };
 		22674CF81BE60D830075484D /* YunTuUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22674CF71BE60D830075484D /* YunTuUITests.m */; };
+		227059E91CF45A9B00AAC6F1 /* guanyuyuntu.html in Resources */ = {isa = PBXBuildFile; fileRef = 227059E81CF45A9B00AAC6F1 /* guanyuyuntu.html */; };
 		227C46531BEE3C8500804454 /* yuntu.db3 in Resources */ = {isa = PBXBuildFile; fileRef = 227C46521BEE3C8500804454 /* yuntu.db3 */; };
 		2283FA521CDB21A30075A78C /* yunxueMusic.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 2283FA511CDB20030075A78C /* yunxueMusic.m4a */; };
 		2283FA551CDB297E0075A78C /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2283FA541CDB297E0075A78C /* WebViewController.m */; };
@@ -123,6 +124,7 @@
 		22674CF31BE60D830075484D /* YunTuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = YunTuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22674CF71BE60D830075484D /* YunTuUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YunTuUITests.m; sourceTree = "<group>"; };
 		22674CF91BE60D830075484D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		227059E81CF45A9B00AAC6F1 /* guanyuyuntu.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = guanyuyuntu.html; path = ../../../guanyuyuntu.html; sourceTree = "<group>"; };
 		227C46521BEE3C8500804454 /* yuntu.db3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = yuntu.db3; sourceTree = "<group>"; };
 		2283FA511CDB20030075A78C /* yunxueMusic.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = yunxueMusic.m4a; sourceTree = "<group>"; };
 		2283FA531CDB297E0075A78C /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 		22674CD11BE60D820075484D /* YunTu */ = {
 			isa = PBXGroup;
 			children = (
+				227059E81CF45A9B00AAC6F1 /* guanyuyuntu.html */,
 				2283FAA01CDF91AB0075A78C /* xingtaixue */,
 				22674CDE1BE60D820075484D /* Assets.xcassets */,
 				2264B3591CA016A400A0DED6 /* JZAlbumViewController.h */,
@@ -605,6 +608,7 @@
 				2283FA631CDB32750075A78C /* YTGlobalDetailViewController.xib in Resources */,
 				2283FA5E1CDB31F20075A78C /* YTGlobalKindViewController.xib in Resources */,
 				2283FAA71CDF91AB0075A78C /* 2.jpg in Resources */,
+				227059E91CF45A9B00AAC6F1 /* guanyuyuntu.html in Resources */,
 				2283FAC11CE708D10075A78C /* ExamResultCell.xib in Resources */,
 				227C46531BEE3C8500804454 /* yuntu.db3 in Resources */,
 				2283FAA61CDF91AB0075A78C /* 1.jpg in Resources */,

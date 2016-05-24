@@ -13,4 +13,6 @@
 
 @property(nonatomic, retain) NSURL *linkUrl;
 
+@property(nonatomic, assign) BOOL isAboutYuntu;
+
 @end

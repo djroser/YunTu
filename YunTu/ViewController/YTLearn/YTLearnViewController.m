@@ -76,6 +76,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     WebViewController *webVC = [storyboard instantiateViewControllerWithIdentifier:@"web_view_scene"];
     webVC.title = @"形态学分类法";
+    webVC.isAboutYuntu = NO;
     webVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:webVC animated:YES];
 }
